@@ -88,8 +88,9 @@ body{
 }
 
 /* ---------- HEADER ---------- */
+/* ✅✅ Сделали шапку больше */
 .header{
-  padding:16px 12px 26px;
+  padding:22px 12px 34px; /* было 16px 12px 26px */
   background:linear-gradient(180deg, rgba(0,0,0,.40), rgba(0,0,0,0)) , var(--header);
   color:var(--text);
   box-shadow:0 12px 28px var(--shadow-strong);
@@ -104,9 +105,9 @@ body{
 .logo-frame{
   position:absolute;
   left:12px;
-  width:70px;
-  height:70px;
-  border-radius:18px;
+  width:82px;   /* было 70 */
+  height:82px;  /* было 70 */
+  border-radius:20px;
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
   border:1px solid rgba(216,176,76,.30);
   box-shadow:0 14px 26px rgba(0,0,0,.45), 0 0 0 1px rgba(216,176,76,.08) inset;
@@ -116,20 +117,20 @@ body{
   overflow:hidden;
 }
 .logo-frame img{
-  width:50px;
-  height:50px;
+  width:58px;   /* было 50 */
+  height:58px;  /* было 50 */
   object-fit:contain;
   filter: drop-shadow(0 10px 18px rgba(0,0,0,.55));
-  border-radius:14px; /* ✅ закругление */
+  border-radius:14px;
 }
 
 .brand-title{
   font-family: "Times New Roman", Georgia, serif;
-  font-size:34px;
+  font-size:38px; /* было 34 */
   letter-spacing:.6px;
   font-weight:700;
 }
-.brand-sub{font-weight:800;font-size:15px;opacity:.86;}
+.brand-sub{font-weight:800;font-size:16px;opacity:.86;} /* было 15px */
 
 .brand-phone{position:relative; z-index:50; pointer-events:auto;}
 .brand-phone a{
@@ -147,7 +148,7 @@ body{
 .menu-btn{
   position:absolute;
   right:14px;
-  top:12px;
+  top:14px; /* немного ниже */
   width:42px;
   height:42px;
   border-radius:14px;
@@ -177,7 +178,7 @@ body{
 .geo-btn{
   position:absolute;
   right:14px;
-  top:60px;
+  top:66px; /* было 60 */
   width:36px;
   height:36px;
   border-radius:50%;
@@ -198,7 +199,7 @@ body{
 .search-btn{
   position:absolute;
   right:60px;
-  top:60px;
+  top:66px; /* было 60 */
   width:36px;
   height:36px;
   border-radius:50%;
@@ -765,9 +766,9 @@ mark{background:rgba(216,176,76,.22);padding:0 .12em;border-radius:6px;color:var
 .about-muted{opacity:.78;}
 
 @media (max-width:360px){
-  .brand-title{font-size:30px;}
-  .logo-frame{width:66px;height:66px;}
-  .logo-frame img{width:48px;height:48px;}
+  .brand-title{font-size:34px;} /* чуть больше чем было */
+  .logo-frame{width:76px;height:76px;}
+  .logo-frame img{width:54px;height:54px;}
   .payments{gap:8px;}
   .payments .btn{padding:12px 8px; font-size:12.5px;}
   .qbtn{padding:13px 16px; font-size:13.5px;}
@@ -788,9 +789,12 @@ mark{background:rgba(216,176,76,.22);padding:0 .12em;border-radius:6px;color:var
 
     <div>
       <div class="brand-title">MAZZA</div>
-      <div class="brand-sub">Food Truck</div>
+      <!-- ✅ Food Truck -> By Aliz Group -->
+      <div class="brand-sub">By Aliz Group</div>
+
       <div class="brand-phone">
-        <a href="tel:+998906065606" onclick="callPhone(event)">+998 90 606 56 06</a>
+        <!-- ✅ номер телефона в шапке -->
+        <a href="tel:+998700171555" onclick="callPhone(event)">+998 70 017 15 55</a>
       </div>
     </div>
 
@@ -823,12 +827,13 @@ mark{background:rgba(216,176,76,.22);padding:0 .12em;border-radius:6px;color:var
         <div class="menu-right">›</div>
       </div>
 
-      <a class="menu-item" href="tel:+998906065606" onclick="closeTopMenu(); callPhone(event)">
+      <!-- ✅ номер телефона в меню -->
+      <a class="menu-item" href="tel:+998700171555" onclick="closeTopMenu(); callPhone(event)">
         <div class="menu-left">
           <div class="menu-ic">📞</div>
           <div class="menu-txt">
             <div class="menu-name">Позвонить</div>
-            <div class="menu-sub">+998 90 606 56 06</div>
+            <div class="menu-sub">+998 70 017 15 55</div>
           </div>
         </div>
         <div class="menu-right">›</div>
@@ -1023,9 +1028,10 @@ function openLinkSafe(url){
   window.open(url, "_blank");
 }
 
+/* ✅ телефон MAZZA обновили */
 function callPhone(e){
   try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
-  const tel = "tel:+998906065606"; // TODO: номер MAZZA
+  const tel = "tel:+998700171555";
   try{
     if (window.Telegram && Telegram.WebApp && typeof Telegram.WebApp.openLink === "function"){
       Telegram.WebApp.openLink(tel);
@@ -1079,7 +1085,8 @@ const tg_username = tgUser.username || "";
 const tg_first_name = tgUser.first_name || "";
 const tg_id = tgUser.id || "";
 
-let lang='uz', category='breakfast', type='pickup', payment='cash', cart={};
+/* ✅ category по умолчанию */
+let lang='uz', category='hotdog', type='pickup', payment='cash', cart={};
 
 const DELIVERY_FEE = 15000;
 
@@ -1089,69 +1096,53 @@ const TEXT={
   en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',online:'💳 Online',results:'Search results',popular:'🔥 Popular',empty:'Cart is empty',deliveryFee:'Delivery',card:'Card number',receiver:'Receiver',copied:'Copied ✅',copy:'Copy',clickQr:'CLICK QR • Receiver: MAZZA'}
 };
 
-/* ✅ Здесь оставил твое меню как пример. Для MAZZA просто замени на свои позиции */
+/* ✅✅ Категории заменили на нужные.
+   Позиции оставлены как пример (перенесены по смыслу). Ты можешь заменить блюда внутри каждой категории. */
 const MENU = {
-  breakfast:[
+  hotdog:[
     {id:'pirozhki_myaso_1', p:7000,  img:'images/pirozhki_myaso_1.jpg', n:{ru:'Пирожки с мясом 1шт', uz:'Pirojki go‘shtli 1 dona', en:'Meat pie (1 pc)'}},
     {id:'pirozhki_kartoshka_1', p:5000, img:'images/pirozhki_kartoshka_1.jpg', n:{ru:'Пирожки с картошкой 1шт', uz:'Pirojki kartoshkali 1 dona', en:'Potato pie (1 pc)'}},
     {id:'sosiska_v_teste_1', p:7000, img:'images/sosiska_v_teste_1.jpg', n:{ru:'Сосиска в тесте 1шт', uz:'Sosiska xamirda 1 dona', en:'Sausage in dough (1 pc)'}},
-    {id:'sosiski_zharenye_1', p:5000, img:'images/sosiski_zharenye_1.jpg', n:{ru:'Сосиски жаренные 1шт', uz:'Qovurilgan sosiska 1 dona', en:'Fried sausage (1 pc)'}},
-    {id:'yaytso_zharenoe_1', p:5000, img:'images/yaytso_zharenoe_1.jpg', n:{ru:'Яйцо жаренное 1шт', uz:'Qovurilgan tuxum 1 dona', en:'Fried egg (1 pc)'}},
-    {id:'yaytso_varenoe_1', p:5000, img:'images/yaytso_varenoe_1.jpg', n:{ru:'Яйцо вареное 1шт', uz:'Qaynatilgan tuxum 1 dona', en:'Boiled egg (1 pc)'}}
+    {id:'sosiski_zharenye_1', p:5000, img:'images/sosiski_zharenye_1.jpg', n:{ru:'Сосиски жаренные 1шт', uz:'Qovurilgan sosiska 1 dona', en:'Fried sausage (1 pc)'}}
   ],
-  first:[
-    {id:'shurpa', p:45000, img:'images/shurpa.jpg', n:{ru:'Шурпа', uz:"Sho'rva", en:'Shurpa'}},
-    {id:'nahut_shurpo', p:50000, img:'images/nahut_shurpo.jpg', n:{ru:'Нахут Шурпо', uz:"No'xat sho'rva", en:'Chickpea shurpa'}},
-    {id:'lagman', p:45000, img:'images/lagman.jpg', n:{ru:'Лагман', uz:"Lag'mon", en:'Lagman'}},
-    {id:'pelmeni_domashnie', p:45000, img:'images/pelmeni_domashnie.jpg', n:{ru:'Пельмени Домашние', uz:'Uy chuchvara', en:'Homemade dumplings'}}
+  sides:[
+    {id:'svezhiy', p:10000, img:'images/svezhiy.jpg', n:{ru:'Свежий', uz:'Yangi salat', en:'Fresh salad'}},
+    {id:'chakka_s_zelenyu', p:5000, img:'images/chakka_s_zelenyu.jpg', n:{ru:'Чакка с зеленью', uz:"Chakka ko'kat bilan", en:'Chakka with herbs'}},
+    {id:'lepeshka_domashnyaya', p:8000, img:'images/lepeshka_domashnyaya.jpg', n:{ru:'Лепешка Домашняя', uz:'Uy noni', en:'Homemade bread'}}
   ],
-  second:[
-    {id:'manty_1', p:10000, img:'images/manty_1.jpg', n:{ru:'Манты 1шт', uz:'Manti 1 dona', en:'Manti (1 pc)'}},
-    {id:'grechka_s_kotletoy', p:45000, img:'images/grechka_s_kotletoy.jpg', n:{ru:'Гречка с котлетой', uz:"Grechka kotlet bilan", en:'Buckwheat with cutlet'}},
-    {id:'tuy_kabob', p:50000, img:'images/tuy_kabob.jpg', n:{ru:'Туй Кабоб', uz:"To'y kabob", en:'Tuy kabob'}},
-    {id:'golubtsy', p:45000, img:'images/golubtsy.jpg', n:{ru:'Голубцы', uz:'Golubtsi', en:'Cabbage rolls'}},
-    {id:'plov_05', p:50000, img:'images/plov_05.jpg', n:{ru:'Плов 0.5', uz:'Osh 0.5', en:'Plov 0.5'}},
-    {id:'zhiz_biz_1kg', p:220000, img:'images/zhiz_biz_1kg.jpg', n:{ru:'Жиз-Биз 1кг', uz:'Jiz-biz 1 kg', en:'Jiz-biz 1 kg'}},
-    {id:'hasib_1kg', p:160000, img:'images/hasib_1kg.jpg', n:{ru:'Хасиб 1кг', uz:'Hasib 1 kg', en:'Hasib 1 kg'}}
+  desserts:[
+    {id:'olive_1kg', p:180000, img:'images/olive_1kg.jpg', n:{ru:'Салат Оливье 1кг', uz:'Olivye salat 1 kg', en:'Olivier salad 1 kg'}},
+    {id:'somsa', p:12000, img:'images/somsa.jpg', n:{ru:'Сомса', uz:'Somsa', en:'Somsa'}}
   ],
-  shashlik:[
-    {id:'shashlik_molotyy', p:28000, img:'images/shashlik_molotyy.jpg', n:{ru:'Шашлык Молотый', uz:'Qiyma shashlik', en:'Minced shashlik'}},
-    {id:'kuskovoy_govyadina', p:30000, img:'images/kuskovoy_govyadina.jpg', n:{ru:'Кусковой Говядина', uz:"Mol go'shti shashlik", en:'Beef shashlik'}},
-    {id:'barani_rebryshki', p:35000, img:'images/barani_rebryshki.jpg', n:{ru:'Бараньи Рёбрышки', uz:"Qo'y qovurg'a", en:'Lamb ribs'}}
-  ],
-  fish:[
+  fresh:[
     {id:'sazan_1kg', p:175000, img:'images/sazan_1kg.jpg', n:{ru:'Сазан 1кг', uz:'Sazan 1 kg', en:'Carp 1 kg'}},
     {id:'belyy_amur_1kg', p:175000, img:'images/belyy_amur_1kg.jpg', n:{ru:'Белый Амур 1кг', uz:'Oq amur 1 kg', en:'Grass carp 1 kg'}}
   ],
-  salad:[
-    {id:'svezhiy', p:10000, img:'images/svezhiy.jpg', n:{ru:'Свежий', uz:'Yangi salat', en:'Fresh salad'}},
-    {id:'chakka_s_zelenyu', p:5000, img:'images/chakka_s_zelenyu.jpg', n:{ru:'Чакка с зеленью', uz:"Chakka ko'kat bilan", en:'Chakka with herbs'}},
-    {id:'solenya', p:5000, img:'images/solenya.jpg', n:{ru:'Соленья', uz:'Tuzlama', en:'Pickles'}},
-    {id:'redka_s_chakkoy', p:5000, img:'images/redka_s_chakkoy.jpg', n:{ru:'Редька с Чаккой', uz:"Turp chakka bilan", en:'Radish with chakka'}}
-  ],
-  bread:[
-    {id:'lepeshka_domashnyaya', p:8000, img:'images/lepeshka_domashnyaya.jpg', n:{ru:'Лепешка Домашняя', uz:'Uy noni', en:'Homemade bread'}}
-  ],
-  drinks:[
-    {id:'chai_chernyy_zelenyy', p:5000, img:'images/chai_chernyy_zelenyy.jpg', n:{ru:'Чай Черный/Зелёный', uz:'Choy qora/yashil', en:'Tea black/green'}},
-    {id:'chai_s_limonom', p:15000, img:'images/chai_s_limonom.jpg', n:{ru:'Чай с лимоном', uz:'Limonli choy', en:'Tea with lemon'}},
+  coffee:[
     {id:'kofe_chernyy', p:8000, img:'images/kofe_chernyy.jpg', n:{ru:'Кофе Чёрный', uz:'Qora kofe', en:'Black coffee'}},
-    {id:'kofe_3_1', p:8000, img:'images/kofe_3_1.jpg', n:{ru:'Кофе 3/1', uz:'Kofe 3/1', en:'Coffee 3-in-1'}},
+    {id:'kofe_3_1', p:8000, img:'images/kofe_3_1.jpg', n:{ru:'Кофе 3/1', uz:'Kofe 3/1', en:'Coffee 3-in-1'}}
+  ],
+  signature_tea:[
+    {id:'chai_chernyy_zelenyy', p:5000, img:'images/chai_chernyy_zelenyy.jpg', n:{ru:'Чай Черный/Зелёный', uz:'Choy qora/yashil', en:'Tea black/green'}},
+    {id:'chai_s_limonom', p:15000, img:'images/chai_s_limonom.jpg', n:{ru:'Чай с лимоном', uz:'Limonli choy', en:'Tea with lemon'}}
+  ],
+  hot_drinks:[
     {id:'kakao', p:8000, img:'images/kakao.jpg', n:{ru:'Какао', uz:'Kakao', en:'Cocoa'}},
-    {id:'kefir_200ml', p:5000, img:'images/kefir_200ml.jpg', n:{ru:'Кефир 200мл', uz:'Kefir 200 ml', en:'Kefir 200 ml'}},
+    {id:'kefir_200ml', p:5000, img:'images/kefir_200ml.jpg', n:{ru:'Кефир 200мл', uz:'Kefir 200 ml', en:'Kefir 200 ml'}}
+  ],
+  lemonade:[
     {id:'cola_025', p:7000, img:'images/cola_025.jpg', n:{ru:'Coca Cola 0.25L', uz:'Coca Cola 0.25L', en:'Coca Cola 0.25L'}}
   ],
-  preorder:[
-    {id:'olive_1kg', p:180000, img:'images/olive_1kg.jpg', n:{ru:'Салат Оливье 1кг', uz:'Olivye salat 1 kg', en:'Olivier salad 1 kg'}},
-    {id:'bichaki_s_travoy_1', p:10000, img:'images/bichaki_s_travoy_1.jpg', n:{ru:'Бичаки с травой 1шт', uz:"Bichaki ko'katli 1 dona", en:'Bichaki with herbs (1 pc)'}},
-    {id:'somsa', p:12000, img:'images/somsa.jpg', n:{ru:'Сомса', uz:'Somsa', en:'Somsa'}}
+  milkshakes:[
+    /* TODO: добавь милкшейки */
   ]
 };
 
-const POPULAR = ['plov_05','shurpa','lagman','tuy_kabob'];
+/* ✅ популярное (если каких-то id нет в MENU — они просто не покажутся) */
+const POPULAR = ['sosiska_v_teste_1','kofe_chernyy','chai_s_limonom','cola_025'];
 
 const ITEM_INDEX = {};
-for (const c in MENU){ MENU[c].forEach(it => { ITEM_INDEX[it.id] = it; }); }
+for (const c in MENU){ (MENU[c]||[]).forEach(it => { ITEM_INDEX[it.id] = it; }); }
 
 function nameOf(id){
   const it = ITEM_INDEX[id];
@@ -1382,23 +1373,26 @@ function popChg(e,id,delta){
   if(isSearchOpen()) closeSearch();
 }
 
+/* ✅✅ Новые категории (Авторский чай добавлен два раза как в твоём списке) */
 function renderQuickFilters(){
-  const keys = ['breakfast','second','first','shashlik','fish','salad','bread','drinks','preorder'];
+  const keys = ['hotdog','sides','desserts','fresh','coffee','signature_tea','hot_drinks','lemonade','milkshakes','signature_tea'];
   quickFilters.innerHTML = '';
   keys.forEach(k=>{
     if(!MENU[k]) return;
-    const label = ({
-      breakfast:{ru:'🍳 Завтрак',uz:'🍳 Nonushta',en:'🍳 Breakfast'},
-      first:{ru:'🍜 Первые блюда',uz:'🍜 Birinchi',en:'🍜 First'},
-      second:{ru:'🍲 Вторые блюда',uz:'🍲 Ikkinchi',en:'🍲 Main'},
-      shashlik:{ru:'🔥 Шашлык',uz:'🔥 Shashlik',en:'🔥 Shashlik'},
-      fish:{ru:'🐟 Рыбные',uz:'🐟 Baliq',en:'🐟 Fish'},
-      salad:{ru:'🥗 Салат',uz:'🥗 Salat',en:'🥗 Salad'},
-      bread:{ru:'🥖 Хлеб',uz:'🥖 Non',en:'🥖 Bread'},
-      drinks:{ru:'🥤 Напитки',uz:'🥤 Ichimlik',en:'🥤 Drinks'},
-      preorder:{ru:'📦 Под заказ',uz:'📦 Buyurtma',en:'📦 Pre-order'}
-    })[k][lang] || k;
 
+    const labels = {
+      hotdog:{ru:'🌭 Хот-Дог', uz:'🌭 Hot-dog', en:'🌭 Hot Dog'},
+      sides:{ru:'🍟 Гарниры', uz:'🍟 Garnirlar', en:'🍟 Sides'},
+      desserts:{ru:'🍰 Десерты', uz:'🍰 Desertlar', en:'🍰 Desserts'},
+      fresh:{ru:'🍊 Фреш', uz:'🍊 Fresh', en:'🍊 Fresh'},
+      coffee:{ru:'☕ Кофе', uz:'☕ Kofe', en:'☕ Coffee'},
+      signature_tea:{ru:'🍵 Авторский чай', uz:'🍵 Muallif choyi', en:'🍵 Signature tea'},
+      hot_drinks:{ru:'♨️ Горячие напитки', uz:'♨️ Issiq ichimliklar', en:'♨️ Hot drinks'},
+      lemonade:{ru:'🍋 Лимонад', uz:'🍋 Limonad', en:'🍋 Lemonade'},
+      milkshakes:{ru:'🥤 Милкшейки', uz:'🥤 Milkshake', en:'🥤 Milkshakes'}
+    };
+
+    const label = (labels[k] && labels[k][lang]) ? labels[k][lang] : k;
     quickFilters.innerHTML += `<button class="qbtn" onclick="pickCategory('${k}')">${label}</button>`;
   });
 }
@@ -1530,7 +1524,7 @@ function searchProducts(){
   }
 
   for(let c in MENU){
-    MENU[c].forEach((it)=>{
+    (MENU[c] || []).forEach((it)=>{
       const nmRu = (it.n && it.n.ru) ? String(it.n.ru).toLowerCase() : '';
       const nmUz = (it.n && it.n.uz) ? String(it.n.uz).toLowerCase() : '';
       const nmEn = (it.n && it.n.en) ? String(it.n.en).toLowerCase() : '';
