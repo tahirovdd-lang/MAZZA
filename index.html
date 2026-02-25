@@ -15,19 +15,18 @@
   --text:#F4F2EA;
   --muted: rgba(244,242,234,.72);
 
-  /* ✅ БОРДОВЫЙ (для счетчиков/вариантов и т.п.) */
-  --gold:#7A0F1B;
-  --gold-2:#4F0A12;
+  /* ✅ Акцент: бордовый */
+  --accent:#7A0F1C;
+  --accent-2:#5A0B14;
 
-  /* ✅ ЯРКО-ЖЁЛТЫЙ (для: язык / доставка-самовывоз / оплаты / оформить) */
-  --ylw:#FFD400;
-  --ylw-2:#FFB800;
-  --ylwText:#151515;
+  /* ✅ Ярко-желтый для: язык/доставка/оплаты/оформить */
+  --yellow:#FFD400;
+  --yellow-2:#FFB800;
 
   --header:#0B0B0C;
 
-  --stroke: rgba(122,15,27,.22);
-  --stroke-strong: rgba(122,15,27,.38);
+  --stroke: rgba(122,15,28,.18);
+  --stroke-strong: rgba(122,15,28,.32);
   --inner: rgba(255,255,255,.06);
   --shadow: rgba(0,0,0,.40);
   --shadow-strong: rgba(0,0,0,.62);
@@ -47,8 +46,8 @@ body[data-theme="dark"]{
   --text:#F7F4EA;
   --muted: rgba(247,244,234,.72);
 
-  --stroke: rgba(122,15,27,.24);
-  --stroke-strong: rgba(122,15,27,.42);
+  --stroke: rgba(122,15,28,.20);
+  --stroke-strong: rgba(122,15,28,.36);
   --inner: rgba(255,255,255,.06);
 
   --shadow: rgba(0,0,0,.46);
@@ -66,8 +65,8 @@ body{
   font-family:'Montserrat',sans-serif;
   -webkit-text-size-adjust:100%;
   background:
-    radial-gradient(1200px 700px at 20% -10%, rgba(122,15,27,.10), transparent 55%),
-    radial-gradient(900px 600px at 95% 0%, rgba(122,15,27,.08), transparent 50%),
+    radial-gradient(1200px 700px at 20% -10%, rgba(255,212,0,.07), transparent 55%),
+    radial-gradient(900px 600px at 95% 0%, rgba(122,15,28,.08), transparent 50%),
     var(--bg);
   color:var(--text);
 
@@ -100,29 +99,30 @@ body{
   justify-content:center;
   position:relative;
   text-align:center;
-  border-bottom: 1px solid rgba(122,15,27,.75);
+  border-bottom: 1px solid rgba(255,212,0,.75);
 }
 
+/* ✅✅ Увеличили лого */
 .logo-frame{
   position:absolute;
   left:12px;
-  width:82px;
-  height:82px;
-  border-radius:20px;
+  width:96px;
+  height:96px;
+  border-radius:22px;
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-  border:1px solid rgba(122,15,27,.30);
-  box-shadow:0 14px 26px rgba(0,0,0,.45), 0 0 0 1px rgba(122,15,27,.08) inset;
+  border:1px solid rgba(255,212,0,.42);
+  box-shadow:0 14px 26px rgba(0,0,0,.45), 0 0 0 1px rgba(255,212,0,.10) inset;
   display:flex;
   align-items:center;
   justify-content:center;
   overflow:hidden;
 }
 .logo-frame img{
-  width:58px;
-  height:58px;
+  width:70px;
+  height:70px;
   object-fit:contain;
   filter: drop-shadow(0 10px 18px rgba(0,0,0,.55));
-  border-radius:14px;
+  border-radius:16px;
 }
 
 .brand-title{
@@ -146,7 +146,7 @@ body{
   opacity:.92;
 }
 
-/* ✅✅ уменьшили иконки бургер/поиск/локация */
+/* ✅✅ контур бургер/локация/поиск = желтый */
 .menu-btn{
   position:absolute;
   right:14px;
@@ -161,8 +161,8 @@ body{
   z-index:80;
 
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-  border:1px solid rgba(122,15,27,.40);
-  box-shadow: 0 12px 24px rgba(0,0,0,.40), 0 0 0 1px rgba(122,15,27,.08) inset;
+  border:1px solid rgba(255,212,0,.85);
+  box-shadow: 0 12px 24px rgba(0,0,0,.40), 0 0 0 1px rgba(255,212,0,.10) inset;
   transition:.15s;
 }
 .menu-btn:active{transform:scale(.97);}
@@ -192,8 +192,8 @@ body{
 
   color:var(--text);
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-  border:1px solid rgba(122,15,27,.40);
-  box-shadow: 0 12px 24px rgba(0,0,0,.40), 0 0 0 1px rgba(122,15,27,.08) inset;
+  border:1px solid rgba(255,212,0,.85);
+  box-shadow: 0 12px 24px rgba(0,0,0,.40), 0 0 0 1px rgba(255,212,0,.10) inset;
   transition:.15s;
   font-size:14px;
 }
@@ -217,8 +217,8 @@ body{
 
   color:var(--text);
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-  border:1px solid rgba(122,15,27,.40);
-  box-shadow: 0 12px 24px rgba(0,0,0,.40), 0 0 0 1px rgba(122,15,27,.08) inset;
+  border:1px solid rgba(255,212,0,.85);
+  box-shadow: 0 12px 24px rgba(0,0,0,.40), 0 0 0 1px rgba(255,212,0,.10) inset;
   transition:.15s;
 }
 .search-btn:active{transform:scale(.97);}
@@ -230,34 +230,7 @@ body{
   justify-content:center;
 }
 
-/* ✅✅ КНОПКИ: язык / доставка-самовывоз / оплаты — активная жёлтая */
-.langs .btn.active,
-.types .btn.active,
-.payments .btn.active{
-  background: linear-gradient(135deg, var(--ylw), var(--ylw-2));
-  color: var(--ylwText);
-  border:1px solid rgba(255,255,255,.14);
-  box-shadow: 0 14px 30px rgba(255,212,0,.18), 0 12px 26px rgba(0,0,0,.35);
-}
-
-/* обычные кнопки */
-.btn{
-  padding:12px 20px;
-  border-radius:var(--r-pill);
-  font-weight:800;
-  min-width:120px;
-  text-align:center;
-  cursor:pointer;
-  transition:.15s;
-
-  border:1px solid rgba(122,15,27,.22);
-  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-  box-shadow: 0 12px 26px rgba(0,0,0,.42);
-  color:var(--text);
-}
-.btn:active{transform:scale(.98);}
-
-/* ✅ КАТЕГОРИИ: закруглённый квадратик */
+/* ✅ категории: квадратные кнопки */
 .quick-filters{
   display:flex;
   gap:12px;
@@ -267,10 +240,10 @@ body{
   scroll-snap-type:x proximity;
 }
 .qbtn{
-  border:1px solid rgba(122,15,27,.26);
+  border:1px solid rgba(122,15,28,.35);
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
   box-shadow: 0 14px 30px rgba(0,0,0,.46);
-  border-radius:18px; /* ✅ квадратик с закруглением */
+  border-radius:16px;            /* ✅ квадрат */
   padding:14px 14px;
   font-weight:900;
   font-size:13px;
@@ -280,10 +253,45 @@ body{
   color:var(--text);
   scroll-snap-align:start;
   min-height:52px;
-  min-width:140px; /* ✅ чтобы выглядело как карточка */
+  min-width:132px;              /* ✅ “иконки” как плитки */
+  display:flex;
+  align-items:center;
+  justify-content:center;
   text-align:center;
 }
 .qbtn:active{transform:scale(.98);}
+
+/* ✅ выбранная категория = бордовый */
+.qbtn.active{
+  background:linear-gradient(135deg, var(--accent), var(--accent-2));
+  border:1px solid rgba(122,15,28,.9);
+  color:#fff;
+  box-shadow: 0 14px 30px rgba(122,15,28,.18), 0 12px 26px rgba(0,0,0,.35);
+}
+
+.btn{
+  padding:12px 20px;
+  border-radius:var(--r-pill);
+  font-weight:800;
+  min-width:120px;
+  text-align:center;
+  cursor:pointer;
+  transition:.15s;
+
+  border:1px solid rgba(122,15,28,.22);
+  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  box-shadow: 0 12px 26px rgba(0,0,0,.42);
+  color:var(--text);
+}
+.btn:active{transform:scale(.98);}
+
+/* ✅ желтые активные кнопки + бордовый контур */
+.btn.active{
+  background: linear-gradient(135deg, var(--yellow), var(--yellow-2));
+  color:#141416;
+  border:1px solid rgba(122,15,28,.95); /* ✅ контур бордовый */
+  box-shadow: 0 14px 30px rgba(255,212,0,.18), 0 12px 26px rgba(0,0,0,.35);
+}
 
 .input{
   margin:8px auto;
@@ -293,7 +301,7 @@ body{
   border-radius:var(--r-md);
   font-size:15px;
 
-  border:1px solid rgba(122,15,27,.20);
+  border:1px solid rgba(122,15,28,.20);
   background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
   box-shadow: 0 12px 26px rgba(0,0,0,.42);
   outline:none;
@@ -301,8 +309,8 @@ body{
   color:var(--text);
 }
 .input:focus{
-  border-color: rgba(122,15,27,.38);
-  box-shadow: 0 16px 34px rgba(0,0,0,.52), 0 0 0 2px rgba(122,15,27,.08);
+  border-color: rgba(255,212,0,.55);
+  box-shadow: 0 16px 34px rgba(0,0,0,.52), 0 0 0 2px rgba(255,212,0,.10);
 }
 
 /* ✅ сетка */
@@ -320,11 +328,11 @@ body{
   padding:12px;
   text-align:center;
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-  border:1px solid rgba(122,15,27,.18);
+  border:1px solid rgba(122,15,28,.18);
   box-shadow:
     0 16px 34px rgba(0,0,0,.55),
-    0 0 0 1px rgba(122,15,27,.06) inset,
-    0 0 22px rgba(122,15,27,.06);
+    0 0 0 1px rgba(122,15,28,.06) inset,
+    0 0 22px rgba(122,15,28,.06);
   transition:.15s;
   color:var(--text);
 }
@@ -338,9 +346,9 @@ body{
   margin-bottom:8px;
   border-radius:22px;
   background:
-    radial-gradient(220px 140px at 50% 60%, rgba(122,15,27,.10), transparent 60%),
+    radial-gradient(220px 140px at 50% 60%, rgba(255,212,0,.10), transparent 60%),
     rgba(0,0,0,.18);
-  border:1px solid rgba(122,15,27,.12);
+  border:1px solid rgba(122,15,28,.12);
   overflow:hidden;
   padding:14px;
 }
@@ -364,7 +372,7 @@ body{
   flex-wrap:wrap;
 }
 .vbtn{
-  border:1px solid rgba(122,15,27,.22);
+  border:1px solid rgba(122,15,28,.22);
   background:rgba(255,255,255,.04);
   color:var(--text);
   padding:8px 10px;
@@ -376,11 +384,10 @@ body{
   line-height:1;
 }
 .vbtn:active{transform:scale(.98);}
-/* ✅ активный объем — бордовый */
 .vbtn.active{
-  background:linear-gradient(135deg, var(--gold), var(--gold-2));
-  color:#ffffff;
-  border:1px solid rgba(255,255,255,.16);
+  background:linear-gradient(135deg, var(--yellow), var(--yellow-2));
+  color:#141416;
+  border:1px solid rgba(122,15,28,.95);
 }
 
 .item-name{
@@ -395,28 +402,29 @@ body{
   word-break:break-word;
 }
 
-/* ✅ ЦЕНЫ белые */
+/* ✅ ЦЕНЫ БЕЛЫЕ */
 .price{
   font-weight:900;
-  color:#ffffff;
+  color:var(--text);
   margin-top:6px;
   text-shadow: 0 10px 18px rgba(0,0,0,.45);
 }
 .price small{font-weight:800;opacity:.78;margin-left:4px;}
 
 .counter{display:flex;justify-content:center;gap:10px;margin-top:8px;align-items:center;}
+/* ✅ бордовые кнопки +/- с белым текстом */
 .counter button{
   width:32px;
   height:32px;
   border-radius:50%;
   cursor:pointer;
 
-  border:1px solid rgba(255,255,255,.18);
-  background:linear-gradient(135deg, var(--gold), var(--gold-2));
-  color:#ffffff;
+  border:1px solid rgba(255,255,255,.16);
+  background:linear-gradient(135deg, var(--accent), var(--accent-2));
+  color:#fff;
   font-size:16px;
   font-weight:900;
-  box-shadow:0 14px 30px rgba(122,15,27,.16), 0 12px 24px rgba(0,0,0,.35);
+  box-shadow:0 14px 30px rgba(122,15,28,.16), 0 12px 24px rgba(0,0,0,.35);
   transition:.15s;
 }
 .counter button:active{transform:scale(.96);}
@@ -426,7 +434,7 @@ body{
   margin:12px;
   padding:16px;
   border-radius:var(--r-lg);
-  border:1px solid rgba(122,15,27,.20);
+  border:1px solid rgba(122,15,28,.20);
   box-shadow: 0 16px 34px rgba(0,0,0,.55);
   color:var(--text);
   scroll-margin-bottom: calc(var(--sticky-h, 92px) + 22px);
@@ -435,19 +443,19 @@ body{
 
 textarea.input{height:90px;}
 
-/* ✅ Оформить заказ — ярко жёлтый */
+/* ✅ Оформить заказ: ярко-желтая + бордовый контур */
 .order-btn{
   width:100%;
   padding:18px;
   margin-top:12px;
   border-radius:var(--r-lg);
   cursor:pointer;
-  color:var(--ylwText);
+  color:#141416;
   font-size:17px;
   font-weight:900;
 
-  border:1px solid rgba(255,255,255,.18);
-  background:linear-gradient(135deg,var(--ylw), var(--ylw-2));
+  border:1px solid rgba(122,15,28,.95);
+  background:linear-gradient(135deg,var(--yellow), var(--yellow-2));
   box-shadow: 0 16px 36px rgba(255,212,0,.16), 0 16px 34px rgba(0,0,0,.45);
   transition:.15s;
 
@@ -464,8 +472,8 @@ textarea.input{height:90px;}
   border-radius:var(--r-lg);
   text-align:center;
   font-weight:800;
-  border:1px solid rgba(122,15,27,.25);
-  box-shadow: 0 22px 46px rgba(0,0,0,.60), 0 0 24px rgba(122,15,27,.10);
+  border:1px solid rgba(122,15,28,.25);
+  box-shadow: 0 22px 46px rgba(0,0,0,.60), 0 0 24px rgba(122,15,28,.10);
   color:var(--text);
 }
 
@@ -486,7 +494,7 @@ textarea.input{height:90px;}
   margin:4px 12px 0;
   padding:12px;
   border-radius:18px;
-  border:1px solid rgba(122,15,27,.20);
+  border:1px solid rgba(122,15,28,.20);
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
   box-shadow: 0 16px 34px rgba(0,0,0,.45);
   display:none;
@@ -501,7 +509,7 @@ textarea.input{height:90px;}
   padding:10px 10px;
   border-radius:14px;
   background:rgba(255,255,255,.04);
-  border:1px solid rgba(122,15,27,.14);
+  border:1px solid rgba(122,15,28,.14);
   margin-top:10px;
 }
 .online-row:first-child{margin-top:0;}
@@ -518,12 +526,12 @@ textarea.input{height:90px;}
   flex:0 0 auto;
   padding:10px 12px;
   border-radius:14px;
-  border:1px solid rgba(255,255,255,.18);
-  background:linear-gradient(135deg,var(--gold), var(--gold-2));
-  color:#ffffff;
+  border:1px solid rgba(122,15,28,.95);
+  background:linear-gradient(135deg,var(--yellow), var(--yellow-2));
+  color:#141416;
   font-weight:900;
   cursor:pointer;
-  box-shadow: 0 14px 30px rgba(122,15,27,.12), 0 12px 24px rgba(0,0,0,.35);
+  box-shadow: 0 14px 30px rgba(255,212,0,.12), 0 12px 24px rgba(0,0,0,.35);
   transition:.15s;
   white-space:nowrap;
 }
@@ -533,7 +541,7 @@ textarea.input{height:90px;}
   margin:10px 0 0;
   padding:10px;
   border-radius:18px;
-  border:1px solid rgba(122,15,27,.20);
+  border:1px solid rgba(122,15,28,.20);
   background:rgba(255,255,255,.03);
   box-shadow: 0 16px 34px rgba(0,0,0,.35);
   text-align:center;
@@ -544,7 +552,7 @@ textarea.input{height:90px;}
   width:min(280px, 100%);
   height:auto;
   border-radius:18px;
-  border:1px solid rgba(122,15,27,.16);
+  border:1px solid rgba(122,15,28,.16);
   background:#fff;
   display:block;
   margin:0 auto;
@@ -579,7 +587,7 @@ textarea.input{height:90px;}
   justify-content:center;
   cursor:pointer;
 
-  border:1px solid rgba(122,15,27,.22);
+  border:1px solid rgba(122,15,28,.22);
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
   box-shadow: 0 12px 26px rgba(0,0,0,.42);
   transition:.15s;
@@ -599,7 +607,7 @@ textarea.input{height:90px;}
 }
 .search-title.show{display:block;}
 
-mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(--text);}
+mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(--text);}
 
 .popular-wrap{width:100%;padding:4px 12px 6px;}
 .popular-title{width:100%;font-weight:900;padding:8px 2px 10px;display:flex;align-items:center;gap:8px;color:var(--text);}
@@ -610,8 +618,8 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
   border-radius:var(--r-lg);
   padding:12px;
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-  border:1px solid rgba(122,15,27,.18);
-  box-shadow: 0 16px 34px rgba(0,0,0,.55), 0 0 22px rgba(122,15,27,.06);
+  border:1px solid rgba(122,15,28,.18);
+  box-shadow: 0 16px 34px rgba(0,0,0,.55), 0 0 22px rgba(122,15,28,.06);
   cursor:pointer;
   transition:.15s;
   position:relative;
@@ -627,8 +635,8 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
   display:flex;
   align-items:center;
   justify-content:center;
-  background:radial-gradient(220px 120px at 50% 60%, rgba(122,15,27,.10), transparent 60%), rgba(0,0,0,.18);
-  border:1px solid rgba(122,15,27,.12);
+  background:radial-gradient(220px 120px at 50% 60%, rgba(255,212,0,.10), transparent 60%), rgba(0,0,0,.18);
+  border:1px solid rgba(122,15,28,.12);
   padding:10px;
 }
 .pop-img img{
@@ -640,7 +648,8 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
 }
 
 .pop-name{font-weight:900;margin-top:10px; font-size:14px; line-height:1.15; min-height:34px;}
-.pop-price{font-weight:900;color:#ffffff;margin-top:6px;}
+/* ✅ ЦЕНЫ БЕЛЫЕ */
+.pop-price{font-weight:900;color:var(--text);margin-top:6px;}
 .pop-badge{position:absolute;left:12px;top:12px;font-size:18px;pointer-events:none;}
 
 .pop-counter{
@@ -650,18 +659,19 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
   gap:10px;
   margin-top:10px;
 }
+/* ✅ бордовые +/- */
 .pop-counter button{
   width:32px;
   height:32px;
   border-radius:50%;
   cursor:pointer;
 
-  border:1px solid rgba(255,255,255,.18);
-  background:linear-gradient(135deg, var(--gold), var(--gold-2));
-  color:#ffffff;
+  border:1px solid rgba(255,255,255,.16);
+  background:linear-gradient(135deg, var(--accent), var(--accent-2));
+  color:#fff;
   font-size:16px;
   font-weight:900;
-  box-shadow:0 14px 30px rgba(122,15,27,.16), 0 12px 24px rgba(0,0,0,.35);
+  box-shadow:0 14px 30px rgba(122,15,28,.16), 0 12px 24px rgba(0,0,0,.35);
   transition:.15s;
 }
 .pop-counter button:active{transform:scale(.96);}
@@ -676,7 +686,7 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   z-index:999;
-  border-top:1px solid rgba(122,15,27,.26);
+  border-top:1px solid rgba(255,212,0,.26);
   padding-bottom: calc(10px + var(--tg-safe-area-inset-bottom, 0px) + env(safe-area-inset-bottom, 0px));
 }
 .sticky-inner{
@@ -685,7 +695,7 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
   border-radius:18px;
   padding:10px 12px;
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-  border:1px solid rgba(122,15,27,.18);
+  border:1px solid rgba(122,15,28,.18);
   box-shadow: 0 16px 34px rgba(0,0,0,.55);
   display:flex;
   align-items:center;
@@ -694,16 +704,16 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
 }
 .sticky-sum{font-weight:900;line-height:1.1;color:var(--text);}
 .sticky-sum small{display:block;font-weight:800;opacity:.78;margin-top:2px;}
-/* ✅ кнопка корзина — жёлтая */
+/* ✅ кнопка корзины ярко-желтая */
 .sticky-btn{
   padding:12px 14px;
   border-radius:16px;
-  border:1px solid rgba(255,255,255,.18);
-  background:linear-gradient(135deg,var(--ylw), var(--ylw-2));
-  color:var(--ylwText);
+  border:1px solid rgba(122,15,28,.95);
+  background:linear-gradient(135deg,var(--yellow), var(--yellow-2));
+  color:#141416;
   font-weight:900;
   cursor:pointer;
-  box-shadow: 0 16px 36px rgba(255,212,0,.14), 0 16px 34px rgba(0,0,0,.45);
+  box-shadow: 0 16px 36px rgba(255,212,0,.16), 0 16px 34px rgba(0,0,0,.45);
   transition:.15s;
   white-space:nowrap;
 }
@@ -728,7 +738,7 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
   background:rgba(10,10,11,.96);
   border-top-left-radius:22px;
   border-top-right-radius:22px;
-  border:1px solid rgba(122,15,27,.22);
+  border:1px solid rgba(122,15,28,.22);
   box-shadow:0 22px 46px rgba(0,0,0,.70);
   transition:.22s;
   z-index:1010;
@@ -738,7 +748,7 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
 .menu-sheet.show{bottom:0;}
 .menu-handle{
   width:44px;height:5px;border-radius:999px;
-  background:rgba(122,15,27,.32);
+  background:rgba(255,212,0,.32);
   margin:6px auto 10px;
 }
 .menu-head{
@@ -760,7 +770,7 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
   display:flex;align-items:center;justify-content:space-between;gap:10px;
   padding:12px 12px;
   border-radius:16px;
-  border:1px solid rgba(122,15,27,.18);
+  border:1px solid rgba(122,15,28,.18);
   background:rgba(255,255,255,.04);
   cursor:pointer;
   text-decoration:none;
@@ -770,7 +780,7 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
 .menu-ic{
   width:30px;height:30px;border-radius:12px;
   display:flex;align-items:center;justify-content:center;
-  background:rgba(122,15,27,.14);
+  background:rgba(255,212,0,.14);
   flex:0 0 auto;
 }
 .menu-txt{display:flex;flex-direction:column;min-width:0;}
@@ -791,7 +801,7 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
   max-width:680px;
   margin:0 auto;
   background:rgba(10,10,11,.96);
-  border:1px solid rgba(122,15,27,.22);
+  border:1px solid rgba(122,15,28,.22);
   border-radius:22px;
   box-shadow:0 22px 46px rgba(0,0,0,.70);
   padding:14px 14px 12px;
@@ -804,11 +814,11 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
 
 @media (max-width:360px){
   .brand-title{font-size:34px;}
-  .logo-frame{width:76px;height:76px;}
-  .logo-frame img{width:54px;height:54px;}
+  .logo-frame{width:90px;height:90px;}
+  .logo-frame img{width:66px;height:66px;}
   .payments{gap:8px;}
   .payments .btn{padding:12px 8px; font-size:12.5px;}
-  .qbtn{padding:14px 12px; font-size:13px; min-height:50px; min-width:132px;}
+  .qbtn{padding:14px 12px; font-size:12.8px; min-height:50px; min-width:126px;}
   .img{height:110px;}
   .pop-card{min-width:178px;}
   .pop-img{height:86px;}
@@ -876,7 +886,7 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
         <div class="menu-left">
           <div class="menu-ic" aria-hidden="true">
             <svg width="18" height="18" viewBox="0 0 24 24" style="display:block;">
-              <path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.3A5.7 5.7 0 1 1 6.3 14 5.7 5.7 0 0 1 12 8.3zm0 2A3.7 3.7 0 1 0 15.7 14 3.7 0 0 0 12 10.3zM18 6.7a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/>
+              <path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.3A5.7 5.7 0 1 1 6.3 14 5.7 5.7 0 0 1 12 8.3zm0 2A3.7 3.7 0 1 0 15.7 14 3.7 3.7 0 0 0 12 10.3zM18 6.7a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/>
             </svg>
           </div>
           <div class="menu-txt">
@@ -945,8 +955,8 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
   <div class="cart" id="cartBox">
     <b id="cartTitle"></b>:
     <span id="total">0</span> сум
-    <div id="deliveryLine" style="margin-top:8px; font-weight:900; color:var(--gold); display:none;">
-      Доставка: <span id="deliveryFee">15 000</span> сум
+    <div id="deliveryLine" style="margin-top:8px; font-weight:900; color:var(--text); display:none;">
+      Доставка: <span id="deliveryFee">0</span> сум
     </div>
 
     <textarea id="comment" class="input"></textarea>
@@ -1107,7 +1117,8 @@ let lang='uz', category='hotdog', type='pickup', payment='cash';
 let cart = {};
 let selectedVar = {};
 
-const DELIVERY_FEE = 15000;
+/* ✅ УБРАЛИ 15000: доставка = 0 */
+const DELIVERY_FEE = 0;
 
 const TEXT={
   ru:{delivery:'🚚 Доставка',pickup:'🏃 Самовывоз',address:'📍 Адрес доставки',phone:'📞 Телефон',cart:'🛒 Корзина',order:'Оформить заказ',comment:'✍️ Комментарий к заказу',cash:'💵 Наличные',click:'💳 Безнал (CLICK)',online:'💳 Онлайн',results:'Результаты поиска',popular:'🔥 Популярное',empty:'Корзина пустая',deliveryFee:'Доставка',card:'Номер карты',receiver:'Получатель',copied:'Скопировано ✅',copy:'Копировать',clickQr:'CLICK QR • Получатель: MAZZA'},
@@ -1115,67 +1126,68 @@ const TEXT={
   en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',online:'💳 Online',results:'Search results',popular:'🔥 Popular',empty:'Cart is empty',deliveryFee:'Delivery',card:'Card number',receiver:'Receiver',copied:'Copied ✅',copy:'Copy',clickQr:'CLICK QR • Receiver: MAZZA'}
 };
 
+/* ✅ Фото в папке images, расширение .jpg */
 const MENU = {
   hotdog:[
-    {id:'french_dog', img:'images/french_dog.jpg', n:{ru:'French dog',uz:'French dog',en:'French dog'}, v:[{k:'std', t:'', p:20000}]},
-    {id:'hotdog_classic', img:'images/hotdog_classic.jpg', n:{ru:'Hot-dog Classic',uz:'Hot-dog Classic',en:'Hot-dog Classic'}, v:[{k:'std', t:'', p:20000}]},
-    {id:'hunter_dog', img:'images/hunter_dog.jpg', n:{ru:'Hunter dog',uz:'Hunter dog',en:'Hunter dog'}, v:[{k:'std', t:'', p:30000}]},
-    {id:'corn_dog', img:'images/corn_dog.jpg', n:{ru:'Corn dog',uz:'Corn dog',en:'Corn dog'}, v:[{k:'std', t:'', p:20000}]}
+    {id:'french_dog', img:'images/french_dog.jpg', n:{ru:'Френч-дог',uz:'French dog',en:'French Dog'}, v:[{k:'std', t:'', p:20000}]},
+    {id:'hotdog_classic', img:'images/hotdog_classic.jpg', n:{ru:'Хот-дог Классик',uz:'Hot-dog Classic',en:'Hot Dog Classic'}, v:[{k:'std', t:'', p:20000}]},
+    {id:'hunter_dog', img:'images/hunter_dog.jpg', n:{ru:'Хот-дог Охотничий',uz:'Hunter dog',en:'Hunter Dog'}, v:[{k:'std', t:'', p:30000}]},
+    {id:'corn_dog', img:'images/corn_dog.jpg', n:{ru:'Корн-дог',uz:'Corn dog',en:'Corn Dog'}, v:[{k:'std', t:'', p:20000}]}
   ],
   sides:[
-    {id:'french_fries', img:'images/french_fries.jpg', n:{ru:'French Fries',uz:'French Fries',en:'French Fries'}, v:[{k:'std', t:'', p:15000}]},
-    {id:'aydaxo_fries', img:'images/aydaxo_fries.jpg', n:{ru:'Aydaxo Fries',uz:'Aydaxo Fries',en:'Aydaxo Fries'}, v:[{k:'std', t:'', p:15000}]}
+    {id:'french_fries', img:'images/french_fries.jpg', n:{ru:'Картофель фри',uz:'French Fries',en:'French Fries'}, v:[{k:'std', t:'', p:15000}]},
+    {id:'aydaxo_fries', img:'images/aydaxo_fries.jpg', n:{ru:'Айдахо',uz:'Aydaho Fries',en:'Aydaho Fries'}, v:[{k:'std', t:'', p:15000}]}
   ],
   desserts:[
-    {id:'american_donut', img:'images/american_donut.jpg', n:{ru:'American donut',uz:'American donut',en:'American donut'}, v:[{k:'std', t:'', p:20000}]},
-    {id:'french_croissant', img:'images/french_croissant.jpg', n:{ru:'French croissant',uz:'French croissant',en:'French croissant'}, v:[{k:'std', t:'', p:20000}]},
-    {id:'uzbek_trifle', img:'images/uzbek_trifle.jpg', n:{ru:'Uzbek trifle',uz:'Uzbek trifle',en:'Uzbek trifle'}, v:[{k:'std', t:'', p:25000}]}
+    {id:'american_donut', img:'images/american_donut.jpg', n:{ru:'Американский пончик',uz:'American donut',en:'American Donut'}, v:[{k:'std', t:'', p:20000}]},
+    {id:'french_croissant', img:'images/french_croissant.jpg', n:{ru:'Французский круассан',uz:'French croissant',en:'French Croissant'}, v:[{k:'std', t:'', p:20000}]},
+    {id:'uzbek_trifle', img:'images/uzbek_trifle.jpg', n:{ru:'Узбекский трайфл',uz:'Uzbek trifle',en:'Uzbek Trifle'}, v:[{k:'std', t:'', p:25000}]}
   ],
   fresh:[
-    {id:'carrot_fresh_juice', img:'images/carrot_fresh_juice.jpg', n:{ru:'Carrot fresh juice',uz:'Carrot fresh juice',en:'Carrot fresh juice'}, v:[{k:'02', t:'0.2L', p:15000},{k:'03', t:'0.3L', p:20000}]},
-    {id:'orange_juice', img:'images/orange_juice.jpg', n:{ru:'Orange juice',uz:'Orange juice',en:'Orange juice'}, v:[{k:'02', t:'0.2L', p:35000},{k:'03', t:'0.3L', p:45000}]},
-    {id:'pomegranate_fresh_juice', img:'images/pomegranate_fresh_juice.jpg', n:{ru:'Pomegranate fresh juice',uz:'Pomegranate fresh juice',en:'Pomegranate fresh juice'}, v:[{k:'02', t:'0.2L', p:35000},{k:'03', t:'0.3L', p:45000}]},
-    {id:'apple_juice', img:'images/apple_juice.jpg', n:{ru:'Apple juice',uz:'Apple juice',en:'Apple juice'}, v:[{k:'02', t:'0.2L', p:20000},{k:'03', t:'0.3L', p:25000}]},
-    {id:'mix_fresh', img:'images/mix_fresh.jpg', n:{ru:'Mix fresh',uz:'Mix fresh',en:'Mix fresh'}, v:[{k:'02', t:'0.2L', p:35000},{k:'03', t:'0.3L', p:45000}]}
+    {id:'carrot_fresh_juice', img:'images/carrot_fresh_juice.jpg', n:{ru:'Фреш морковный',uz:'Sabzi fresh',en:'Carrot Fresh'}, v:[{k:'02', t:'0.2L', p:15000},{k:'03', t:'0.3L', p:20000}]},
+    {id:'orange_juice', img:'images/orange_juice.jpg', n:{ru:'Фреш апельсиновый',uz:'Apelsin fresh',en:'Orange Fresh'}, v:[{k:'02', t:'0.2L', p:35000},{k:'03', t:'0.3L', p:45000}]},
+    {id:'pomegranate_fresh_juice', img:'images/pomegranate_fresh_juice.jpg', n:{ru:'Фреш гранатовый',uz:'Anor fresh',en:'Pomegranate Fresh'}, v:[{k:'02', t:'0.2L', p:35000},{k:'03', t:'0.3L', p:45000}]},
+    {id:'apple_juice', img:'images/apple_juice.jpg', n:{ru:'Фреш яблочный',uz:'Olma fresh',en:'Apple Fresh'}, v:[{k:'02', t:'0.2L', p:20000},{k:'03', t:'0.3L', p:25000}]},
+    {id:'mix_fresh', img:'images/mix_fresh.jpg', n:{ru:'Фреш микс',uz:'Mix fresh',en:'Mix Fresh'}, v:[{k:'02', t:'0.2L', p:35000},{k:'03', t:'0.3L', p:45000}]}
   ],
   coffee:[
-    {id:'espresso', img:'images/espresso.jpg', n:{ru:'Espresso',uz:'Espresso',en:'Espresso'}, v:[{k:'std', t:'', p:10000}]},
-    {id:'americano', img:'images/americano.jpg', n:{ru:'Americano',uz:'Americano',en:'Americano'}, v:[{k:'02', t:'0.2L', p:15000}]},
-    {id:'raf', img:'images/raf.jpg', n:{ru:'Raf',uz:'Raf',en:'Raf'}, v:[{k:'03', t:'0.3L', p:20000}]},
-    {id:'latte', img:'images/latte.jpg', n:{ru:'Latte',uz:'Latte',en:'Latte'}, v:[{k:'03', t:'0.3L', p:20000},{k:'05', t:'0.5L', p:25000}]},
-    {id:'cappuccino', img:'images/cappuccino.jpg', n:{ru:'Cappuccino',uz:'Cappuccino',en:'Cappuccino'}, v:[{k:'03', t:'0.3L', p:20000},{k:'05', t:'0.5L', p:25000}]}
+    {id:'espresso', img:'images/espresso.jpg', n:{ru:'Эспрессо',uz:'Espresso',en:'Espresso'}, v:[{k:'std', t:'', p:10000}]},
+    {id:'americano', img:'images/americano.jpg', n:{ru:'Американо',uz:'Americano',en:'Americano'}, v:[{k:'02', t:'0.2L', p:15000}]},
+    {id:'raf', img:'images/raf.jpg', n:{ru:'Раф',uz:'Raf',en:'Raf'}, v:[{k:'03', t:'0.3L', p:20000}]},
+    {id:'latte', img:'images/latte.jpg', n:{ru:'Латте',uz:'Latte',en:'Latte'}, v:[{k:'03', t:'0.3L', p:20000},{k:'05', t:'0.5L', p:25000}]},
+    {id:'cappuccino', img:'images/cappuccino.jpg', n:{ru:'Капучино',uz:'Cappuccino',en:'Cappuccino'}, v:[{k:'03', t:'0.3L', p:20000},{k:'05', t:'0.5L', p:25000}]}
   ],
   hot_drinks:[
-    {id:'apple_gluehwein', img:'images/apple_gluehwein.jpg', n:{ru:'Apple Gluehwein',uz:'Apple Gluehwein',en:'Apple Gluehwein'}, v:[{k:'05', t:'0.5L', p:30000}]},
-    {id:'cherry_gluehwein', img:'images/cherry_gluehwein.jpg', n:{ru:'Cherry Gluehwein',uz:'Cherry Gluehwein',en:'Cherry Gluehwein'}, v:[{k:'05', t:'0.5L', p:30000}]},
-    {id:'cocoa', img:'images/cocoa.jpg', n:{ru:'Cocoa',uz:'Cocoa',en:'Cocoa'}, v:[{k:'03', t:'0.3L', p:15000},{k:'05', t:'0.5L', p:20000}]},
-    {id:'hot_chocolate', img:'images/hot_chocolate.jpg', n:{ru:'Hot chocolate',uz:'Hot chocolate',en:'Hot chocolate'}, v:[{k:'02', t:'0.2L', p:30000},{k:'03', t:'0.3L', p:35000}]}
+    {id:'apple_gluehwein', img:'images/apple_gluehwein.jpg', n:{ru:'Глинтвейн яблочный',uz:'Olma gluehwein',en:'Apple Gluehwein'}, v:[{k:'05', t:'0.5L', p:30000}]},
+    {id:'cherry_gluehwein', img:'images/cherry_gluehwein.jpg', n:{ru:'Глинтвейн вишневый',uz:'Olcha gluehwein',en:'Cherry Gluehwein'}, v:[{k:'05', t:'0.5L', p:30000}]},
+    {id:'cocoa', img:'images/cocoa.jpg', n:{ru:'Какао',uz:'Kakao',en:'Cocoa'}, v:[{k:'03', t:'0.3L', p:15000},{k:'05', t:'0.5L', p:20000}]},
+    {id:'hot_chocolate', img:'images/hot_chocolate.jpg', n:{ru:'Горячий шоколад',uz:'Issiq shokolad',en:'Hot Chocolate'}, v:[{k:'02', t:'0.2L', p:30000},{k:'03', t:'0.3L', p:35000}]}
   ],
   lemonade:[
-    {id:'strawberry_mojito', img:'images/strawberry_mojito.jpg', n:{ru:'Strawberry Mojito',uz:'Strawberry Mojito',en:'Strawberry Mojito'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]},
-    {id:'classic_mojito', img:'images/classic_mojito.jpg', n:{ru:'Classic Mojito',uz:'Classic Mojito',en:'Classic Mojito'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]},
-    {id:'mango_passion_fruit', img:'images/mango_passion_fruit.jpg', n:{ru:'Mango Passion Fruit',uz:'Mango Passion Fruit',en:'Mango Passion Fruit'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]},
-    {id:'blue_lagoon', img:'images/blue_lagoon.jpg', n:{ru:'Blue Lagoon',uz:'Blue Lagoon',en:'Blue Lagoon'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]}
+    {id:'strawberry_mojito', img:'images/strawberry_mojito.jpg', n:{ru:'Клубничный мохито',uz:'Qulupnay mojito',en:'Strawberry Mojito'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]},
+    {id:'classic_mojito', img:'images/classic_mojito.jpg', n:{ru:'Мохито классический',uz:'Classic mojito',en:'Classic Mojito'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]},
+    {id:'mango_passion_fruit', img:'images/mango_passion_fruit.jpg', n:{ru:'Манго-маракуйя',uz:'Mango passion',en:'Mango Passion Fruit'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]},
+    {id:'blue_lagoon', img:'images/blue_lagoon.jpg', n:{ru:'Блю Лагун',uz:'Blue Lagoon',en:'Blue Lagoon'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]}
   ],
   milkshakes:[
-    {id:'strawberry_milkshake', img:'images/strawberry_milkshake.jpg', n:{ru:'Strawberry milkshake',uz:'Strawberry milkshake',en:'Strawberry milkshake'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]},
-    {id:'oreo_milkshake', img:'images/oreo_milkshake.jpg', n:{ru:'Oreo milkshake',uz:'Oreo milkshake',en:'Oreo milkshake'}, v:[{k:'05', t:'0.5L', p:25000},{k:'07', t:'0.7L', p:30000}]},
-    {id:'chocolate_milkshake', img:'images/chocolate_milkshake.jpg', n:{ru:'Chocolate milkshake',uz:'Chocolate milkshake',en:'Chocolate milkshake'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]},
-    {id:'protein_milkshake', img:'images/protein_milkshake.jpg', n:{ru:'Protein milkshake',uz:'Protein milkshake',en:'Protein milkshake'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]},
-    {id:'vanilla_milkshake', img:'images/vanilla_milkshake.jpg', n:{ru:'Vanilla milkshake',uz:'Vanilla milkshake',en:'Vanilla milkshake'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]}
+    {id:'strawberry_milkshake', img:'images/strawberry_milkshake.jpg', n:{ru:'Милкшейк клубничный',uz:'Qulupnay milkshake',en:'Strawberry Milkshake'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]},
+    {id:'oreo_milkshake', img:'images/oreo_milkshake.jpg', n:{ru:'Милкшейк Oreo',uz:'Oreo milkshake',en:'Oreo Milkshake'}, v:[{k:'05', t:'0.5L', p:25000},{k:'07', t:'0.7L', p:30000}]},
+    {id:'chocolate_milkshake', img:'images/chocolate_milkshake.jpg', n:{ru:'Милкшейк шоколадный',uz:'Shokolad milkshake',en:'Chocolate Milkshake'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]},
+    {id:'protein_milkshake', img:'images/protein_milkshake.jpg', n:{ru:'Протеиновый милкшейк',uz:'Protein milkshake',en:'Protein Milkshake'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]},
+    {id:'vanilla_milkshake', img:'images/vanilla_milkshake.jpg', n:{ru:'Милкшейк ванильный',uz:'Vanil milkshake',en:'Vanilla Milkshake'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]}
   ],
   smoothies:[
-    {id:'blueberry_smoothie', img:'images/blueberry_smoothie.jpg', n:{ru:'Blueberry Smoothie',uz:'Blueberry Smoothie',en:'Blueberry Smoothie'}, v:[{k:'05', t:'0.5L', p:35000}]},
-    {id:'strawberry_smoothie', img:'images/strawberry_smoothie.jpg', n:{ru:'Strawberry smoothie',uz:'Strawberry smoothie',en:'Strawberry smoothie'}, v:[{k:'05', t:'0.5L', p:35000}]},
-    {id:'raspberry_smoothie', img:'images/raspberry_smoothie.jpg', n:{ru:'Raspberry smoothie',uz:'Raspberry smoothie',en:'Raspberry smoothie'}, v:[{k:'05', t:'0.5L', p:35000}]}
+    {id:'blueberry_smoothie', img:'images/blueberry_smoothie.jpg', n:{ru:'Смузи черника',uz:'Ko‘k meva smoothie',en:'Blueberry Smoothie'}, v:[{k:'05', t:'0.5L', p:35000}]},
+    {id:'strawberry_smoothie', img:'images/strawberry_smoothie.jpg', n:{ru:'Смузи клубника',uz:'Qulupnay smoothie',en:'Strawberry Smoothie'}, v:[{k:'05', t:'0.5L', p:35000}]},
+    {id:'raspberry_smoothie', img:'images/raspberry_smoothie.jpg', n:{ru:'Смузи малина',uz:'Malina smoothie',en:'Raspberry Smoothie'}, v:[{k:'05', t:'0.5L', p:35000}]}
   ],
   author_tea:[
-    {id:'sea_buckthorn_tea', img:'images/sea_buckthorn_tea.jpg', n:{ru:'Sea buckthorn tea',uz:'Sea buckthorn tea',en:'Sea buckthorn tea'}, v:[{k:'05', t:'0.5L', p:25000}]},
-    {id:'berry_tea', img:'images/berry_tea.jpg', n:{ru:'Berry tea',uz:'Berry tea',en:'Berry tea'}, v:[{k:'05', t:'0.5L', p:30000}]},
-    {id:'ginger_tea', img:'images/ginger_tea.jpg', n:{ru:'Ginger tea',uz:'Ginger tea',en:'Ginger tea'}, v:[{k:'05', t:'0.5L', p:20000}]},
-    {id:'orange_cinnamon_tea', img:'images/orange_cinnamon_tea.jpg', n:{ru:'Orange and cinnamon tea',uz:'Orange and cinnamon tea',en:'Orange and cinnamon tea'}, v:[{k:'05', t:'0.5L', p:20000}]},
-    {id:'tea_with_lemon', img:'images/tea_with_lemon.jpg', n:{ru:'Tea with lemon',uz:'Tea with lemon',en:'Tea with lemon'}, v:[{k:'05', t:'0.5L', p:10000}]},
-    {id:'black_green_tea', img:'images/black_green_tea.jpg', n:{ru:'Black/Green tea',uz:'Black/Green tea',en:'Black/Green tea'}, v:[{k:'03', t:'0.3L', p:5000}]}
+    {id:'sea_buckthorn_tea', img:'images/sea_buckthorn_tea.jpg', n:{ru:'Чай облепиховый',uz:'Oblepixa choy',en:'Sea Buckthorn Tea'}, v:[{k:'05', t:'0.5L', p:25000}]},
+    {id:'berry_tea', img:'images/berry_tea.jpg', n:{ru:'Чай ягодный',uz:'Rezavor choy',en:'Berry Tea'}, v:[{k:'05', t:'0.5L', p:30000}]},
+    {id:'ginger_tea', img:'images/ginger_tea.jpg', n:{ru:'Чай имбирный',uz:'Zanjabil choy',en:'Ginger Tea'}, v:[{k:'05', t:'0.5L', p:20000}]},
+    {id:'orange_cinnamon_tea', img:'images/orange_cinnamon_tea.jpg', n:{ru:'Апельсин-корица',uz:'Apelsin dolchin',en:'Orange & Cinnamon Tea'}, v:[{k:'05', t:'0.5L', p:20000}]},
+    {id:'tea_with_lemon', img:'images/tea_with_lemon.jpg', n:{ru:'Чай с лимоном',uz:'Limonli choy',en:'Tea with Lemon'}, v:[{k:'05', t:'0.5L', p:10000}]},
+    {id:'black_green_tea', img:'images/black_green_tea.jpg', n:{ru:'Чай черный/зеленый',uz:'Qora/yashil choy',en:'Black/Green Tea'}, v:[{k:'03', t:'0.3L', p:5000}]}
   ]
 };
 
@@ -1327,14 +1339,14 @@ function setLang(l,b){
 function renderQuickFilters(){
   const keys = ['hotdog','sides','desserts','fresh','coffee','author_tea','hot_drinks','lemonade','milkshakes','smoothies'];
   const labels = {
-    hotdog:{ru:'🌭 Хот-Дог',uz:'🌭 Hot-dog',en:'🌭 Hot Dog'},
+    hotdog:{ru:'🌭 Хот-Доги',uz:'🌭 Hot-dog',en:'🌭 Hot Dogs'},
     sides:{ru:'🍟 Гарниры',uz:'🍟 Garnirlar',en:'🍟 Sides'},
     desserts:{ru:'🍰 Десерты',uz:'🍰 Desertlar',en:'🍰 Desserts'},
-    fresh:{ru:'🍊 Фреш',uz:'🍊 Fresh',en:'🍊 Fresh'},
+    fresh:{ru:'🍊 Фреши',uz:'🍊 Fresh',en:'🍊 Fresh'},
     coffee:{ru:'☕ Кофе',uz:'☕ Kofe',en:'☕ Coffee'},
-    author_tea:{ru:'🍵 Авторский чай',uz:'🍵 Muallif choyi',en:'🍵 Signature tea'},
-    hot_drinks:{ru:'♨️ Горячие напитки',uz:'♨️ Issiq ichimliklar',en:'♨️ Hot drinks'},
-    lemonade:{ru:'🍋 Лимонад',uz:'🍋 Limonad',en:'🍋 Lemonade'},
+    author_tea:{ru:'🍵 Авторский чай',uz:'🍵 Muallif choyi',en:'🍵 Signature Tea'},
+    hot_drinks:{ru:'♨️ Горячее',uz:'♨️ Issiq ichimlik',en:'♨️ Hot Drinks'},
+    lemonade:{ru:'🍋 Лимонады',uz:'🍋 Limonad',en:'🍋 Lemonade'},
     milkshakes:{ru:'🥤 Милкшейки',uz:'🥤 Milkshake',en:'🥤 Milkshakes'},
     smoothies:{ru:'🫐 Смузи',uz:'🫐 Smoothie',en:'🫐 Smoothies'}
   };
@@ -1343,12 +1355,21 @@ function renderQuickFilters(){
   keys.forEach(k=>{
     if(!MENU[k]) return;
     const label = (labels[k] && labels[k][lang]) ? labels[k][lang] : k;
-    quickFilters.innerHTML += `<button class="qbtn" onclick="pickCategory('${k}')">${label}</button>`;
+    const active = (k === category) ? 'active' : '';
+    quickFilters.innerHTML += `<button class="qbtn ${active}" data-cat="${k}" onclick="pickCategory('${k}', this)">${label}</button>`;
   });
 }
-function pickCategory(k){
+function pickCategory(k, btn){
   if(isSearchOpen()) closeSearch();
   category = k;
+
+  document.querySelectorAll('.qbtn').forEach(x=>x.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  else{
+    const el = document.querySelector(`.qbtn[data-cat="${k}"]`);
+    if(el) el.classList.add('active');
+  }
+
   renderProducts();
 }
 
