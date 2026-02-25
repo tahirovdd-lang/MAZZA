@@ -15,9 +15,14 @@
   --text:#F4F2EA;
   --muted: rgba(244,242,234,.72);
 
-  /* ✅✅ БОРДОВЫЙ вместо красного */
-  --gold:#7A0F1B;     /* burgundy */
-  --gold-2:#4F0A12;   /* darker burgundy */
+  /* ✅ БОРДОВЫЙ (для счетчиков/вариантов и т.п.) */
+  --gold:#7A0F1B;
+  --gold-2:#4F0A12;
+
+  /* ✅ ЯРКО-ЖЁЛТЫЙ (для: язык / доставка-самовывоз / оплаты / оформить) */
+  --ylw:#FFD400;
+  --ylw-2:#FFB800;
+  --ylwText:#151515;
 
   --header:#0B0B0C;
 
@@ -225,32 +230,17 @@ body{
   justify-content:center;
 }
 
-/* ✅✅ увеличили высоту категорий */
-.quick-filters{
-  display:flex;
-  gap:12px;
-  padding:0 12px 12px;
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-  scroll-snap-type:x proximity;
+/* ✅✅ КНОПКИ: язык / доставка-самовывоз / оплаты — активная жёлтая */
+.langs .btn.active,
+.types .btn.active,
+.payments .btn.active{
+  background: linear-gradient(135deg, var(--ylw), var(--ylw-2));
+  color: var(--ylwText);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow: 0 14px 30px rgba(255,212,0,.18), 0 12px 26px rgba(0,0,0,.35);
 }
-.qbtn{
-  border:1px solid rgba(122,15,27,.26);
-  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-  box-shadow: 0 14px 30px rgba(0,0,0,.46);
-  border-radius:999px;
-  padding:18px 20px;
-  font-weight:900;
-  font-size:14px;
-  cursor:pointer;
-  white-space:nowrap;
-  transition:.15s;
-  color:var(--text);
-  scroll-snap-align:start;
-  min-height:52px;
-}
-.qbtn:active{transform:scale(.98);}
 
+/* обычные кнопки */
 .btn{
   padding:12px 20px;
   border-radius:var(--r-pill);
@@ -267,13 +257,33 @@ body{
 }
 .btn:active{transform:scale(.98);}
 
-/* ✅✅ активные кнопки: бордовый + белый текст */
-.btn.active{
-  background: linear-gradient(135deg, var(--gold), var(--gold-2));
-  color:#ffffff;
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow: 0 14px 30px rgba(122,15,27,.18), 0 12px 26px rgba(0,0,0,.35);
+/* ✅ КАТЕГОРИИ: закруглённый квадратик */
+.quick-filters{
+  display:flex;
+  gap:12px;
+  padding:0 12px 12px;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x proximity;
 }
+.qbtn{
+  border:1px solid rgba(122,15,27,.26);
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  box-shadow: 0 14px 30px rgba(0,0,0,.46);
+  border-radius:18px; /* ✅ квадратик с закруглением */
+  padding:14px 14px;
+  font-weight:900;
+  font-size:13px;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:.15s;
+  color:var(--text);
+  scroll-snap-align:start;
+  min-height:52px;
+  min-width:140px; /* ✅ чтобы выглядело как карточка */
+  text-align:center;
+}
+.qbtn:active{transform:scale(.98);}
 
 .input{
   margin:8px auto;
@@ -366,8 +376,7 @@ body{
   line-height:1;
 }
 .vbtn:active{transform:scale(.98);}
-
-/* ✅✅ активный объем: бордовый + белый текст */
+/* ✅ активный объем — бордовый */
 .vbtn.active{
   background:linear-gradient(135deg, var(--gold), var(--gold-2));
   color:#ffffff;
@@ -386,7 +395,7 @@ body{
   word-break:break-word;
 }
 
-/* ✅✅ ЦЕНЫ белым */
+/* ✅ ЦЕНЫ белые */
 .price{
   font-weight:900;
   color:#ffffff;
@@ -404,7 +413,7 @@ body{
 
   border:1px solid rgba(255,255,255,.18);
   background:linear-gradient(135deg, var(--gold), var(--gold-2));
-  color:#ffffff; /* ✅✅ белый текст внутри бордовых кнопок */
+  color:#ffffff;
   font-size:16px;
   font-weight:900;
   box-shadow:0 14px 30px rgba(122,15,27,.16), 0 12px 24px rgba(0,0,0,.35);
@@ -426,19 +435,20 @@ body{
 
 textarea.input{height:90px;}
 
+/* ✅ Оформить заказ — ярко жёлтый */
 .order-btn{
   width:100%;
   padding:18px;
   margin-top:12px;
   border-radius:var(--r-lg);
   cursor:pointer;
-  color:#ffffff; /* ✅✅ белый текст */
+  color:var(--ylwText);
   font-size:17px;
   font-weight:900;
 
   border:1px solid rgba(255,255,255,.18);
-  background:linear-gradient(135deg,var(--gold), var(--gold-2)); /* ✅✅ бордовый */
-  box-shadow: 0 16px 36px rgba(122,15,27,.16), 0 16px 34px rgba(0,0,0,.45);
+  background:linear-gradient(135deg,var(--ylw), var(--ylw-2));
+  box-shadow: 0 16px 36px rgba(255,212,0,.16), 0 16px 34px rgba(0,0,0,.45);
   transition:.15s;
 
   position:relative;
@@ -510,7 +520,7 @@ textarea.input{height:90px;}
   border-radius:14px;
   border:1px solid rgba(255,255,255,.18);
   background:linear-gradient(135deg,var(--gold), var(--gold-2));
-  color:#ffffff; /* ✅✅ белый текст */
+  color:#ffffff;
   font-weight:900;
   cursor:pointer;
   box-shadow: 0 14px 30px rgba(122,15,27,.12), 0 12px 24px rgba(0,0,0,.35);
@@ -630,7 +640,6 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
 }
 
 .pop-name{font-weight:900;margin-top:10px; font-size:14px; line-height:1.15; min-height:34px;}
-/* ✅✅ цены в популярных тоже белые */
 .pop-price{font-weight:900;color:#ffffff;margin-top:6px;}
 .pop-badge{position:absolute;left:12px;top:12px;font-size:18px;pointer-events:none;}
 
@@ -649,7 +658,7 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
 
   border:1px solid rgba(255,255,255,.18);
   background:linear-gradient(135deg, var(--gold), var(--gold-2));
-  color:#ffffff; /* ✅✅ белый текст */
+  color:#ffffff;
   font-size:16px;
   font-weight:900;
   box-shadow:0 14px 30px rgba(122,15,27,.16), 0 12px 24px rgba(0,0,0,.35);
@@ -685,15 +694,16 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
 }
 .sticky-sum{font-weight:900;line-height:1.1;color:var(--text);}
 .sticky-sum small{display:block;font-weight:800;opacity:.78;margin-top:2px;}
+/* ✅ кнопка корзина — жёлтая */
 .sticky-btn{
   padding:12px 14px;
   border-radius:16px;
   border:1px solid rgba(255,255,255,.18);
-  background:linear-gradient(135deg,var(--gold), var(--gold-2));
-  color:#ffffff; /* ✅✅ белый текст */
+  background:linear-gradient(135deg,var(--ylw), var(--ylw-2));
+  color:var(--ylwText);
   font-weight:900;
   cursor:pointer;
-  box-shadow: 0 16px 36px rgba(122,15,27,.16), 0 16px 34px rgba(0,0,0,.45);
+  box-shadow: 0 16px 36px rgba(255,212,0,.14), 0 16px 34px rgba(0,0,0,.45);
   transition:.15s;
   white-space:nowrap;
 }
@@ -798,7 +808,7 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
   .logo-frame img{width:54px;height:54px;}
   .payments{gap:8px;}
   .payments .btn{padding:12px 8px; font-size:12.5px;}
-  .qbtn{padding:17px 18px; font-size:13.5px; min-height:50px;}
+  .qbtn{padding:14px 12px; font-size:13px; min-height:50px; min-width:132px;}
   .img{height:110px;}
   .pop-card{min-width:178px;}
   .pop-img{height:86px;}
@@ -866,7 +876,7 @@ mark{background:rgba(122,15,27,.24);padding:0 .12em;border-radius:6px;color:var(
         <div class="menu-left">
           <div class="menu-ic" aria-hidden="true">
             <svg width="18" height="18" viewBox="0 0 24 24" style="display:block;">
-              <path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.3A5.7 5.7 0 1 1 6.3 14 5.7 5.7 0 0 1 12 8.3zm0 2A3.7 3.7 0 1 0 15.7 14 3.7 3.7 0 0 0 12 10.3zM18 6.7a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/>
+              <path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.3A5.7 5.7 0 1 1 6.3 14 5.7 5.7 0 0 1 12 8.3zm0 2A3.7 3.7 0 1 0 15.7 14 3.7 0 0 0 12 10.3zM18 6.7a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/>
             </svg>
           </div>
           <div class="menu-txt">
