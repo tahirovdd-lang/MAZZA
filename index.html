@@ -243,7 +243,7 @@ body{
   border:1px solid rgba(122,15,28,.35);
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
   box-shadow: 0 14px 30px rgba(0,0,0,.46);
-  border-radius:16px;            /* ✅ квадрат */
+  border-radius:16px;
   padding:14px 14px;
   font-weight:900;
   font-size:13px;
@@ -253,7 +253,7 @@ body{
   color:var(--text);
   scroll-snap-align:start;
   min-height:52px;
-  min-width:132px;              /* ✅ “иконки” как плитки */
+  min-width:132px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -289,7 +289,7 @@ body{
 .btn.active{
   background: linear-gradient(135deg, var(--yellow), var(--yellow-2));
   color:#141416;
-  border:1px solid rgba(122,15,28,.95); /* ✅ контур бордовый */
+  border:1px solid rgba(122,15,28,.95);
   box-shadow: 0 14px 30px rgba(255,212,0,.18), 0 12px 26px rgba(0,0,0,.35);
 }
 
@@ -338,30 +338,31 @@ body{
 }
 .card:active{transform:scale(.99);}
 
+/* ✅✅ УВЕЛИЧИЛИ ФОТО В БЛЮДАХ + "РАСШИРИЛИ" */
 .img{
-  height:118px;
+  height:156px;                 /* было 118 */
   display:flex;
   align-items:center;
   justify-content:center;
-  margin-bottom:8px;
+  margin-bottom:10px;
   border-radius:22px;
   background:
-    radial-gradient(220px 140px at 50% 60%, rgba(255,212,0,.10), transparent 60%),
+    radial-gradient(260px 160px at 50% 60%, rgba(255,212,0,.10), transparent 60%),
     rgba(0,0,0,.18);
   border:1px solid rgba(122,15,28,.12);
   overflow:hidden;
-  padding:14px;
+  padding:8px;                  /* было 14 */
 }
 .img img{
   width:100%;
   height:100%;
-  object-fit:contain;
-  border-radius:22px;
+  object-fit:contain;           /* оставил contain, чтобы блюдо не обрезалось */
+  border-radius:18px;           /* чуть меньше, чтобы выглядело шире */
   transform:none;
   transition:.15s;
   filter:saturate(1.15) contrast(1.06) brightness(1.06) drop-shadow(0 12px 18px rgba(0,0,0,.55));
 }
-.card:active .img img{transform:scale(1.02);}
+.card:active .img img{transform:scale(1.03);}
 
 /* ✅ выбор объема под фото */
 .variants{
@@ -537,9 +538,10 @@ textarea.input{height:90px;}
 }
 .copy-btn:active{transform:scale(.98);}
 
+/* ✅ CLICK QR блок */
 .click-qr{
   margin:10px 0 0;
-  padding:10px;
+  padding:12px;
   border-radius:18px;
   border:1px solid rgba(122,15,28,.20);
   background:rgba(255,255,255,.03);
@@ -549,7 +551,7 @@ textarea.input{height:90px;}
 }
 .click-qr.show{display:block;}
 .click-qr img{
-  width:min(280px, 100%);
+  width:min(320px, 100%); /* чуть шире */
   height:auto;
   border-radius:18px;
   border:1px solid rgba(122,15,28,.16);
@@ -561,8 +563,14 @@ textarea.input{height:90px;}
   margin-top:10px;
   font-weight:900;
   font-size:13px;
-  opacity:.88;
+  opacity:.90;
   color:var(--text);
+}
+.click-qr .qr-file{
+  margin-top:6px;
+  font-weight:800;
+  font-size:12px;
+  opacity:.72;
 }
 
 .search-wrap{
@@ -614,7 +622,7 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
 .popular-row{display:flex;gap:14px;overflow-x:auto;padding:2px 2px 14px; -webkit-overflow-scrolling:touch; scroll-snap-type:x proximity;}
 
 .pop-card{
-  min-width:190px;
+  min-width:200px;
   border-radius:var(--r-lg);
   padding:12px;
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
@@ -628,22 +636,23 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
 }
 .pop-card:active{transform:scale(.99);}
 
+/* ✅✅ УВЕЛИЧИЛИ ФОТО В "ПОПУЛЯРНОЕ" */
 .pop-img{
-  height:92px;
+  height:112px;                 /* было 92 */
   border-radius:22px;
   overflow:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:radial-gradient(220px 120px at 50% 60%, rgba(255,212,0,.10), transparent 60%), rgba(0,0,0,.18);
+  background:radial-gradient(260px 140px at 50% 60%, rgba(255,212,0,.10), transparent 60%), rgba(0,0,0,.18);
   border:1px solid rgba(122,15,28,.12);
-  padding:10px;
+  padding:8px;                  /* было 10 */
 }
 .pop-img img{
   width:100%;
   height:100%;
   object-fit:contain;
-  border-radius:22px;
+  border-radius:18px;
   filter:saturate(1.15) contrast(1.06) brightness(1.06) drop-shadow(0 12px 18px rgba(0,0,0,.55));
 }
 
@@ -819,9 +828,9 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
   .payments{gap:8px;}
   .payments .btn{padding:12px 8px; font-size:12.5px;}
   .qbtn{padding:14px 12px; font-size:12.8px; min-height:50px; min-width:126px;}
-  .img{height:110px;}
-  .pop-card{min-width:178px;}
-  .pop-img{height:86px;}
+  .img{height:146px;}            /* адаптив */
+  .pop-card{min-width:190px;}
+  .pop-img{height:104px;}
 }
 </style>
 </head>
@@ -967,9 +976,12 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
       <button class="btn" id="payOnline" onclick="setPayment('online')"></button>
     </div>
 
+    <!-- ✅ QR показываем при выборе CLICK -->
     <div class="click-qr" id="clickQR">
-      <img src="images/click_qr_mazza.jpg" onerror="this.style.display='none'">
+      <!-- ✅ Название файла QR: images/mazza_click_qr.jpg -->
+      <img src="images/mazza_click_qr.jpg" onerror="this.style.display='none'">
       <div class="qr-cap" id="clickQrCap">CLICK QR • Получатель: MAZZA</div>
+      <div class="qr-file" id="clickQrFile">Файл: mazza_click_qr.jpg</div>
     </div>
 
     <div class="online-details" id="onlineDetails">
@@ -1121,9 +1133,36 @@ let selectedVar = {};
 const DELIVERY_FEE = 0;
 
 const TEXT={
-  ru:{delivery:'🚚 Доставка',pickup:'🏃 Самовывоз',address:'📍 Адрес доставки',phone:'📞 Телефон',cart:'🛒 Корзина',order:'Оформить заказ',comment:'✍️ Комментарий к заказу',cash:'💵 Наличные',click:'💳 Безнал (CLICK)',online:'💳 Онлайн',results:'Результаты поиска',popular:'🔥 Популярное',empty:'Корзина пустая',deliveryFee:'Доставка',card:'Номер карты',receiver:'Получатель',copied:'Скопировано ✅',copy:'Копировать',clickQr:'CLICK QR • Получатель: MAZZA'},
-  uz:{delivery:'🚚 Yetkazish',pickup:'🏃 Olib ketish',address:'📍 Manzil',phone:'📞 Telefon',cart:'🛒 Savat',order:'Buyurtma berish',comment:'✍️ Izoh',cash:'💵 Naqd',click:'💳 CLICK',online:'💳 Online',results:'Qidiruv natijalari',popular:'🔥 Ommabop',empty:"Savat bo‘sh",deliveryFee:'Yetkazish',card:'Karta raqami',receiver:'Qabul qiluvchi',copied:'Nusxa olindi ✅',copy:'Nusxa',clickQr:'CLICK QR • Qabul qiluvchi: MAZZA'},
-  en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',online:'💳 Online',results:'Search results',popular:'🔥 Popular',empty:'Cart is empty',deliveryFee:'Delivery',card:'Card number',receiver:'Receiver',copied:'Copied ✅',copy:'Copy',clickQr:'CLICK QR • Receiver: MAZZA'}
+  ru:{
+    delivery:'🚚 Доставка',pickup:'🏃 Самовывоз',address:'📍 Адрес доставки',phone:'📞 Телефон',
+    cart:'🛒 Корзина',order:'Оформить заказ',comment:'✍️ Комментарий к заказу',
+    cash:'💵 Наличные',click:'💳 Безнал (CLICK)',online:'💳 Онлайн',
+    results:'Результаты поиска',popular:'🔥 Популярное',empty:'Корзина пустая',
+    deliveryFee:'Доставка',card:'Номер карты',receiver:'Получатель',
+    copied:'Скопировано ✅',copy:'Копировать',
+    clickQr:'CLICK QR • Получатель: MAZZA',
+    clickQrFile:'Файл: mazza_click_qr.jpg'
+  },
+  uz:{
+    delivery:'🚚 Yetkazish',pickup:'🏃 Olib ketish',address:'📍 Manzil',phone:'📞 Telefon',
+    cart:'🛒 Savat',order:'Buyurtma berish',comment:'✍️ Izoh',
+    cash:'💵 Naqd',click:'💳 CLICK',online:'💳 Online',
+    results:'Qidiruv natijalari',popular:'🔥 Ommabop',empty:"Savat bo‘sh",
+    deliveryFee:'Yetkazish',card:'Karta raqami',receiver:'Qabul qiluvchi',
+    copied:'Nusxa olindi ✅',copy:'Nusxa',
+    clickQr:'CLICK QR • Qabul qiluvchi: MAZZA',
+    clickQrFile:'Fayl: mazza_click_qr.jpg'
+  },
+  en:{
+    delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',
+    cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',
+    cash:'💵 Cash',click:'💳 CLICK',online:'💳 Online',
+    results:'Search results',popular:'🔥 Popular',empty:'Cart is empty',
+    deliveryFee:'Delivery',card:'Card number',receiver:'Receiver',
+    copied:'Copied ✅',copy:'Copy',
+    clickQr:'CLICK QR • Receiver: MAZZA',
+    clickQrFile:'File: mazza_click_qr.jpg'
+  }
 };
 
 /* ✅ Фото в папке images, расширение .jpg */
@@ -1276,6 +1315,7 @@ const deliveryLine = document.getElementById('deliveryLine');
 const deliveryFee = document.getElementById('deliveryFee');
 const clickQR = document.getElementById('clickQR');
 const clickQrCap = document.getElementById('clickQrCap');
+const clickQrFile = document.getElementById('clickQrFile');
 
 const ONLINE_PAY = { card: "9860 0000 0000 0000", receiver: "MAZZA" };
 
@@ -1303,6 +1343,13 @@ function updateTypeFields(){
 function updatePaymentUI(){
   onlineDetails.classList.toggle('show', payment === 'online');
   clickQR.classList.toggle('show', payment === 'click');
+
+  // ✅ при выборе CLICK — аккуратно прокрутить к QR
+  if(payment === 'click'){
+    setTimeout(()=>{
+      try{ clickQR.scrollIntoView({behavior:'smooth', block:'nearest'}); }catch(_){}
+    }, 80);
+  }
 }
 
 async function copyTextToClipboard(txt){
@@ -1366,7 +1413,7 @@ function pickCategory(k, btn){
   document.querySelectorAll('.qbtn').forEach(x=>x.classList.remove('active'));
   if(btn) btn.classList.add('active');
   else{
-    const el = document.querySelector(`.qbtn[data-cat="${k}"]`);
+    const el = document.querySelector(\`.qbtn[data-cat="\${k}"]\`);
     if(el) el.classList.add('active');
   }
 
@@ -1394,7 +1441,7 @@ function setVariant(e,id,vk,prefix=''){
   const box = document.getElementById(prefix+'vars_'+id);
   if(box){
     box.querySelectorAll('.vbtn').forEach(btn=>btn.classList.remove('active'));
-    const btn = Array.from(box.querySelectorAll('.vbtn')).find(b=>b.getAttribute('onclick')?.includes(`'${vk}'`));
+    const btn = Array.from(box.querySelectorAll('.vbtn')).find(b=>b.getAttribute('onclick')?.includes(\`'\${vk}'\`));
     if(btn) btn.classList.add('active');
   }
 
@@ -1567,6 +1614,7 @@ function applyLang(){
   document.getElementById('onlineNameValue').innerText = ONLINE_PAY.receiver;
 
   if(clickQrCap) clickQrCap.innerText = TEXT[lang].clickQr || 'CLICK QR';
+  if(clickQrFile) clickQrFile.innerText = TEXT[lang].clickQrFile || 'Файл: mazza_click_qr.jpg';
 
   renderPopular();
   renderQuickFilters();
@@ -1691,7 +1739,7 @@ function sendOrder(){
     order_id: genOrderId(),
     lang,
     online_payment: (payment === 'online') ? { card: ONLINE_PAY.card, receiver: ONLINE_PAY.receiver } : null,
-    click_payment: (payment === 'click') ? { receiver: "MAZZA", qr_img: "images/click_qr_mazza.jpg" } : null
+    click_payment: (payment === 'click') ? { receiver: "MAZZA", qr_img: "images/mazza_click_qr.jpg" } : null
   };
 
   setTimeout(()=>{
