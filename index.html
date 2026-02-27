@@ -538,7 +538,7 @@ textarea.input{height:90px;}
 }
 .copy-btn:active{transform:scale(.98);}
 
-/* ✅ CLICK QR (исправил отображение: не прячем img на onerror + добавил подсказку) */
+/* ✅ CLICK QR (оставил твой блок и файл .jpg) */
 .click-qr{
   margin:10px 0 0;
   padding:10px;
@@ -571,14 +571,6 @@ textarea.input{height:90px;}
   font-weight:800;
   font-size:12px;
   opacity:.70;
-  color:var(--text);
-}
-.qr-hint{
-  margin-top:8px;
-  font-weight:800;
-  font-size:12px;
-  opacity:.72;
-  line-height:1.35;
   color:var(--text);
 }
 
@@ -863,7 +855,7 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
       <div class="burger"><span></span><span></span><span></span></div>
     </div>
 
-    <div class="geo-btn" onclick="openGeoRoute()" title="Геолокация">📍</div>
+    <div class="geo-btn" onclick="openGeoLink()" title="Геолокация">📍</div>
     <div class="search-btn" onclick="toggleSearch()">🔍</div>
   </div>
 
@@ -907,7 +899,7 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
             </svg>
           </div>
           <div class="menu-txt">
-            <div class="menu-name">@mazzaa.uz</div>
+            <div class="menu-name">@mazza_foodtruck</div>
             <div class="menu-sub">Открыть Instagram</div>
           </div>
         </div>
@@ -935,10 +927,7 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
       </div>
       <div class="about-body">
         <b>MAZZA</b> — фудтрак (street food).<br>
-        <span class="about-muted">
-          График работы: <b>с 10:00 до 01:00</b><br>
-          Добавь сюда текст: адрес/точка, доставка, особенности, и т.д.
-        </span>
+        <span class="about-muted">График работы: ежедневно с 10:00 до 01:00<br>Доставка и самовывоз доступны через приложение.</span>
       </div>
     </div>
   </div>
@@ -989,22 +978,18 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
 
     <!-- ✅ QR показывается только когда payment === 'click' -->
     <div class="click-qr" id="clickQR">
-      <!-- ✅ Важно: путь должен быть точно images/click_qr_mazza.jpg (регистр букв важен) -->
-      <!-- ✅ Добавил ?v=1 чтобы Telegram/браузер не держал старый кэш -->
-      <img id="clickQrImg" src="images/click_qr_mazza.jpg?v=1" alt="CLICK QR"
-           onerror="onQrError(this)">
+      <img id="clickQrImg"
+           src="images/click_qr_mazza.jpg"
+           onerror="this.onerror=null;this.src='click_qr_mazza.jpg';">
       <div class="qr-cap" id="clickQrCap">CLICK QR • Получатель: MAZZA</div>
       <div class="qr-name" id="clickQrName">Файл: click_qr_mazza.jpg</div>
-      <div class="qr-hint" id="qrHint" style="display:none;">
-        QR не загрузился. Проверь: файл <b>click_qr_mazza.jpg</b> лежит в папке <b>images</b> и имя совпадает один-в-один.
-      </div>
     </div>
 
     <div class="online-details" id="onlineDetails">
       <div class="online-row">
         <div class="online-left">
           <div class="online-label" id="onlineCardLabel">Номер карты</div>
-          <div class="online-value" id="onlineCardValue">9860 1201 5880 6055</div>
+          <div class="online-value" id="onlineCardValue">8600 0000 0000 0000</div>
         </div>
         <button class="copy-btn" type="button" onclick="copyOnline('card')">Копировать</button>
       </div>
@@ -1012,7 +997,7 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
       <div class="online-row">
         <div class="online-left">
           <div class="online-label" id="onlineNameLabel">Получатель</div>
-          <div class="online-value" id="onlineNameValue">ZARRUX TOLIBJANOV</div>
+          <div class="online-value" id="onlineNameValue">MAZZA</div>
         </div>
         <button class="copy-btn" type="button" onclick="copyOnline('name')">Копировать</button>
       </div>
@@ -1041,20 +1026,15 @@ try{
   Telegram.WebApp.disableVerticalSwipes?.();
 } catch(_){}
 
-/* ✅ 2GIS: точка и маршрут */
-const DGIS_FIRM_URL = "https://2gis.uz/samarkand/firm/70000001111185893?m=66.956606%2C39.652337%2F16";
-/* ✅ координаты точки из ссылки m=66.956606,39.652337 */
-const DGIS_TO_LON = 66.956606;
-const DGIS_TO_LAT = 39.652337;
+/* ✅ Геолокация: 2GIS (фирма) + deeplink маршрута */
+const YA_MAP_URL = "https://2gis.uz/samarkand/firm/70000001111185893?m=66.956606%2C39.652337%2F16";
+const DGIS_ROUTE_URL = "dgis://2gis.ru/routeSearch/rsType/car/to/66.956606,39.652337";
 
-/* оставил, но если не нужно — можно потом заменить на конкретную ссылку отзывов */
+/* оставил как было */
 const YA_REVIEW_URL = "https://yandex.uz/maps/";
 
-/* ✅ Instagram обновил */
+/* ✅ Instagram обновили */
 const INSTAGRAM_URL = "https://www.instagram.com/mazzaa.uz/";
-
-/* ✅ Админы, чтобы backend мог отправлять заказы обоим */
-const ADMIN_IDS = [6013591658, 7674081325];
 
 function setAppHeight(){
   const h = (window.Telegram && Telegram.WebApp && Telegram.WebApp.viewportHeight)
@@ -1116,35 +1096,20 @@ function callPhone(e){
   try{ window.location.href = tel; }catch(_){}
 }
 
-/* ✅ маршрут в 2GIS:
-   - если геолокация доступна: откроем маршрут from->to
-   - если нет: откроем страницу точки (firm)
-*/
-function openGeoRoute(){
+/* ✅ маршрут: сначала deeplink 2GIS, если не открылся — обычная ссылка 2GIS */
+function openGeoLink(){
   closeTopMenu();
-
-  const fallback = () => openLinkSafe(DGIS_FIRM_URL);
-
   try{
-    if(!navigator.geolocation) return fallback();
-
-    navigator.geolocation.getCurrentPosition((pos)=>{
-      const lat = pos.coords.latitude;
-      const lon = pos.coords.longitude;
-
-      /* 2GIS web routeSearch (часто работает):
-         /routeSearch/rsType/car/from/{lon},{lat}/to/{lon},{lat}
-      */
-      const routeUrl =
-        `https://2gis.uz/samarkand/routeSearch/rsType/car/from/${encodeURIComponent(lon)},${encodeURIComponent(lat)}` +
-        `/to/${encodeURIComponent(DGIS_TO_LON)},${encodeURIComponent(DGIS_TO_LAT)}`;
-
-      openLinkSafe(routeUrl);
-    }, (_err)=>{
-      fallback();
-    }, { enableHighAccuracy:true, timeout:7000, maximumAge: 60000 });
+    if (window.Telegram && Telegram.WebApp && typeof Telegram.WebApp.openLink === "function"){
+      Telegram.WebApp.openLink(DGIS_ROUTE_URL);
+      return;
+    }
+  }catch(_){}
+  try{
+    window.location.href = DGIS_ROUTE_URL;
+    setTimeout(()=>openLinkSafe(YA_MAP_URL), 350);
   }catch(_){
-    fallback();
+    openLinkSafe(YA_MAP_URL);
   }
 }
 
@@ -1246,7 +1211,7 @@ const MENU = {
     {id:'vanilla_milkshake', img:'images/vanilla_milkshake.jpg', n:{ru:'Милкшейк ванильный',uz:'Vanil milkshake',en:'Vanilla Milkshake'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]}
   ],
   smoothies:[
-    {id:'blueberry_smoothie', img:'images/blueberry_smoothie.jpg', n:{ru:'Смузи черника',uz:"Ko‘k meva smoothie",en:'Blueberry Smoothie'}, v:[{k:'05', t:'0.5L', p:35000}]},
+    {id:'blueberry_smoothie', img:'images/blueberry_smoothie.jpg', n:{ru:'Смузи черника',uz:'Ko‘k meva smoothie',en:'Blueberry Smoothie'}, v:[{k:'05', t:'0.5L', p:35000}]},
     {id:'strawberry_smoothie', img:'images/strawberry_smoothie.jpg', n:{ru:'Смузи клубника',uz:'Qulupnay smoothie',en:'Strawberry Smoothie'}, v:[{k:'05', t:'0.5L', p:35000}]},
     {id:'raspberry_smoothie', img:'images/raspberry_smoothie.jpg', n:{ru:'Смузи малина',uz:'Malina smoothie',en:'Raspberry Smoothie'}, v:[{k:'05', t:'0.5L', p:35000}]}
   ],
@@ -1346,21 +1311,10 @@ const deliveryFee = document.getElementById('deliveryFee');
 const clickQR = document.getElementById('clickQR');
 const clickQrCap = document.getElementById('clickQrCap');
 const clickQrName = document.getElementById('clickQrName');
-const qrHint = document.getElementById('qrHint');
 const clickQrImg = document.getElementById('clickQrImg');
 
-/* ✅ Онлайн оплата: реквизиты */
-const ONLINE_PAY = {
-  card: "9860 1201 5880 6055",
-  receiver: "ZARRUX TOLIBJANOV"
-};
-
-function onQrError(imgEl){
-  try{
-    if(qrHint) qrHint.style.display = 'block';
-  }catch(_){}
-  /* не прячем img намеренно — чтобы было видно, что не грузит */
-}
+/* ✅ Онлайн реквизиты обновили */
+const ONLINE_PAY = { card: "9860 1201 5880 6055", receiver: "ZARRUX TOLIBJANOV" };
 
 function loadSaved(){
   const a = localStorage.getItem('mazza_address') || '';
@@ -1384,20 +1338,21 @@ function updateTypeFields(){
   deliveryLine.firstChild.textContent = (TEXT[lang].deliveryFee + ': ');
 }
 
-/* ✅✅ при выборе CLICK показываем QR */
+/* ✅✅ ТОЛЬКО ЭТО: при выборе CLICK показываем QR + принудительно ставим src */
 function updatePaymentUI(){
   onlineDetails.classList.toggle('show', payment === 'online');
   clickQR.classList.toggle('show', payment === 'click');
 
+  if (payment === 'click' && clickQrImg){
+    // пробуем images/, если не найден — упадет на корень (onerror в HTML)
+    clickQrImg.style.display = 'block';
+    if(!clickQrImg.src || !clickQrImg.src.includes('click_qr_mazza')){
+      clickQrImg.src = 'images/click_qr_mazza.jpg';
+    }
+  }
+
   if(clickQrCap) clickQrCap.innerText = TEXT[lang].clickQr || 'CLICK QR';
   if(clickQrName) clickQrName.innerText = TEXT[lang].clickQrName || 'Файл: click_qr_mazza.jpg';
-
-  /* ✅ каждый раз при открытии CLICK — обновляем src с анти-кэш параметром */
-  if(payment === 'click' && clickQrImg){
-    const base = "images/click_qr_mazza.jpg";
-    clickQrImg.src = base + "?v=" + Date.now();
-    if(qrHint) qrHint.style.display = 'none';
-  }
 }
 
 async function copyTextToClipboard(txt){
@@ -1461,7 +1416,7 @@ function pickCategory(k, btn){
   document.querySelectorAll('.qbtn').forEach(x=>x.classList.remove('active'));
   if(btn) btn.classList.add('active');
   else{
-    const el = document.querySelector(\`.qbtn[data-cat="\${k}"]\`);
+    const el = document.querySelector(\`.qbtn[data-cat="${k}"]\`);
     if(el) el.classList.add('active');
   }
 
@@ -1489,7 +1444,7 @@ function setVariant(e,id,vk,prefix=''){
   const box = document.getElementById(prefix+'vars_'+id);
   if(box){
     box.querySelectorAll('.vbtn').forEach(btn=>btn.classList.remove('active'));
-    const btn = Array.from(box.querySelectorAll('.vbtn')).find(b=>b.getAttribute('onclick')?.includes(\`'\${vk}'\`));
+    const btn = Array.from(box.querySelectorAll('.vbtn')).find(b=>b.getAttribute('onclick')?.includes(\`'${vk}'\`));
     if(btn) btn.classList.add('active');
   }
 
@@ -1774,10 +1729,6 @@ function sendOrder(){
 
   const payload = {
     brand: "MAZZA",
-
-    /* ✅ чтобы бот/бекенд знал, кому отправлять */
-    admin_ids: ADMIN_IDS,
-
     tg: { id: tg_id, username: tg_username, first_name: tg_first_name },
     items,
     total: total.innerText,
@@ -1814,6 +1765,11 @@ applyLang();
 updateTypeFields();
 updateTotal();
 updatePaymentUI();
+
+/*
+ВАЖНО (для бота, не для HTML):
+Добавь админа 7674081325 в ADMIN_IDS, чтобы ему тоже приходили заказы.
+*/
 </script>
 </body>
 </html>
