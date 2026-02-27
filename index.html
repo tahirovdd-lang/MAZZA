@@ -244,16 +244,16 @@ body{
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
   box-shadow: 0 14px 30px rgba(0,0,0,.46);
   border-radius:16px;            /* ✅ квадрат */
-  padding:14px 14px;
+  padding:18px 18px;            /* ✅ БОЛЬШЕ ВЫСОТА */
   font-weight:900;
-  font-size:13px;
+  font-size:14px;               /* ✅ чуть больше текст */
   cursor:pointer;
   white-space:nowrap;
   transition:.15s;
   color:var(--text);
   scroll-snap-align:start;
-  min-height:52px;
-  min-width:132px;              /* ✅ “иконки” как плитки */
+  min-height:64px;              /* ✅ БОЛЬШЕ ВЫСОТА */
+  min-width:168px;              /* ✅ БОЛЬШЕ ШИРИНА */
   display:flex;
   align-items:center;
   justify-content:center;
@@ -818,13 +818,14 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
 .about-body{font-size:14px;line-height:1.45;}
 .about-muted{opacity:.78;}
 
+/* ✅ мобилка: тоже чуть расширили категории */
 @media (max-width:360px){
   .brand-title{font-size:34px;}
   .logo-frame{width:90px;height:90px;}
   .logo-frame img{width:66px;height:66px;}
   .payments{gap:8px;}
   .payments .btn{padding:12px 8px; font-size:12.5px;}
-  .qbtn{padding:14px 12px; font-size:12.8px; min-height:50px; min-width:126px;}
+  .qbtn{padding:16px 16px; font-size:13.2px; min-height:60px; min-width:156px;}
   .img{height:150px;} /* мобилка */
   .pop-card{min-width:178px;}
   .pop-img{height:86px;}
@@ -1152,9 +1153,9 @@ let selectedVar = {};
 const DELIVERY_FEE = 0;
 
 const TEXT={
-  ru:{delivery:'🚚 Доставка',pickup:'🏃 Самовывоз',address:'📍 Адрес доставки',phone:'📞 Телефон',cart:'🛒 Корзина',order:'Оформить заказ',comment:'✍️ Комментарий к заказу',cash:'💵 Наличные',click:'💳 Безнал (CLICK)',online:'💳 Онлайн',results:'Результаты поиска',popular:'🔥 Популярное',empty:'Корзина пустая',deliveryFee:'Доставка',card:'Номер карты',receiver:'Получатель',copied:'Скопировано ✅',copy:'Копировать',clickQr:'CLICK QR • Получатель: MAZZA', clickQrName:'Файл: click_qr_mazza.jpg'},
-  uz:{delivery:'🚚 Yetkazish',pickup:'🏃 Olib ketish',address:'📍 Manzil',phone:'📞 Telefon',cart:'🛒 Savat',order:'Buyurtma berish',comment:'✍️ Izoh',cash:'💵 Naqd',click:'💳 CLICK',online:'💳 Online',results:'Qidiruv natijalari',popular:'🔥 Ommabop',empty:"Savat bo‘sh",deliveryFee:'Yetkazish',card:'Karta raqami',receiver:'Qabul qiluvchi',copied:'Nusxa olindi ✅',copy:'Nusxa',clickQr:'CLICK QR • Qabul qiluvchi: MAZZA', clickQrName:'Fayl: click_qr_mazza.jpg'},
-  en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',online:'💳 Online',results:'Search results',popular:'🔥 Popular',empty:'Cart is empty',deliveryFee:'Delivery',card:'Card number',receiver:'Receiver',copied:'Copied ✅',copy:'Copy',clickQr:'CLICK QR • Receiver: MAZZA', clickQrName:'File: click_qr_mazza.jpg'}
+  ru:{delivery:'🚚 Доставка',pickup:'🏃 Самовывоз',address:'📍 Адрес доставки',phone:'📞 Телефон',cart:'🛒 Корзина',order:'Оформить заказ',comment:'✍️ Комментарий к заказу',cash:'💵 Наличные',click:'💳 Безнал (CLICK)',online:'💳 Онлайн',results:'Результаты поиска',popular:'🔥 Популярное',empty:'Корзина пустая',deliveryFee:'Доставка',card:'Номер карты',receiver:'Получатель',copied:'Скопировано ✅',copy:'Копировать',clickQr:'CLICK QR • Получатель: MAZZA', clickQrName:'Файл: click_qr_mazza.jpg', needPhone:'Укажите телефон', needAddress:'Укажите адрес'},
+  uz:{delivery:'🚚 Yetkazish',pickup:'🏃 Olib ketish',address:'📍 Manzil',phone:'📞 Telefon',cart:'🛒 Savat',order:'Buyurtma berish',comment:'✍️ Izoh',cash:'💵 Naqd',click:'💳 CLICK',online:'💳 Online',results:'Qidiruv natijalari',popular:'🔥 Ommabop',empty:"Savat bo‘sh",deliveryFee:'Yetkazish',card:'Karta raqami',receiver:'Qabul qiluvchi',copied:'Nusxa olindi ✅',copy:'Nusxa',clickQr:'CLICK QR • Qabul qiluvchi: MAZZA', clickQrName:'Fayl: click_qr_mazza.jpg', needPhone:'Telefonni kiriting', needAddress:'Manzilni kiriting'},
+  en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',online:'💳 Online',results:'Search results',popular:'🔥 Popular',empty:'Cart is empty',deliveryFee:'Delivery',card:'Card number',receiver:'Receiver',copied:'Copied ✅',copy:'Copy',clickQr:'CLICK QR • Receiver: MAZZA', clickQrName:'File: click_qr_mazza.jpg', needPhone:'Enter phone', needAddress:'Enter address'}
 };
 
 /* ✅ Фото в папке images, расширение .jpg */
@@ -1326,8 +1327,8 @@ function bindSave(){
 function getDeliveryFee(){ return (type === 'delivery') ? DELIVERY_FEE : 0; }
 
 function updateTypeFields(){
-  if(type === 'pickup'){ address.style.display = 'none'; address.value = ''; }
-  else{ address.style.display = 'block'; }
+  /* ✅ адрес обязателен всегда (и для самовывоза тоже) — как просили */
+  address.style.display = 'block';
 
   const fee = getDeliveryFee();
   deliveryFee.innerText = formatSum(DELIVERY_FEE);
@@ -1389,7 +1390,7 @@ function renderQuickFilters(){
     fresh:{ru:'🍊 Фреши',uz:'🍊 Fresh',en:'🍊 Fresh'},
     coffee:{ru:'☕ Кофе',uz:'☕ Kofe',en:'☕ Coffee'},
     author_tea:{ru:'🍵 Авторский чай',uz:'🍵 Muallif choyi',en:'🍵 Signature Tea'},
-    hot_drinks:{ru:'♨️ Горячие напитки',uz:'♨️ Issiq ichimlik',en:'♨️ Hot Drinks'}, /* ✅ ИЗМЕНЕНО ТОЛЬКО ЗДЕСЬ */
+    hot_drinks:{ru:'♨️ Горячие напитки',uz:'♨️ Issiq ichimlik',en:'♨️ Hot Drinks'},
     lemonade:{ru:'🍋 Лимонады',uz:'🍋 Limonad',en:'🍋 Lemonade'},
     milkshakes:{ru:'🥤 Милкшейки',uz:'🥤 Milkshake',en:'🥤 Milkshakes'},
     smoothies:{ru:'🫐 Смузи',uz:'🫐 Smoothie',en:'🫐 Smoothies'}
@@ -1410,7 +1411,7 @@ function pickCategory(k, btn){
   document.querySelectorAll('.qbtn').forEach(x=>x.classList.remove('active'));
   if(btn) btn.classList.add('active');
   else{
-    const el = document.querySelector(`.qbtn[data-cat="${k}"]`);
+    const el = document.querySelector(\`.qbtn[data-cat="\${k}"]\`);
     if(el) el.classList.add('active');
   }
 
@@ -1692,7 +1693,35 @@ function genOrderId(){
   return `MAZ-${dd}${mm}-${num}`;
 }
 
+/* ✅✅ Валидация: без телефона и адреса — нельзя заказать */
+function normalizePhone(p){
+  return String(p || '').replace(/\s+/g,'').trim();
+}
+function isValidPhone(p){
+  const s = normalizePhone(p);
+  // минимум 7 цифр
+  const digits = s.replace(/\D/g,'');
+  return digits.length >= 7;
+}
+function isValidAddress(a){
+  return String(a || '').trim().length >= 3;
+}
+
 function sendOrder(){
+  const p = phone.value || '';
+  const a = address.value || '';
+
+  if(!isValidPhone(p)){
+    try{ phone.focus(); }catch(_){}
+    alert(TEXT[lang].needPhone || 'Укажите телефон');
+    return;
+  }
+  if(!isValidAddress(a)){
+    try{ address.focus(); }catch(_){}
+    alert(TEXT[lang].needAddress || 'Укажите адрес');
+    return;
+  }
+
   if(popup) popup.classList.add('show');
 
   const items = [];
@@ -1730,7 +1759,7 @@ function sendOrder(){
     delivery_fee: getDeliveryFee(),
     payment,
     type,
-    address: (type==='pickup' ? '' : address.value),
+    address: address.value,
     phone: phone.value,
     comment: comment.value,
     order_id: genOrderId(),
