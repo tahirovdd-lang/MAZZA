@@ -244,20 +244,16 @@ body{
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
   box-shadow: 0 14px 30px rgba(0,0,0,.46);
   border-radius:16px;            /* ✅ квадрат */
-
-  /* ✅✅ ИЗМЕНЕНО: больше ширина/высота */
-  padding:18px 18px;             /* было 14px 14px */
+  padding:14px 14px;
   font-weight:900;
-  font-size:14px;                /* было 13px */
+  font-size:13px;
   cursor:pointer;
   white-space:nowrap;
   transition:.15s;
   color:var(--text);
   scroll-snap-align:start;
-
-  min-height:66px;               /* было 52px */
-  min-width:168px;               /* было 132px */
-
+  min-height:52px;
+  min-width:132px;              /* ✅ “иконки” как плитки */
   display:flex;
   align-items:center;
   justify-content:center;
@@ -828,15 +824,7 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
   .logo-frame img{width:66px;height:66px;}
   .payments{gap:8px;}
   .payments .btn{padding:12px 8px; font-size:12.5px;}
-
-  /* ✅✅ ИЗМЕНЕНО: категории больше даже на маленьких экранах */
-  .qbtn{
-    padding:18px 16px;           /* было 14px 12px */
-    font-size:13.6px;            /* было 12.8px */
-    min-height:64px;             /* было 50px */
-    min-width:162px;             /* было 126px */
-  }
-
+  .qbtn{padding:14px 12px; font-size:12.8px; min-height:50px; min-width:126px;}
   .img{height:150px;} /* мобилка */
   .pop-card{min-width:178px;}
   .pop-img{height:86px;}
@@ -1422,7 +1410,7 @@ function pickCategory(k, btn){
   document.querySelectorAll('.qbtn').forEach(x=>x.classList.remove('active'));
   if(btn) btn.classList.add('active');
   else{
-    const el = document.querySelector(\`.qbtn[data-cat="\${k}"]\`);
+    const el = document.querySelector(`.qbtn[data-cat="${k}"]`);
     if(el) el.classList.add('active');
   }
 
@@ -1450,7 +1438,7 @@ function setVariant(e,id,vk,prefix=''){
   const box = document.getElementById(prefix+'vars_'+id);
   if(box){
     box.querySelectorAll('.vbtn').forEach(btn=>btn.classList.remove('active'));
-    const btn = Array.from(box.querySelectorAll('.vbtn')).find(b=>b.getAttribute('onclick')?.includes(\`'\${vk}'\`));
+    const btn = Array.from(box.querySelectorAll('.vbtn')).find(b=>b.getAttribute('onclick')?.includes(`'${vk}'`));
     if(btn) btn.classList.add('active');
   }
 
