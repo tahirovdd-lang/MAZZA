@@ -3,6 +3,7 @@ import logging
 import json
 import os
 import time
+from typing import Dict, Any, Tuple, List
 
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import CommandStart, Command
@@ -21,10 +22,9 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 if not BOT_TOKEN:
     raise RuntimeError("❌ BOT_TOKEN не найден. Добавь переменную окружения BOT_TOKEN.")
 
-BOT_USERNAME = "ORZUDILbot"         # без @ (оставил как было)
-CHANNEL_ID = "@ORZUDILKAFE"         # канал (оставил как было)
+BOT_USERNAME = "ORZUDILbot"         # без @
+CHANNEL_ID = "@ORZUDILKAFE"         # канал
 
-# ✅ АДМИНЫ (без изменений)
 MAIN_ADMIN_ID = 6013591658
 ADMIN_IDS = [
     6013591658,
@@ -32,7 +32,6 @@ ADMIN_IDS = [
     117347904,
 ]
 
-# ✅ WEBAPP URL (обновлено)
 WEBAPP_URL = "https://tahirovdd-lang.github.io/MAZZA/"
 
 bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode="HTML"))
@@ -48,6 +47,38 @@ def allow_start(user_id: int, ttl: float = 2.0) -> bool:
         return False
     _last_start[user_id] = now
     return True
+
+# ====== РЕЕСТР АКТИВНЫХ АДМИНОВ (кто нажал /start) ======
+ADMIN_CHATS_FILE = "admin_chats.json"
+
+def load_admin_chats() -> Dict[str, bool]:
+    try:
+        if not os.path.exists(ADMIN_CHATS_FILE):
+            return {}
+        with open(ADMIN_CHATS_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if isinstance(data, dict):
+            # {"123": true}
+            return {str(k): bool(v) for k, v in data.items()}
+    except Exception:
+        logging.exception("Failed to load admin chats")
+    return {}
+
+def save_admin_chats(data: Dict[str, bool]) -> None:
+    try:
+        with open(ADMIN_CHATS_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except Exception:
+        logging.exception("Failed to save admin chats")
+
+def mark_admin_active(admin_id: int) -> None:
+    store = load_admin_chats()
+    store[str(admin_id)] = True
+    save_admin_chats(store)
+
+def is_admin_active(admin_id: int) -> bool:
+    store = load_admin_chats()
+    return bool(store.get(str(admin_id), False))
 
 # ====== КНОПКИ ======
 BTN_OPEN_MULTI = "Ochish • Открыть • Open"
@@ -86,14 +117,29 @@ async def cmd_id(message: types.Message):
         f"Name: <code>{u.full_name}</code>"
     )
 
+@dp.message(Command("admins"))
+async def cmd_admins(message: types.Message):
+    if message.from_user.id not in ADMIN_IDS:
+        return await message.answer("⛔️ Нет доступа.")
+
+    store = load_admin_chats()
+    lines = ["👮‍♂️ <b>Админы / статус активации (/start)</b>:"]
+    for aid in ADMIN_IDS:
+        active = "✅ активен" if store.get(str(aid), False) else "❌ не активен"
+        lines.append(f"• <code>{aid}</code> — {active}")
+    lines.append("\n<i>Чтобы админ стал активен — он должен открыть бота и нажать /start.</i>")
+    await message.answer("\n".join(lines))
+
 @dp.message(Command("test_admins"))
 async def cmd_test_admins(message: types.Message):
     if message.from_user.id not in ADMIN_IDS:
         return await message.answer("⛔️ Нет доступа.")
+
     test_text = "✅ Тест: рассылка админам работает."
-    results = await send_to_admins(test_text)
+    results = await send_to_admins(test_text, context="test_admins")
     ok = [str(a) for a, r in results.items() if r["ok"]]
     bad = [f'{a}: {r["error"]}' for a, r in results.items() if not r["ok"]]
+
     await message.answer(
         "📨 <b>Результат теста:</b>\n"
         f"✅ Ушло: {', '.join(ok) if ok else '—'}\n"
@@ -105,12 +151,21 @@ async def cmd_test_admins(message: types.Message):
 async def start(message: types.Message):
     if not allow_start(message.from_user.id):
         return
+
+    # ✅ если это админ — помечаем как активного (значит он нажал /start)
+    if message.from_user.id in ADMIN_IDS:
+        mark_admin_active(message.from_user.id)
+
     await message.answer(welcome_text(), reply_markup=kb_webapp_reply())
 
 @dp.message(Command("startapp"))
 async def startapp(message: types.Message):
     if not allow_start(message.from_user.id):
         return
+
+    if message.from_user.id in ADMIN_IDS:
+        mark_admin_active(message.from_user.id)
+
     await message.answer(welcome_text(), reply_markup=kb_webapp_reply())
 
 # ====== ПОСТ В КАНАЛ ======
@@ -168,63 +223,48 @@ def safe_int(v, default=0) -> int:
     except Exception:
         return default
 
-def build_order_lines(data: dict) -> tuple[list[str], dict]:
-    order_dict: dict = {}
-    raw_order = data.get("order")
+def build_order_lines(data: dict) -> Tuple[List[str], Dict[str, int]]:
+    order_dict: Dict[str, int] = {}
     raw_items = data.get("items")
-    raw_cart = data.get("cart")
 
-    if isinstance(raw_order, dict):
-        for k, v in raw_order.items():
-            q = safe_int(v, 0)
-            if q > 0:
-                order_dict[str(k)] = q
-
-    if not order_dict and isinstance(raw_cart, dict):
-        for k, v in raw_cart.items():
-            q = safe_int(v, 0)
-            if q > 0:
-                order_dict[str(k)] = q
-
-    lines: list[str] = []
+    lines: List[str] = []
     if isinstance(raw_items, list) and raw_items:
         for it in raw_items:
             if not isinstance(it, dict):
                 continue
-            name = clean_str(it.get("name")) or clean_str(it.get("title")) or clean_str(it.get("id")) or "—"
+            # HTML у тебя шлёт: name_ru + name_lang + qty + price + volume
+            name = clean_str(it.get("name_ru")) or clean_str(it.get("name_lang")) or clean_str(it.get("id")) or "—"
             qty = safe_int(it.get("qty"), 0)
             if qty <= 0:
                 continue
 
-            if not order_dict:
-                key = clean_str(it.get("id")) or name
-                order_dict[key] = qty
+            vol = clean_str(it.get("volume"))
+            vol_txt = f" ({vol})" if vol else ""
 
             price = safe_int(it.get("price"), 0)
-            ssum = safe_int(it.get("sum"), 0)
-            if ssum > 0:
-                lines.append(f"• {name} × {qty} = {fmt_sum(ssum)} сум")
-            elif price > 0:
-                lines.append(f"• {name} × {qty} = {fmt_sum(price * qty)} сум")
-            else:
-                lines.append(f"• {name} × {qty}")
-
-    if not lines and order_dict:
-        for k, q in order_dict.items():
-            lines.append(f"• {k} × {q}")
+            lines.append(f"• {name}{vol_txt} × {qty} = {fmt_sum(price * qty)} сум")
 
     if not lines:
         lines = ["⚠️ Корзина пустая"]
 
     return lines, order_dict
 
-async def send_to_admins(text: str) -> dict:
+async def send_to_admins(text: str, context: str = "") -> Dict[int, Dict[str, str]]:
     """
-    Возвращает результаты отправки:
-    {admin_id: {"ok": bool, "error": "..." }}
+    Отправляем ТОЛЬКО тем админам, кто активировал бота (/start).
+    Для остальных — фиксируем причину, чтобы главный админ видел что делать.
     """
-    results: dict[int, dict] = {}
+    results: Dict[int, Dict[str, str]] = {}
+
     for admin_id in ADMIN_IDS:
+        # ✅ если админ не активирован — не пытаемся слать и не спамим ошибками Telegram
+        if not is_admin_active(admin_id):
+            results[admin_id] = {
+                "ok": False,
+                "error": "ADMIN_NOT_STARTED_BOT: admin must open bot and press /start"
+            }
+            continue
+
         try:
             await bot.send_message(admin_id, text)
             results[admin_id] = {"ok": True, "error": ""}
@@ -234,17 +274,21 @@ async def send_to_admins(text: str) -> dict:
             results[admin_id] = {"ok": False, "error": f"{type(e).__name__}: {e}"}
         except Exception as e:
             results[admin_id] = {"ok": False, "error": f"{type(e).__name__}: {e}"}
-            logging.exception(f"ADMIN SEND ERROR to {admin_id}")
+            logging.exception(f"ADMIN SEND ERROR to {admin_id} ({context})")
+
     return results
 
-async def report_failures_to_main(results: dict, context: str = ""):
+async def report_failures_to_main(results: Dict[int, Dict[str, str]], context: str = ""):
     bad = [(aid, r["error"]) for aid, r in results.items() if not r["ok"]]
     if not bad:
         return
+
     msg = "⚠️ <b>Проблема отправки админам</b>\n"
     if context:
         msg += f"<b>Контекст:</b> {context}\n"
     msg += "\n".join([f"• <code>{aid}</code> — <code>{err}</code>" for aid, err in bad])
+    msg += "\n\n✅ Решение: админ должен открыть бота и нажать <b>/start</b> (и не блокировать бота)."
+
     try:
         await bot.send_message(MAIN_ADMIN_ID, msg)
     except Exception:
@@ -278,8 +322,20 @@ async def webapp_data(message: types.Message):
     comment = clean_str(data.get("comment"))
     order_id = clean_str(data.get("order_id")) or "—"
 
-    pay_label = {"cash": "💵 Наличные", "click": "💳 Безнал (CLICK)"}.get(payment, payment)
-    type_label = {"delivery": "🚚 Доставка", "pickup": "🏃 Самовывоз"}.get(order_type, order_type)
+    pay_label = {
+        "cash": "💵 Наличные",
+        "click": "💳 Безнал (CLICK)",
+        "online": "💳 Онлайн"
+    }.get(payment, payment)
+
+    type_label = {
+        "delivery": "🚚 Доставка",
+        "pickup": "🏃 Самовывоз"
+    }.get(order_type, order_type)
+
+    # ВАЖНО: если самовывоз — адрес не нужен
+    if order_type == "pickup":
+        address = "—"
 
     admin_text = (
         "🚨 <b>НОВЫЙ ЗАКАЗ MAZZA BY Aliz Group</b>\n"
@@ -295,10 +351,10 @@ async def webapp_data(message: types.Message):
     if comment:
         admin_text += f"\n💬 <b>Комментарий:</b> {comment}"
 
-    # 1) Отправляем всем админам
-    results = await send_to_admins(admin_text)
+    # 1) Отправляем всем активным админам
+    results = await send_to_admins(admin_text, context=f"order_id={order_id}")
 
-    # 2) Если кому-то не дошло — присылаем главному админу точную ошибку Telegram
+    # 2) Репорт главному админу (включая тех, кто не нажал /start)
     await report_failures_to_main(results, context=f"order_id={order_id}")
 
     # ====== КЛИЕНТ ======
