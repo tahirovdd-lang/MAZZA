@@ -828,7 +828,7 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
 }
 
 /* ===========================
-   ✅ FIX: Intro Video Overlay
+   ✅ FIX: Intro Video Overlay (ЦЕНТР ПО ТЕЛЕФОНУ)
    =========================== */
 .intro-video{
   position:fixed;
@@ -841,17 +841,33 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
   pointer-events:none;
   transition:opacity .20s ease;
   overflow:hidden;
+  /* ✅ чтобы точно не дергалось */
+  contain: layout paint size;
 }
-.intro-video.show{opacity:1;pointer-events:auto;}
+.intro-video.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* ✅✅ ВАЖНО: центрируем VIDEO абсолютом */
 .intro-video video{
-  width:100%;
-  height:100%;
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+
+  /* чтобы cover работал стабильно в TG/iOS */
+  min-width:100%;
+  min-height:100%;
+  width:auto;
+  height:auto;
+
+  /* fallback */
   object-fit:cover;
   object-position:center center;
   display:block;
-  max-width:none;
-  max-height:none;
 }
+
 .intro-skip{
   position:absolute;
   right:12px;
@@ -897,6 +913,7 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
 
   <div class="menu-backdrop" id="menuBackdrop" onclick="closeTopMenu()"></div>
 
+  <!-- ✅✅ МЕНЮ НЕ УДАЛЯЛ -->
   <div class="menu-sheet" id="menuSheet">
     <div class="menu-handle"></div>
     <div class="menu-head">
@@ -1085,7 +1102,7 @@ const INSTAGRAM_URL = "https://www.instagram.com/mazzaa.uz/";
 function setAppHeight(){
   const h = (window.Telegram && Telegram.WebApp && Telegram.WebApp.viewportHeight)
     ? Telegram.WebApp.viewportHeight
-    : window.innerHeight;
+    : (window.visualViewport ? window.visualViewport.height : window.innerHeight);
 
   document.documentElement.style.setProperty('--app-h', h + 'px');
 
@@ -1109,15 +1126,17 @@ function setStickyHeight(){
   document.documentElement.style.setProperty('--sticky-h', h + 'px');
 }
 
+/* ✅✅ ВАЖНО: реальная высота и “центр” под телефон */
 function fitIntroVideo(){
   const overlay = document.getElementById('introVideoOverlay');
   if(!overlay) return;
-  try{
-    const h = (window.Telegram && Telegram.WebApp && Telegram.WebApp.viewportHeight)
-      ? Telegram.WebApp.viewportHeight
-      : window.innerHeight;
-    overlay.style.height = h + 'px';
-  }catch(_){}
+
+  const h = (window.Telegram && Telegram.WebApp && Telegram.WebApp.viewportHeight)
+    ? Telegram.WebApp.viewportHeight
+    : (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+
+  overlay.style.height = h + 'px';
+  overlay.style.width = (window.visualViewport ? window.visualViewport.width : window.innerWidth) + 'px';
 }
 
 function refreshLayout(){
@@ -1127,6 +1146,10 @@ function refreshLayout(){
 }
 refreshLayout();
 window.addEventListener('resize', refreshLayout);
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize', refreshLayout);
+  window.visualViewport.addEventListener('scroll', refreshLayout);
+}
 try{ Telegram.WebApp.onEvent('viewportChanged', refreshLayout); }catch(_){}
 
 (function initTheme(){
@@ -1525,7 +1548,6 @@ function renderPopular(){
 function focusItem(id){
   const it = ITEM_INDEX[id];
   if(!it) return;
-  // если item не в текущей категории — переключаем на категорию где он есть
   const found = Object.keys(MENU).find(k => (MENU[k]||[]).some(x=>x.id===id));
   if(found && found !== category){
     category = found;
@@ -1589,7 +1611,6 @@ function setType(t, btn){
   document.querySelectorAll('.types .btn').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
 
-  // адрес нужен только на доставке
   if(type === 'delivery'){
     address.style.display = 'block';
   }else{
@@ -1605,13 +1626,11 @@ function setPayment(p){
   if(p==='click') payClick.classList.add('active');
   if(p==='online') payOnline.classList.add('active');
 
-  // click QR
   if(p==='click'){
     clickQR.classList.add('show');
   }else{
     clickQR.classList.remove('show');
   }
-  // online details
   if(p==='online'){
     onlineDetails.classList.add('show');
     document.getElementById('onlineCardValue').textContent = ONLINE_PAY.card;
@@ -1621,14 +1640,12 @@ function setPayment(p){
   }
 }
 
-/* categories */
 function setCategory(k){
   category = k;
   renderCategories();
   renderProducts();
 }
 
-/* variants */
 function setVariant(id, vk){
   selectedVar[id] = vk;
   renderPopular();
@@ -1636,7 +1653,6 @@ function setVariant(id, vk){
   updateTotals();
 }
 
-/* +/- */
 function incItem(id){
   const vk = vKeyOf(id);
   setQty(id, vk, qtyOf(id, vk) + 1);
@@ -1693,7 +1709,6 @@ function updateTotals(){
     deliveryLine.style.display = 'none';
   }
 
-  // скрывать нижнюю панель если корзина пустая
   const sticky = document.getElementById('stickyCheckout');
   sticky.style.display = t.count > 0 ? '' : 'none';
 }
@@ -1785,20 +1800,18 @@ function sendOrder(){
   try{
     Telegram.WebApp.sendData(JSON.stringify(payload));
     showPopup("✅ Заказ отправлен!");
-    // опционально очищаем корзину
     cart = {};
     updateTotals();
     renderPopular();
     renderProducts();
   }catch(_){
-    // если открыли не в Telegram
     console.log(payload);
     showPopup("⚠️ Откройте в Telegram");
   }
 }
 
 /* ======================
-   INTRO VIDEO
+   INTRO VIDEO (CENTER)
    ====================== */
 function hideIntroVideo(){
   if(!introOverlay) return;
@@ -1843,7 +1856,6 @@ function initIntroVideo(){
    INIT RENDER
    ====================== */
 function initDefaults(){
-  // адрес скрыт на самовывозе
   if(type !== 'delivery') address.style.display = 'none';
   setPayment(payment);
   renderCategories();
