@@ -99,7 +99,6 @@ body{
   justify-content:center;
   position:relative;
   text-align:center;
-  border-bottom: 1px solid rgba(255,255,212,0); /* keep */
   border-bottom: 1px solid rgba(255,212,0,.75);
 }
 
@@ -244,7 +243,7 @@ body{
   border:1px solid rgba(122,15,28,.35);
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
   box-shadow: 0 14px 30px rgba(0,0,0,.46);
-  border-radius:16px;            /* ✅ квадрат */
+  border-radius:16px;
   padding:14px 14px;
   font-weight:900;
   font-size:13px;
@@ -254,7 +253,7 @@ body{
   color:var(--text);
   scroll-snap-align:start;
   min-height:52px;
-  min-width:132px;              /* ✅ “иконки” как плитки */
+  min-width:132px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -290,7 +289,7 @@ body{
 .btn.active{
   background: linear-gradient(135deg, var(--yellow), var(--yellow-2));
   color:#141416;
-  border:1px solid rgba(122,15,28,.95); /* ✅ контур бордовый */
+  border:1px solid rgba(122,15,28,.95);
   box-shadow: 0 14px 30px rgba(255,212,0,.18), 0 12px 26px rgba(0,0,0,.35);
 }
 
@@ -341,7 +340,7 @@ body{
 
 /* ✅✅ ТОЛЬКО ЭТО: увеличили и расширили фото блюд */
 .img{
-  height:156px; /* было 118 */
+  height:156px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -352,7 +351,7 @@ body{
     rgba(0,0,0,.18);
   border:1px solid rgba(122,15,28,.12);
   overflow:hidden;
-  padding:8px;  /* было 14 -> “расширили” */
+  padding:8px;
 }
 .img img{
   width:100%;
@@ -414,7 +413,6 @@ body{
 .price small{font-weight:800;opacity:.78;margin-left:4px;}
 
 .counter{display:flex;justify-content:center;gap:10px;margin-top:8px;align-items:center;}
-/* ✅ бордовые кнопки +/- с белым текстом */
 .counter button{
   width:32px;
   height:32px;
@@ -445,7 +443,6 @@ body{
 
 textarea.input{height:90px;}
 
-/* ✅ Оформить заказ: ярко-желтая + бордовый контур */
 .order-btn{
   width:100%;
   padding:18px;
@@ -539,7 +536,6 @@ textarea.input{height:90px;}
 }
 .copy-btn:active{transform:scale(.98);}
 
-/* ✅ CLICK QR */
 .click-qr{
   margin:10px 0 0;
   padding:10px;
@@ -726,7 +722,7 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
 }
 .sticky-btn:active{transform:scale(.99);}
 
-/* меню sheet */
+/* ✅✅ МЕНЮ sheet (НЕ УДАЛЕНО) */
 .menu-backdrop{
   position:fixed;
   inset:0;
@@ -826,49 +822,38 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
   .payments{gap:8px;}
   .payments .btn{padding:12px 8px; font-size:12.5px;}
   .qbtn{padding:14px 12px; font-size:12.8px; min-height:50px; min-width:126px;}
-  .img{height:150px;} /* мобилка */
+  .img{height:150px;}
   .pop-card{min-width:178px;}
   .pop-img{height:86px;}
 }
 
-/* ===========================
-   ✅ Intro Video Overlay (НЕ растягиваем, размер "как есть", по центру)
-   =========================== */
+/* ✅ Интро-видео: по центру, НЕ растягиваем */
 .intro-video{
   position:fixed;
   inset:0;
   width:100vw;
   height: var(--tg-viewport-height, var(--app-h, 100vh));
   z-index:2000;
-
   background:#000;
   opacity:0;
   pointer-events:none;
   transition:opacity .20s ease;
 
-  /* ✅ центрируем контент */
   display:flex;
   align-items:center;
   justify-content:center;
 
   overflow:hidden;
 }
-.intro-video.show{
-  opacity:1;
-  pointer-events:auto;
-}
+.intro-video.show{opacity:1;pointer-events:auto;}
 
-/* ✅ ВИДЕО НЕ РАСТЯГИВАЕМ */
 .intro-video video{
   width:auto;
   height:auto;
-
   max-width: min(420px, 92vw);
   max-height: min(720px, calc(var(--tg-viewport-height, var(--app-h, 100vh)) - 120px));
-
   object-fit:contain;
   object-position:center center;
-
   display:block;
   border-radius:18px;
   box-shadow: 0 22px 46px rgba(0,0,0,.70);
@@ -917,9 +902,10 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
     <div class="search-btn" onclick="toggleSearch()">🔍</div>
   </div>
 
+  <!-- ✅✅ МЕНЮ BACKDROP -->
   <div class="menu-backdrop" id="menuBackdrop" onclick="closeTopMenu()"></div>
 
-  <!-- ✅✅ МЕНЮ ВОССТАНОВЛЕНО -->
+  <!-- ✅✅ МЕНЮ SHEET (ВОССТАНОВЛЕНО) -->
   <div class="menu-sheet" id="menuSheet">
     <div class="menu-handle"></div>
     <div class="menu-head">
@@ -1008,7 +994,19 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
     <div class="popular-row" id="popularRow"></div>
   </div>
 
-  <div class="quick-filters" id="quickFilters"></div>
+  <!-- ✅✅ КАТЕГОРИИ В HTML (ВОССТАНОВЛЕНЫ, НЕ ПУСТО) -->
+  <div class="quick-filters" id="quickFilters">
+    <button class="qbtn active" data-cat="hotdog" onclick="pickCategory('hotdog',this)">🌭 Hot-dog</button>
+    <button class="qbtn" data-cat="sides" onclick="pickCategory('sides',this)">🍟 Garnirlar</button>
+    <button class="qbtn" data-cat="desserts" onclick="pickCategory('desserts',this)">🍰 Desertlar</button>
+    <button class="qbtn" data-cat="fresh" onclick="pickCategory('fresh',this)">🍊 Fresh</button>
+    <button class="qbtn" data-cat="coffee" onclick="pickCategory('coffee',this)">☕ Kofe</button>
+    <button class="qbtn" data-cat="author_tea" onclick="pickCategory('author_tea',this)">🍵 Muallif choyi</button>
+    <button class="qbtn" data-cat="hot_drinks" onclick="pickCategory('hot_drinks',this)">♨️ Issiq ichimlik</button>
+    <button class="qbtn" data-cat="lemonade" onclick="pickCategory('lemonade',this)">🍋 Limonad</button>
+    <button class="qbtn" data-cat="milkshakes" onclick="pickCategory('milkshakes',this)">🥤 Milkshake</button>
+    <button class="qbtn" data-cat="smoothies" onclick="pickCategory('smoothies',this)">🫐 Smoothie</button>
+  </div>
 
   <div class="types">
     <button class="btn" id="btnDelivery" onclick="setType('delivery',this)"></button>
@@ -1035,7 +1033,6 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
       <button class="btn" id="payOnline" onclick="setPayment('online')"></button>
     </div>
 
-    <!-- ✅ QR показывается только когда payment === 'click' -->
     <div class="click-qr" id="clickQR">
       <img id="clickQrImg" src="images/click_qr_mazza.jpg"
            onerror="this.onerror=null;this.src='click_qr_mazza.jpg';">
@@ -1102,22 +1099,19 @@ const DGIS_ROUTE_URL = "dgis://2gis.ru/routeSearch/rsType/car/to/66.956606,39.65
 
 /* оставил как было */
 const YA_REVIEW_URL = "https://yandex.uz/maps/";
-
-/* ✅ Instagram обновили */
 const INSTAGRAM_URL = "https://www.instagram.com/mazzaa.uz/";
 
+/* ✅ layout */
 function setAppHeight(){
   const h = (window.Telegram && Telegram.WebApp && Telegram.WebApp.viewportHeight)
     ? Telegram.WebApp.viewportHeight
-    : window.innerHeight;
+    : (window.visualViewport ? window.visualViewport.height : window.innerHeight);
 
   document.documentElement.style.setProperty('--app-h', h + 'px');
+  document.documentElement.style.setProperty('--tg-viewport-height', h + 'px');
 
   try{
     if(window.Telegram && Telegram.WebApp){
-      if (Telegram.WebApp.viewportHeight) {
-        document.documentElement.style.setProperty('--tg-viewport-height', Telegram.WebApp.viewportHeight + 'px');
-      }
       const safeBottom = Telegram.WebApp.safeAreaInset?.bottom;
       if (safeBottom != null){
         document.documentElement.style.setProperty('--tg-safe-area-inset-bottom', safeBottom + 'px');
@@ -1125,38 +1119,15 @@ function setAppHeight(){
     }
   }catch(_){}
 }
-
 function setStickyHeight(){
   const el = document.getElementById('stickyCheckout');
   if(!el) return;
   const h = Math.ceil(el.getBoundingClientRect().height || el.offsetHeight || 92);
   document.documentElement.style.setProperty('--sticky-h', h + 'px');
 }
-
-/* ✅✅ FIX: подгон интро-оверлея под реальную высоту + не растягиваем видео */
-function fitIntroVideo(){
-  const overlay = document.getElementById('introVideoOverlay');
-  const video = document.getElementById('introVideo');
-  if(!overlay) return;
-
-  const h = (window.Telegram && Telegram.WebApp && Telegram.WebApp.viewportHeight)
-    ? Telegram.WebApp.viewportHeight
-    : (window.visualViewport ? window.visualViewport.height : window.innerHeight);
-
-  document.documentElement.style.setProperty('--tg-viewport-height', h + 'px');
-  overlay.style.height = h + 'px';
-
-  // ✅ сброс возможных прошлых растяжек
-  if(video){
-    video.style.width = '';
-    video.style.height = '';
-  }
-}
-
 function refreshLayout(){
   setAppHeight();
   setStickyHeight();
-  fitIntroVideo();
 }
 refreshLayout();
 window.addEventListener('resize', refreshLayout);
@@ -1192,7 +1163,6 @@ function callPhone(e){
   try{ window.location.href = tel; }catch(_){}
 }
 
-/* ✅ маршрут: сначала deeplink 2GIS, если не открылся — обычная ссылка 2GIS */
 function openGeoLink(){
   closeTopMenu();
   try{
@@ -1209,6 +1179,7 @@ function openGeoLink(){
   }
 }
 
+/* ✅✅ МЕНЮ: open/close (НЕ УДАЛЕНО) */
 function openTopMenu(){
   try{ closeSearch(); }catch(_){}
   document.getElementById('menuBackdrop').classList.add('show');
@@ -1247,7 +1218,6 @@ let lang='uz', category='hotdog', type='pickup', payment='cash';
 let cart = {};
 let selectedVar = {};
 
-/* ✅ УБРАЛИ 15000: доставка = 0 */
 const DELIVERY_FEE = 0;
 
 const TEXT={
@@ -1256,7 +1226,6 @@ const TEXT={
   en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',online:'💳 Online',results:'Search results',popular:'🔥 Popular',empty:'Cart is empty',deliveryFee:'Delivery',card:'Card number',receiver:'Receiver',copied:'Copied ✅',copy:'Copy',clickQr:'CLICK QR • Receiver: MAZZA', clickQrName:'File: click_qr_mazza.jpg'}
 };
 
-/* ✅ Фото в папке images, расширение .jpg */
 const MENU = {
   hotdog:[
     {id:'french_dog', img:'images/french_dog.jpg', n:{ru:'Френч-дог',uz:'French dog',en:'French Dog'}, v:[{k:'std', t:'', p:20000}]},
@@ -1439,7 +1408,6 @@ function updateTypeFields(){
   deliveryLine.firstChild.textContent = (TEXT[lang].deliveryFee + ': ');
 }
 
-/* ✅✅ при выборе CLICK показываем QR (и пробуем два пути) */
 function updatePaymentUI(){
   onlineDetails.classList.toggle('show', payment === 'online');
   clickQR.classList.toggle('show', payment === 'click');
@@ -1477,36 +1445,7 @@ async function copyOnline(which){
   catch(_){ try{ alert(msg); }catch(__){} }
 }
 
-function setLang(l,b){
-  lang=l;
-  document.querySelectorAll('.langs .btn').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active');
-  applyLang();
-}
-
-function renderQuickFilters(){
-  const keys = ['hotdog','sides','desserts','fresh','coffee','author_tea','hot_drinks','lemonade','milkshakes','smoothies'];
-  const labels = {
-    hotdog:{ru:'🌭 Хот-Доги',uz:'🌭 Hot-dog',en:'🌭 Hot Dogs'},
-    sides:{ru:'🍟 Гарниры',uz:'🍟 Garnirlar',en:'🍟 Sides'},
-    desserts:{ru:'🍰 Десерты',uz:'🍰 Desertlar',en:'🍰 Desserts'},
-    fresh:{ru:'🍊 Фреши',uz:'🍊 Fresh',en:'🍊 Fresh'},
-    coffee:{ru:'☕ Кофе',uz:'☕ Kofe',en:'☕ Coffee'},
-    author_tea:{ru:'🍵 Авторский чай',uz:'🍵 Muallif choyi',en:'🍵 Signature Tea'},
-    hot_drinks:{ru:'♨️ Горячие напитки',uz:'♨️ Issiq ichimlik',en:'♨️ Hot Drinks'},
-    lemonade:{ru:'🍋 Лимонады',uz:'🍋 Limonad',en:'🍋 Lemonade'},
-    milkshakes:{ru:'🥤 Милкшейки',uz:'🥤 Milkshake',en:'🥤 Milkshakes'},
-    smoothies:{ru:'🫐 Смузи',uz:'🫐 Smoothie',en:'🫐 Smoothies'}
-  };
-
-  quickFilters.innerHTML = '';
-  keys.forEach(k=>{
-    if(!MENU[k]) return;
-    const label = (labels[k] && labels[k][lang]) ? labels[k][lang] : k;
-    const active = (k === category) ? 'active' : '';
-    quickFilters.innerHTML += `<button class="qbtn ${active}" data-cat="${k}" onclick="pickCategory('${k}', this)">${label}</button>`;
-  });
-}
+/* ✅ категории: клик */
 function pickCategory(k, btn){
   if(isSearchOpen()) closeSearch();
   category = k;
@@ -1514,11 +1453,19 @@ function pickCategory(k, btn){
   document.querySelectorAll('.qbtn').forEach(x=>x.classList.remove('active'));
   if(btn) btn.classList.add('active');
   else{
-    const el = document.querySelector(\`.qbtn[data-cat="\${k}"]\`);
+    const el = document.querySelector(`.qbtn[data-cat="${k}"]`);
     if(el) el.classList.add('active');
   }
 
   renderProducts();
+}
+
+/* UI */
+function setLang(l,b){
+  lang=l;
+  document.querySelectorAll('.langs .btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  applyLang();
 }
 
 function variantsHTML(it, prefix=''){
@@ -1542,7 +1489,7 @@ function setVariant(e,id,vk,prefix=''){
   const box = document.getElementById(prefix+'vars_'+id);
   if(box){
     box.querySelectorAll('.vbtn').forEach(btn=>btn.classList.remove('active'));
-    const btn = Array.from(box.querySelectorAll('.vbtn')).find(b=>b.getAttribute('onclick')?.includes(\`'\${vk}'\`));
+    const btn = Array.from(box.querySelectorAll('.vbtn')).find(b=>b.getAttribute('onclick')?.includes(`'${vk}'`));
     if(btn) btn.classList.add('active');
   }
 
@@ -1718,15 +1665,14 @@ function applyLang(){
   if(clickQrName) clickQrName.innerText = TEXT[lang].clickQrName || 'Файл: click_qr_mazza.jpg';
 
   renderPopular();
-  renderQuickFilters();
   renderProducts();
   updateTotal();
   updateTypeFields();
   updatePaymentUI();
-
   setTimeout(setStickyHeight, 50);
 }
 
+/* ✅ поиск */
 function isSearchOpen(){ return searchWrap.classList.contains('show'); }
 function toggleSearch(){ if(isSearchOpen()) closeSearch(); else openSearch(); }
 function openSearch(){
@@ -1859,11 +1805,8 @@ function hideIntroVideo(){
   }catch(_){}
 }
 
-/* ✅ видео по центру, без растягивания */
 function initIntroVideo(){
   if(!introOverlay || !introVideo) return;
-
-  fitIntroVideo();
 
   introOverlay.classList.add('show');
   introOverlay.setAttribute('aria-hidden','false');
@@ -1891,27 +1834,13 @@ function initIntroVideo(){
 }
 
 /* init */
-function setStickyHeight(){
-  const el = document.getElementById('stickyCheckout');
-  if(!el) return;
-  const h = Math.ceil(el.getBoundingClientRect().height || el.offsetHeight || 92);
-  document.documentElement.style.setProperty('--sticky-h', h + 'px');
-}
-
 loadSaved();
 bindSave();
 applyLang();
 updateTypeFields();
 updateTotal();
 updatePaymentUI();
-
-/* ✅ запускаем видео при открытии */
 initIntroVideo();
-
-/*
-ВАЖНО (для бота, не для HTML):
-Добавь админа 7674081325 в ADMIN_IDS, чтобы ему тоже приходили заказы.
-*/
 </script>
 </body>
 </html>
