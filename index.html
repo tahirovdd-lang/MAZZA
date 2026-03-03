@@ -829,6 +829,46 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
   .pop-card{min-width:178px;}
   .pop-img{height:86px;}
 }
+
+/* ===========================
+   ✅ ДОБАВЛЕНО: Intro Video Overlay
+   Файл: intro.mp4 (в корне рядом с HTML)
+   =========================== */
+.intro-video{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  background:#000;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .20s ease;
+}
+.intro-video.show{
+  opacity:1;
+  pointer-events:auto;
+}
+.intro-video video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.intro-skip{
+  position:absolute;
+  right:12px;
+  top:12px;
+  z-index:2001;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,212,0,.55);
+  background:rgba(0,0,0,.35);
+  color:rgba(244,242,234,.92);
+  font-weight:900;
+  cursor:pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.intro-skip:active{transform:scale(.98);}
 </style>
 </head>
 
@@ -1013,6 +1053,22 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
     </div>
     <button class="sticky-btn" onclick="openCart()" id="stickyCartBtn">Корзина</button>
   </div>
+</div>
+
+<!-- ===========================
+     ✅ ДОБАВЛЕНО: Видео при открытии
+     Файл: intro.mp4 (в корне)
+     Клик — пропуск
+     =========================== -->
+<div class="intro-video" id="introVideoOverlay" aria-hidden="true">
+  <button class="intro-skip" id="introSkipBtn" type="button">Пропустить</button>
+  <video id="introVideo"
+         playsinline
+         webkit-playsinline
+         muted
+         preload="auto">
+    <source src="intro.mp4" type="video/mp4">
+  </video>
 </div>
 
 <script>
@@ -1310,6 +1366,11 @@ const clickQrCap = document.getElementById('clickQrCap');
 const clickQrName = document.getElementById('clickQrName');
 const clickQrImg = document.getElementById('clickQrImg');
 
+/* ✅ ДОБАВЛЕНО: элементы интро-видео */
+const introOverlay = document.getElementById('introVideoOverlay');
+const introVideo = document.getElementById('introVideo');
+const introSkipBtn = document.getElementById('introSkipBtn');
+
 /* ✅ Онлайн реквизиты */
 const ONLINE_PAY = { card: "9860 1201 5880 6055", receiver: "ZARRUX TOLIBJANOV" };
 
@@ -1389,7 +1450,7 @@ function renderQuickFilters(){
     fresh:{ru:'🍊 Фреши',uz:'🍊 Fresh',en:'🍊 Fresh'},
     coffee:{ru:'☕ Кофе',uz:'☕ Kofe',en:'☕ Coffee'},
     author_tea:{ru:'🍵 Авторский чай',uz:'🍵 Muallif choyi',en:'🍵 Signature Tea'},
-    hot_drinks:{ru:'♨️ Горячие напитки',uz:'♨️ Issiq ichimlik',en:'♨️ Hot Drinks'}, /* ✅ ИЗМЕНЕНО ТОЛЬКО ЗДЕСЬ */
+    hot_drinks:{ru:'♨️ Горячие напитки',uz:'♨️ Issiq ichimlik',en:'♨️ Hot Drinks'},
     lemonade:{ru:'🍋 Лимонады',uz:'🍋 Limonad',en:'🍋 Lemonade'},
     milkshakes:{ru:'🥤 Милкшейки',uz:'🥤 Milkshake',en:'🥤 Milkshakes'},
     smoothies:{ru:'🫐 Смузи',uz:'🫐 Smoothie',en:'🫐 Smoothies'}
@@ -1745,6 +1806,52 @@ function sendOrder(){
   }, 700);
 }
 
+/* ✅ ДОБАВЛЕНО: логика интро-видео */
+function hideIntroVideo(){
+  if(!introOverlay) return;
+  introOverlay.classList.remove('show');
+  introOverlay.setAttribute('aria-hidden','true');
+  try{
+    if(introVideo){ introVideo.pause(); introVideo.currentTime = 0; }
+  }catch(_){}
+}
+
+/* проигрываем при открытии, клик — пропуск, авто-скрытие */
+function initIntroVideo(){
+  if(!introOverlay || !introVideo) return;
+
+  // показываем
+  introOverlay.classList.add('show');
+  introOverlay.setAttribute('aria-hidden','false');
+
+  // попытка autoplay (в TG обычно работает только muted)
+  const playPromise = introVideo.play();
+  if(playPromise && typeof playPromise.then === 'function'){
+    playPromise.catch(()=>{ /* если запретили — просто оставим и можно нажать пропустить */ });
+  }
+
+  // скрыть по окончанию
+  introVideo.addEventListener('ended', hideIntroVideo, { once:true });
+
+  // пропуск
+  if(introSkipBtn){
+    introSkipBtn.addEventListener('click', (e)=>{
+      try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
+      hideIntroVideo();
+    }, { once:false });
+  }
+
+  // клик по видео — пропуск
+  introOverlay.addEventListener('click', (e)=>{
+    // чтобы кнопка работала отдельно
+    if(e && e.target === introSkipBtn) return;
+    hideIntroVideo();
+  });
+
+  // запасной таймер (если видео длинное/зациклено)
+  setTimeout(()=>{ if(introOverlay.classList.contains('show')) hideIntroVideo(); }, 6500);
+}
+
 /* init */
 function setStickyHeight(){
   const el = document.getElementById('stickyCheckout');
@@ -1759,6 +1866,9 @@ applyLang();
 updateTypeFields();
 updateTotal();
 updatePaymentUI();
+
+/* ✅ запускаем видео при открытии */
+initIntroVideo();
 
 /*
 ВАЖНО (для бота, не для HTML):
