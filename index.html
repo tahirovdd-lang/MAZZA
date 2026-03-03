@@ -5,7 +5,7 @@
 <title>MAZZA</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@500;700;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -99,6 +99,7 @@ body{
   justify-content:center;
   position:relative;
   text-align:center;
+  border-bottom: 1px solid rgba(255,255,212,0); /* keep */
   border-bottom: 1px solid rgba(255,212,0,.75);
 }
 
@@ -243,7 +244,7 @@ body{
   border:1px solid rgba(122,15,28,.35);
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
   box-shadow: 0 14px 30px rgba(0,0,0,.46);
-  border-radius:16px;
+  border-radius:16px;            /* ✅ квадрат */
   padding:14px 14px;
   font-weight:900;
   font-size:13px;
@@ -253,7 +254,7 @@ body{
   color:var(--text);
   scroll-snap-align:start;
   min-height:52px;
-  min-width:132px;
+  min-width:132px;              /* ✅ “иконки” как плитки */
   display:flex;
   align-items:center;
   justify-content:center;
@@ -289,7 +290,7 @@ body{
 .btn.active{
   background: linear-gradient(135deg, var(--yellow), var(--yellow-2));
   color:#141416;
-  border:1px solid rgba(122,15,28,.95);
+  border:1px solid rgba(122,15,28,.95); /* ✅ контур бордовый */
   box-shadow: 0 14px 30px rgba(255,212,0,.18), 0 12px 26px rgba(0,0,0,.35);
 }
 
@@ -338,9 +339,9 @@ body{
 }
 .card:active{transform:scale(.99);}
 
-/* ✅✅ фото блюд */
+/* ✅✅ ТОЛЬКО ЭТО: увеличили и расширили фото блюд */
 .img{
-  height:156px;
+  height:156px; /* было 118 */
   display:flex;
   align-items:center;
   justify-content:center;
@@ -351,7 +352,7 @@ body{
     rgba(0,0,0,.18);
   border:1px solid rgba(122,15,28,.12);
   overflow:hidden;
-  padding:8px;
+  padding:8px;  /* было 14 -> “расширили” */
 }
 .img img{
   width:100%;
@@ -413,6 +414,7 @@ body{
 .price small{font-weight:800;opacity:.78;margin-left:4px;}
 
 .counter{display:flex;justify-content:center;gap:10px;margin-top:8px;align-items:center;}
+/* ✅ бордовые кнопки +/- с белым текстом */
 .counter button{
   width:32px;
   height:32px;
@@ -443,6 +445,7 @@ body{
 
 textarea.input{height:90px;}
 
+/* ✅ Оформить заказ: ярко-желтая + бордовый контур */
 .order-btn{
   width:100%;
   padding:18px;
@@ -653,6 +656,7 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
   border-radius:22px;
   filter:saturate(1.15) contrast(1.06) brightness(1.06) drop-shadow(0 12px 18px rgba(0,0,0,.55));
 }
+
 .pop-name{font-weight:900;margin-top:10px; font-size:14px; line-height:1.15; min-height:34px;}
 .pop-price{font-weight:900;color:var(--text);margin-top:6px;}
 .pop-badge{position:absolute;left:12px;top:12px;font-size:18px;pointer-events:none;}
@@ -822,50 +826,52 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
   .payments{gap:8px;}
   .payments .btn{padding:12px 8px; font-size:12.5px;}
   .qbtn{padding:14px 12px; font-size:12.8px; min-height:50px; min-width:126px;}
-  .img{height:150px;}
+  .img{height:150px;} /* мобилка */
   .pop-card{min-width:178px;}
   .pop-img{height:86px;}
 }
 
 /* ===========================
-   ✅ FIX: Intro Video Overlay (ЦЕНТР ПО ТЕЛЕФОНУ)
+   ✅ Intro Video Overlay (НЕ растягиваем, размер "как есть", по центру)
    =========================== */
 .intro-video{
   position:fixed;
-  left:0; right:0; top:0;
+  inset:0;
   width:100vw;
   height: var(--tg-viewport-height, var(--app-h, 100vh));
   z-index:2000;
+
   background:#000;
   opacity:0;
   pointer-events:none;
   transition:opacity .20s ease;
+
+  /* ✅ центрируем контент */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
   overflow:hidden;
-  /* ✅ чтобы точно не дергалось */
-  contain: layout paint size;
 }
 .intro-video.show{
   opacity:1;
   pointer-events:auto;
 }
 
-/* ✅✅ ВАЖНО: центрируем VIDEO абсолютом */
+/* ✅ ВИДЕО НЕ РАСТЯГИВАЕМ */
 .intro-video video{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-
-  /* чтобы cover работал стабильно в TG/iOS */
-  min-width:100%;
-  min-height:100%;
   width:auto;
   height:auto;
 
-  /* fallback */
-  object-fit:cover;
+  max-width: min(420px, 92vw);
+  max-height: min(720px, calc(var(--tg-viewport-height, var(--app-h, 100vh)) - 120px));
+
+  object-fit:contain;
   object-position:center center;
+
   display:block;
+  border-radius:18px;
+  box-shadow: 0 22px 46px rgba(0,0,0,.70);
 }
 
 .intro-skip{
@@ -913,7 +919,7 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
 
   <div class="menu-backdrop" id="menuBackdrop" onclick="closeTopMenu()"></div>
 
-  <!-- ✅✅ МЕНЮ НЕ УДАЛЯЛ -->
+  <!-- ✅✅ МЕНЮ ВОССТАНОВЛЕНО -->
   <div class="menu-sheet" id="menuSheet">
     <div class="menu-handle"></div>
     <div class="menu-head">
@@ -1029,8 +1035,10 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
       <button class="btn" id="payOnline" onclick="setPayment('online')"></button>
     </div>
 
+    <!-- ✅ QR показывается только когда payment === 'click' -->
     <div class="click-qr" id="clickQR">
-      <img id="clickQrImg" src="images/click_qr_mazza.jpg" onerror="this.onerror=null;this.src='click_qr_mazza.jpg';">
+      <img id="clickQrImg" src="images/click_qr_mazza.jpg"
+           onerror="this.onerror=null;this.src='click_qr_mazza.jpg';">
       <div class="qr-cap" id="clickQrCap">CLICK QR • Получатель: MAZZA</div>
       <div class="qr-name" id="clickQrName">Файл: click_qr_mazza.jpg</div>
     </div>
@@ -1057,7 +1065,7 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
   </div>
 </div>
 
-<div class="popup" id="popup"><div class="popup-box" id="popupBoxText">✅ Заказ принят!</div></div>
+<div class="popup" id="popup"><div class="popup-box">✅ Заказ принят!</div></div>
 
 <div class="sticky-checkout" id="stickyCheckout">
   <div class="sticky-inner">
@@ -1071,20 +1079,22 @@ mark{background:rgba(255,212,0,.28);padding:0 .12em;border-radius:6px;color:var(
 <!-- ✅ Видео при открытии -->
 <div class="intro-video" id="introVideoOverlay" aria-hidden="true">
   <button class="intro-skip" id="introSkipBtn" type="button">Пропустить</button>
-  <video id="introVideo" playsinline webkit-playsinline muted preload="auto">
+  <video id="introVideo"
+         playsinline
+         webkit-playsinline
+         muted
+         preload="auto">
     <source src="intro.mp4" type="video/mp4">
   </video>
 </div>
 
 <script>
-/* ======================
-   TG INIT
-   ====================== */
 Telegram.WebApp.ready();
+
 try{
   Telegram.WebApp.expand();
   Telegram.WebApp.disableVerticalSwipes?.();
-}catch(_){}
+} catch(_){}
 
 /* ✅ Геолокация: 2GIS + deeplink маршрута */
 const YA_MAP_URL = "https://2gis.uz/samarkand/firm/70000001111185893?m=66.956606%2C39.652337%2F16";
@@ -1093,16 +1103,13 @@ const DGIS_ROUTE_URL = "dgis://2gis.ru/routeSearch/rsType/car/to/66.956606,39.65
 /* оставил как было */
 const YA_REVIEW_URL = "https://yandex.uz/maps/";
 
-/* ✅ Instagram */
+/* ✅ Instagram обновили */
 const INSTAGRAM_URL = "https://www.instagram.com/mazzaa.uz/";
 
-/* ======================
-   LAYOUT FIXES
-   ====================== */
 function setAppHeight(){
   const h = (window.Telegram && Telegram.WebApp && Telegram.WebApp.viewportHeight)
     ? Telegram.WebApp.viewportHeight
-    : (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+    : window.innerHeight;
 
   document.documentElement.style.setProperty('--app-h', h + 'px');
 
@@ -1126,17 +1133,24 @@ function setStickyHeight(){
   document.documentElement.style.setProperty('--sticky-h', h + 'px');
 }
 
-/* ✅✅ ВАЖНО: реальная высота и “центр” под телефон */
+/* ✅✅ FIX: подгон интро-оверлея под реальную высоту + не растягиваем видео */
 function fitIntroVideo(){
   const overlay = document.getElementById('introVideoOverlay');
+  const video = document.getElementById('introVideo');
   if(!overlay) return;
 
   const h = (window.Telegram && Telegram.WebApp && Telegram.WebApp.viewportHeight)
     ? Telegram.WebApp.viewportHeight
     : (window.visualViewport ? window.visualViewport.height : window.innerHeight);
 
+  document.documentElement.style.setProperty('--tg-viewport-height', h + 'px');
   overlay.style.height = h + 'px';
-  overlay.style.width = (window.visualViewport ? window.visualViewport.width : window.innerWidth) + 'px';
+
+  // ✅ сброс возможных прошлых растяжек
+  if(video){
+    video.style.width = '';
+    video.style.height = '';
+  }
 }
 
 function refreshLayout(){
@@ -1146,11 +1160,7 @@ function refreshLayout(){
 }
 refreshLayout();
 window.addEventListener('resize', refreshLayout);
-if(window.visualViewport){
-  window.visualViewport.addEventListener('resize', refreshLayout);
-  window.visualViewport.addEventListener('scroll', refreshLayout);
-}
-try{ Telegram.WebApp.onEvent('viewportChanged', refreshLayout); }catch(_){}
+try{ Telegram.WebApp.onEvent('viewportChanged', refreshLayout); } catch(_){}
 
 (function initTheme(){
   document.body.setAttribute('data-theme','dark');
@@ -1160,9 +1170,6 @@ try{ Telegram.WebApp.onEvent('viewportChanged', refreshLayout); }catch(_){}
   }catch(_){}
 })();
 
-/* ======================
-   HELPERS
-   ====================== */
 function openLinkSafe(url){
   try{
     if (window.Telegram && Telegram.WebApp && typeof Telegram.WebApp.openLink === "function"){
@@ -1185,6 +1192,7 @@ function callPhone(e){
   try{ window.location.href = tel; }catch(_){}
 }
 
+/* ✅ маршрут: сначала deeplink 2GIS, если не открылся — обычная ссылка 2GIS */
 function openGeoLink(){
   closeTopMenu();
   try{
@@ -1201,9 +1209,6 @@ function openGeoLink(){
   }
 }
 
-/* ======================
-   TOP MENU
-   ====================== */
 function openTopMenu(){
   try{ closeSearch(); }catch(_){}
   document.getElementById('menuBackdrop').classList.add('show');
@@ -1213,6 +1218,7 @@ function closeTopMenu(){
   document.getElementById('menuBackdrop').classList.remove('show');
   document.getElementById('menuSheet').classList.remove('show');
 }
+
 function openYandexReviews(e){
   try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
   closeTopMenu();
@@ -1223,6 +1229,7 @@ function openInstagram(e){
   closeTopMenu();
   openLinkSafe(INSTAGRAM_URL);
 }
+
 function openAbout(){
   closeTopMenu();
   document.getElementById('aboutModal').classList.add('show');
@@ -1230,9 +1237,7 @@ function openAbout(){
 function closeAbout(){ document.getElementById('aboutModal').classList.remove('show'); }
 function aboutBackdropClick(e){ if(e.target && e.target.id === 'aboutModal') closeAbout(); }
 
-/* ======================
-   DATA
-   ====================== */
+/* ---------- DATA ---------- */
 const tgUser = Telegram.WebApp.initDataUnsafe?.user || {};
 const tg_username = tgUser.username || "";
 const tg_first_name = tgUser.first_name || "";
@@ -1242,14 +1247,16 @@ let lang='uz', category='hotdog', type='pickup', payment='cash';
 let cart = {};
 let selectedVar = {};
 
+/* ✅ УБРАЛИ 15000: доставка = 0 */
 const DELIVERY_FEE = 0;
 
 const TEXT={
-  ru:{delivery:'🚚 Доставка',pickup:'🏃 Самовывоз',address:'📍 Адрес доставки',phone:'📞 Телефон',cart:'🛒 Корзина',order:'Оформить заказ',comment:'✍️ Комментарий к заказу',cash:'💵 Наличные',click:'💳 Безнал (CLICK)',online:'💳 Онлайн',results:'Результаты поиска',popular:'🔥 Популярное',empty:'Корзина пустая',deliveryFee:'Доставка',card:'Номер карты',receiver:'Получатель',copied:'Скопировано ✅',copy:'Копировать',needPhone:'Введите номер телефона',needAddress:'Введите адрес доставки',needItems:'Добавьте товары в корзину'},
-  uz:{delivery:'🚚 Yetkazish',pickup:'🏃 Olib ketish',address:'📍 Manzil',phone:'📞 Telefon',cart:'🛒 Savat',order:'Buyurtma berish',comment:'✍️ Izoh',cash:'💵 Naqd',click:'💳 CLICK',online:'💳 Online',results:'Qidiruv natijalari',popular:'🔥 Ommabop',empty:"Savat bo‘sh",deliveryFee:'Yetkazish',card:'Karta raqami',receiver:'Qabul qiluvchi',copied:'Nusxa olindi ✅',copy:'Nusxa',needPhone:'Telefon raqamini kiriting',needAddress:'Manzilni kiriting',needItems:"Savatga mahsulot qo‘shing"},
-  en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',online:'💳 Online',results:'Search results',popular:'🔥 Popular',empty:'Cart is empty',deliveryFee:'Delivery',card:'Card number',receiver:'Receiver',copied:'Copied ✅',copy:'Copy',needPhone:'Enter phone number',needAddress:'Enter delivery address',needItems:'Add items to cart'}
+  ru:{delivery:'🚚 Доставка',pickup:'🏃 Самовывоз',address:'📍 Адрес доставки',phone:'📞 Телефон',cart:'🛒 Корзина',order:'Оформить заказ',comment:'✍️ Комментарий к заказу',cash:'💵 Наличные',click:'💳 Безнал (CLICK)',online:'💳 Онлайн',results:'Результаты поиска',popular:'🔥 Популярное',empty:'Корзина пустая',deliveryFee:'Доставка',card:'Номер карты',receiver:'Получатель',copied:'Скопировано ✅',copy:'Копировать',clickQr:'CLICK QR • Получатель: MAZZA', clickQrName:'Файл: click_qr_mazza.jpg'},
+  uz:{delivery:'🚚 Yetkazish',pickup:'🏃 Olib ketish',address:'📍 Manzil',phone:'📞 Telefon',cart:'🛒 Savat',order:'Buyurtma berish',comment:'✍️ Izoh',cash:'💵 Naqd',click:'💳 CLICK',online:'💳 Online',results:'Qidiruv natijalari',popular:'🔥 Ommabop',empty:"Savat bo‘sh",deliveryFee:'Yetkazish',card:'Karta raqami',receiver:'Qabul qiluvchi',copied:'Nusxa olindi ✅',copy:'Nusxa',clickQr:'CLICK QR • Qabul qiluvchi: MAZZA', clickQrName:'Fayl: click_qr_mazza.jpg'},
+  en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',online:'💳 Online',results:'Search results',popular:'🔥 Popular',empty:'Cart is empty',deliveryFee:'Delivery',card:'Card number',receiver:'Receiver',copied:'Copied ✅',copy:'Copy',clickQr:'CLICK QR • Receiver: MAZZA', clickQrName:'File: click_qr_mazza.jpg'}
 };
 
+/* ✅ Фото в папке images, расширение .jpg */
 const MENU = {
   hotdog:[
     {id:'french_dog', img:'images/french_dog.jpg', n:{ru:'Френч-дог',uz:'French dog',en:'French Dog'}, v:[{k:'std', t:'', p:20000}]},
@@ -1300,7 +1307,7 @@ const MENU = {
     {id:'vanilla_milkshake', img:'images/vanilla_milkshake.jpg', n:{ru:'Милкшейк ванильный',uz:'Vanil milkshake',en:'Vanilla Milkshake'}, v:[{k:'05', t:'0.5L', p:20000},{k:'07', t:'0.7L', p:25000}]}
   ],
   smoothies:[
-    {id:'blueberry_smoothie', img:'images/blueberry_smoothie.jpg', n:{ru:'Смузи черника',uz:"Ko‘k meva smoothie",en:'Blueberry Smoothie'}, v:[{k:'05', t:'0.5L', p:35000}]},
+    {id:'blueberry_smoothie', img:'images/blueberry_smoothie.jpg', n:{ru:'Смузи черника',uz:'Ko‘k meva smoothie',en:'Blueberry Smoothie'}, v:[{k:'05', t:'0.5L', p:35000}]},
     {id:'strawberry_smoothie', img:'images/strawberry_smoothie.jpg', n:{ru:'Смузи клубника',uz:'Qulupnay smoothie',en:'Strawberry Smoothie'}, v:[{k:'05', t:'0.5L', p:35000}]},
     {id:'raspberry_smoothie', img:'images/raspberry_smoothie.jpg', n:{ru:'Смузи малина',uz:'Malina smoothie',en:'Raspberry Smoothie'}, v:[{k:'05', t:'0.5L', p:35000}]}
   ],
@@ -1319,9 +1326,6 @@ const POPULAR = ['hotdog_classic','latte','strawberry_mojito','sea_buckthorn_tea
 const ITEM_INDEX = {};
 for (const c in MENU){ (MENU[c]||[]).forEach(it => { ITEM_INDEX[it.id] = it; }); }
 
-/* ======================
-   CART HELPERS
-   ====================== */
 function defaultVKey(it){ return (!it||!it.v||!it.v.length) ? 'std' : it.v[0].k; }
 function vKeyOf(id){
   const it = ITEM_INDEX[id];
@@ -1333,11 +1337,7 @@ function vKeyOf(id){
 }
 function cartKey(id, vk){ return id + "__" + (vk || 'std'); }
 function qtyOf(id, vk){ return Number(cart[cartKey(id,vk)] || 0); }
-function setQty(id, vk, q){
-  const k = cartKey(id, vk);
-  const v = Math.max(0, Number(q||0));
-  if(v<=0) delete cart[k]; else cart[k] = v;
-}
+function setQty(id, vk, q){ cart[cartKey(id,vk)] = Math.max(0, Number(q||0)); }
 function sumQtyById(id){
   const it = ITEM_INDEX[id];
   if(!it || !it.v) return 0;
@@ -1375,9 +1375,7 @@ function highlight(name, q){
   return `${n.slice(0,idx)}<mark>${n.slice(idx, idx+q.length)}</mark>${n.slice(idx+q.length)}`;
 }
 
-/* ======================
-   ELEMENTS
-   ====================== */
+/* элементы */
 const address = document.getElementById('address');
 const phone = document.getElementById('phone');
 const btnDelivery = document.getElementById('btnDelivery');
@@ -1404,7 +1402,6 @@ const popularRow = document.getElementById('popularRow');
 const cartBox = document.getElementById('cartBox');
 const stickyCartBtn = document.getElementById('stickyCartBtn');
 const popup = document.getElementById('popup');
-const popupBoxText = document.getElementById('popupBoxText');
 const deliveryLine = document.getElementById('deliveryLine');
 const deliveryFee = document.getElementById('deliveryFee');
 const clickQR = document.getElementById('clickQR');
@@ -1412,407 +1409,447 @@ const clickQrCap = document.getElementById('clickQrCap');
 const clickQrName = document.getElementById('clickQrName');
 const clickQrImg = document.getElementById('clickQrImg');
 
-/* intro video */
+/* ✅ элементы интро-видео */
 const introOverlay = document.getElementById('introVideoOverlay');
 const introVideo = document.getElementById('introVideo');
 const introSkipBtn = document.getElementById('introSkipBtn');
 
-/* online pay */
+/* ✅ Онлайн реквизиты */
 const ONLINE_PAY = { card: "9860 1201 5880 6055", receiver: "ZARRUX TOLIBJANOV" };
 
-/* ======================
-   UI TEXT INIT
-   ====================== */
-function applyTexts(){
-  btnDelivery.textContent = TEXT[lang].delivery;
-  btnPickup.textContent = TEXT[lang].pickup;
-  address.placeholder = TEXT[lang].address;
-  phone.placeholder = TEXT[lang].phone;
-  cartTitle.textContent = TEXT[lang].cart;
-  orderBtn.textContent = TEXT[lang].order;
-  comment.placeholder = TEXT[lang].comment;
-  payCash.textContent = TEXT[lang].cash;
-  payClick.textContent = TEXT[lang].click;
-  payOnline.textContent = TEXT[lang].online;
-  searchTitle.textContent = TEXT[lang].results;
-  popularTitle.textContent = TEXT[lang].popular;
-  deliveryFee.textContent = formatSum(DELIVERY_FEE);
-  onlineCardLabel.textContent = TEXT[lang].card;
-  onlineNameLabel.textContent = TEXT[lang].receiver;
+function loadSaved(){
+  const a = localStorage.getItem('mazza_address') || '';
+  const p = localStorage.getItem('mazza_phone') || '';
+  if(a && !address.value) address.value = a;
+  if(p && !phone.value) phone.value = p;
 }
-applyTexts();
+function bindSave(){
+  address.addEventListener('input', ()=>localStorage.setItem('mazza_address', address.value));
+  phone.addEventListener('input', ()=>localStorage.setItem('mazza_phone', phone.value));
+}
+function getDeliveryFee(){ return (type === 'delivery') ? DELIVERY_FEE : 0; }
 
-/* ======================
-   CATEGORIES
-   ====================== */
-const CATEGORY_LABELS = {
-  hotdog:{ru:'Хот-доги', uz:"Hot-dog", en:'Hot dogs'},
-  sides:{ru:'Закуски', uz:'Snacks', en:'Sides'},
-  desserts:{ru:'Десерты', uz:'Desert', en:'Desserts'},
-  fresh:{ru:'Фреши', uz:'Fresh', en:'Fresh juices'},
-  coffee:{ru:'Кофе', uz:'Kofe', en:'Coffee'},
-  hot_drinks:{ru:'Горячие напитки', uz:"Issiq ichimlik", en:'Hot drinks'},
-  lemonade:{ru:'Лимонады', uz:'Limonad', en:'Lemonades'},
-  milkshakes:{ru:'Милкшейки', uz:'Milkshake', en:'Milkshakes'},
-  smoothies:{ru:'Смузи', uz:'Smoothie', en:'Smoothies'},
-  author_tea:{ru:'Авторский чай', uz:"Muallif choyi", en:'Signature tea'}
-};
+function updateTypeFields(){
+  if(type === 'pickup'){ address.style.display = 'none'; address.value = ''; }
+  else{ address.style.display = 'block'; }
 
-function categoryName(key){
-  const obj = CATEGORY_LABELS[key];
-  if(!obj) return key;
-  return obj[lang] || obj.ru || key;
+  const fee = getDeliveryFee();
+  deliveryFee.innerText = formatSum(DELIVERY_FEE);
+  deliveryLine.style.display = fee > 0 ? 'block' : 'none';
+  deliveryLine.firstChild.textContent = (TEXT[lang].deliveryFee + ': ');
 }
 
-function renderCategories(){
-  const keys = Object.keys(MENU);
-  quickFilters.innerHTML = keys.map(k=>{
-    const is = (k===category) ? 'active' : '';
-    return `<button class="qbtn ${is}" onclick="setCategory('${k}',this)">${escapeHtml(categoryName(k))}</button>`;
-  }).join('');
-}
+/* ✅✅ при выборе CLICK показываем QR (и пробуем два пути) */
+function updatePaymentUI(){
+  onlineDetails.classList.toggle('show', payment === 'online');
+  clickQR.classList.toggle('show', payment === 'click');
 
-/* ======================
-   RENDER PRODUCTS
-   ====================== */
-function renderProducts(list){
-  const arr = list || (MENU[category] || []);
-  const q = (searchInput.value || '').trim();
-
-  products.innerHTML = arr.map(it=>{
-    const vk = vKeyOf(it.id);
-    const qty = qtyOf(it.id, vk);
-    const price = priceOf(it.id, vk);
-
-    const variantsHtml = (it.v && it.v.length>1)
-      ? `<div class="variants">${
-          it.v.map(v=>{
-            const act = (v.k===vk) ? 'active' : '';
-            const label = v.t ? v.t : v.k;
-            return `<button class="vbtn ${act}" onclick="setVariant('${it.id}','${v.k}')">${escapeHtml(label)}</button>`;
-          }).join('')
-        }</div>`
-      : `<div class="variants" style="height:30px"></div>`;
-
-    const volLabel = volLabelOf(it.id, vk);
-    const small = volLabel ? `<small>${escapeHtml(volLabel)}</small>` : '';
-
-    return `
-      <div class="card">
-        <div class="img"><img src="${escapeHtml(it.img)}" alt=""></div>
-        ${variantsHtml}
-        <div class="item-name">${highlight(nameOf(it.id), q)}</div>
-        <div class="price">${formatSum(price)} ${small}</div>
-        <div class="counter">
-          <button onclick="decItem('${it.id}')">−</button>
-          <span style="min-width:22px;font-weight:900;">${qty}</span>
-          <button onclick="incItem('${it.id}')">+</button>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-/* ======================
-   POPULAR
-   ====================== */
-function renderPopular(){
-  const items = POPULAR.map(id=>ITEM_INDEX[id]).filter(Boolean);
-  if(!items.length){
-    popularWrap.style.display = 'none';
-    return;
+  if (payment === 'click' && clickQrImg){
+    clickQrImg.style.display = 'block';
+    clickQrImg.src = 'images/click_qr_mazza.jpg';
   }
-  popularWrap.style.display = '';
-  popularRow.innerHTML = items.map(it=>{
-    const vk = vKeyOf(it.id);
-    const qty = qtyOf(it.id, vk);
-    const price = priceOf(it.id, vk);
-    const volLabel = volLabelOf(it.id, vk);
-    const small = volLabel ? ` <small>${escapeHtml(volLabel)}</small>` : '';
-    return `
-      <div class="pop-card" onclick="focusItem('${it.id}')">
-        <div class="pop-badge">🔥</div>
-        <div class="pop-img"><img src="${escapeHtml(it.img)}" alt=""></div>
-        <div class="pop-name">${escapeHtml(nameOf(it.id))}</div>
-        <div class="pop-price">${formatSum(price)}${small}</div>
-        <div class="pop-counter" onclick="event.stopPropagation()">
-          <button onclick="decItem('${it.id}')">−</button>
-          <span>${qty}</span>
-          <button onclick="incItem('${it.id}')">+</button>
-        </div>
-      </div>
-    `;
-  }).join('');
+
+  if(clickQrCap) clickQrCap.innerText = TEXT[lang].clickQr || 'CLICK QR';
+  if(clickQrName) clickQrName.innerText = TEXT[lang].clickQrName || 'Файл: click_qr_mazza.jpg';
 }
 
-function focusItem(id){
-  const it = ITEM_INDEX[id];
-  if(!it) return;
-  const found = Object.keys(MENU).find(k => (MENU[k]||[]).some(x=>x.id===id));
-  if(found && found !== category){
-    category = found;
-    renderCategories();
-    renderProducts();
-  }
-  window.scrollTo({ top: document.querySelector('.products')?.offsetTop || 0, behavior:'smooth' });
+async function copyTextToClipboard(txt){
+  const t = String(txt || '').trim();
+  if(!t) return false;
+  try{
+    if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(t); return true; }
+  }catch(_){}
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = t; ta.style.position = 'fixed'; ta.style.left = '-9999px'; ta.style.top = '0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return !!ok;
+  }catch(_){}
+  return false;
+}
+async function copyOnline(which){
+  const value = (which === 'card') ? ONLINE_PAY.card : ONLINE_PAY.receiver;
+  const ok = await copyTextToClipboard(value);
+  const msg = ok ? (TEXT[lang].copied || 'Скопировано ✅') : 'Не удалось скопировать';
+  try{ Telegram.WebApp.showPopup?.({ title: 'OK', message: msg, buttons:[{id:'ok', type:'ok'}] }); }
+  catch(_){ try{ alert(msg); }catch(__){} }
 }
 
-/* ======================
-   SEARCH
-   ====================== */
-function toggleSearch(){
-  const isOpen = searchWrap.classList.contains('show');
-  if(isOpen) closeSearch();
+function setLang(l,b){
+  lang=l;
+  document.querySelectorAll('.langs .btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  applyLang();
+}
+
+function renderQuickFilters(){
+  const keys = ['hotdog','sides','desserts','fresh','coffee','author_tea','hot_drinks','lemonade','milkshakes','smoothies'];
+  const labels = {
+    hotdog:{ru:'🌭 Хот-Доги',uz:'🌭 Hot-dog',en:'🌭 Hot Dogs'},
+    sides:{ru:'🍟 Гарниры',uz:'🍟 Garnirlar',en:'🍟 Sides'},
+    desserts:{ru:'🍰 Десерты',uz:'🍰 Desertlar',en:'🍰 Desserts'},
+    fresh:{ru:'🍊 Фреши',uz:'🍊 Fresh',en:'🍊 Fresh'},
+    coffee:{ru:'☕ Кофе',uz:'☕ Kofe',en:'☕ Coffee'},
+    author_tea:{ru:'🍵 Авторский чай',uz:'🍵 Muallif choyi',en:'🍵 Signature Tea'},
+    hot_drinks:{ru:'♨️ Горячие напитки',uz:'♨️ Issiq ichimlik',en:'♨️ Hot Drinks'},
+    lemonade:{ru:'🍋 Лимонады',uz:'🍋 Limonad',en:'🍋 Lemonade'},
+    milkshakes:{ru:'🥤 Милкшейки',uz:'🥤 Milkshake',en:'🥤 Milkshakes'},
+    smoothies:{ru:'🫐 Смузи',uz:'🫐 Smoothie',en:'🫐 Smoothies'}
+  };
+
+  quickFilters.innerHTML = '';
+  keys.forEach(k=>{
+    if(!MENU[k]) return;
+    const label = (labels[k] && labels[k][lang]) ? labels[k][lang] : k;
+    const active = (k === category) ? 'active' : '';
+    quickFilters.innerHTML += `<button class="qbtn ${active}" data-cat="${k}" onclick="pickCategory('${k}', this)">${label}</button>`;
+  });
+}
+function pickCategory(k, btn){
+  if(isSearchOpen()) closeSearch();
+  category = k;
+
+  document.querySelectorAll('.qbtn').forEach(x=>x.classList.remove('active'));
+  if(btn) btn.classList.add('active');
   else{
-    searchWrap.classList.add('show');
-    searchTitle.classList.add('show');
-    setTimeout(()=>searchInput?.focus(), 50);
+    const el = document.querySelector(\`.qbtn[data-cat="\${k}"]\`);
+    if(el) el.classList.add('active');
   }
+
+  renderProducts();
+}
+
+function variantsHTML(it, prefix=''){
+  if(!it.v || it.v.length <= 1) return '';
+  const id = it.id;
+  const vk = vKeyOf(id);
+
+  return `<div class="variants" id="${prefix}vars_${id}">
+    ${it.v.map(v=>{
+      const active = (v.k === vk) ? 'active' : '';
+      const cap = v.t ? escapeHtml(v.t) : 'STD';
+      return `<button type="button" class="vbtn ${active}" onclick="setVariant(event,'${id}','${v.k}','${prefix}')">${cap}</button>`;
+    }).join('')}
+  </div>`;
+}
+
+function setVariant(e,id,vk,prefix=''){
+  if(e){ e.preventDefault(); e.stopPropagation(); }
+  selectedVar[id] = vk;
+
+  const box = document.getElementById(prefix+'vars_'+id);
+  if(box){
+    box.querySelectorAll('.vbtn').forEach(btn=>btn.classList.remove('active'));
+    const btn = Array.from(box.querySelectorAll('.vbtn')).find(b=>b.getAttribute('onclick')?.includes(\`'\${vk}'\`));
+    if(btn) btn.classList.add('active');
+  }
+
+  updateCardUI(id, prefix);
+  updateTotal();
+  syncPopularCounters();
+}
+
+function updateCardUI(id, prefix=''){
+  const vk = vKeyOf(id);
+  const p = priceOf(id, vk);
+  const priceEl = document.getElementById(prefix+'pr_'+id);
+  if(priceEl) priceEl.innerHTML = `${formatSum(p)} <small>сум</small>`;
+
+  const cEl = document.getElementById(prefix+'c_'+id);
+  if(cEl) cEl.innerText = qtyOf(id, vk) || 0;
+}
+
+function cardHTML(it, q=''){
+  const id = it.id;
+  const nm = highlight(nameOf(id), q);
+  const vk = vKeyOf(id);
+  const p = priceOf(id, vk);
+  const qty = qtyOf(id, vk);
+
+  return `<div class="card">
+    <div class="img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
+    ${variantsHTML(it,'')}
+    <div class="item-name">${nm}</div>
+    <div class="price" id="pr_${id}">${formatSum(p)} <small>сум</small></div>
+    <div class="counter">
+      <button type="button" onclick="chg('${id}',-1)">−</button>
+      <span id="c_${id}">${qty}</span>
+      <button type="button" onclick="chg('${id}',1)">+</button>
+    </div>
+  </div>`;
+}
+
+function renderProducts(){
+  products.innerHTML='';
+  (MENU[category] || []).forEach((it)=>{
+    vKeyOf(it.id);
+    products.innerHTML += cardHTML(it,'');
+  });
+}
+
+function renderPopular(){
+  popularRow.innerHTML = '';
+  POPULAR.forEach((id)=>{
+    const it = ITEM_INDEX[id];
+    if(!it) return;
+
+    vKeyOf(id);
+
+    const vk = vKeyOf(id);
+    const p = priceOf(id, vk);
+    const qtySum = sumQtyById(id);
+
+    popularRow.innerHTML += `
+      <div class="pop-card" onclick="onPopularCardClick(event,'${id}')">
+        <div class="pop-badge">🔥</div>
+        <div class="pop-img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
+
+        ${variantsHTML(it,'p_')}
+
+        <div class="pop-name">${escapeHtml(nameOf(id))}</div>
+        <div class="pop-price" id="p_pr_${id}">${formatSum(p)} <small>сум</small></div>
+
+        <div class="pop-counter">
+          <button type="button" onclick="popChg(event,'${id}',-1)">−</button>
+          <span id="pc_${id}">${qtySum||0}</span>
+          <button type="button" onclick="popChg(event,'${id}',1)">+</button>
+        </div>
+      </div>
+    `;
+    setTimeout(()=>updateCardUI(id,'p_'), 0);
+  });
+}
+
+function onPopularCardClick(e,id){
+  if(e && e.target && e.target.closest && (e.target.closest('button'))) return;
+  chg(id, 1);
+  if(isSearchOpen()) closeSearch();
+}
+function popChg(e,id,delta){
+  if(e){ e.preventDefault(); e.stopPropagation(); }
+  chg(id, delta);
+  if(isSearchOpen()) closeSearch();
+}
+
+function chg(id,delta){
+  const vk = vKeyOf(id);
+  setQty(id, vk, qtyOf(id, vk) + delta);
+
+  updateCardUI(id,'');
+  updateCardUI(id,'p_');
+
+  updateTotal();
+  syncPopularCounters();
+}
+
+function syncPopularCounters(){
+  POPULAR.forEach((id)=>{
+    const el = document.getElementById('pc_'+id);
+    if(el) el.innerText = sumQtyById(id) || 0;
+  });
+}
+
+function calcItemsSum(){
+  let s=0;
+  for(const key in cart){
+    const qty = Number(cart[key]||0);
+    if(qty<=0) continue;
+    const parts = key.split('__');
+    const id = parts[0];
+    const vk = parts[1] || 'std';
+    s += qty * priceOf(id, vk);
+  }
+  return s;
+}
+function updateTotal(){
+  const grand = calcItemsSum() + getDeliveryFee();
+  total.innerText = formatSum(grand);
+  if(stickyTotal) stickyTotal.innerText = formatSum(grand);
+  updateTypeFields();
+}
+
+function setType(t,b){
+  if(isSearchOpen()) closeSearch();
+  type=t;
+  document.querySelectorAll('.types .btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  updateTypeFields();
+  updateTotal();
+}
+
+function setPayment(p){
+  payment=p;
+  payCash.classList.toggle('active',p==='cash');
+  payClick.classList.toggle('active',p==='click');
+  payOnline.classList.toggle('active',p==='online');
+  updatePaymentUI();
+}
+
+function applyLang(){
+  btnDelivery.innerText=TEXT[lang].delivery;
+  btnPickup.innerText=TEXT[lang].pickup;
+  address.placeholder=TEXT[lang].address;
+  phone.placeholder=TEXT[lang].phone;
+  cartTitle.innerText=TEXT[lang].cart;
+  orderBtn.innerText=TEXT[lang].order;
+  comment.placeholder=TEXT[lang].comment;
+
+  payCash.innerText=TEXT[lang].cash;
+  payClick.innerText=TEXT[lang].click;
+  payOnline.innerText=TEXT[lang].online;
+
+  onlineCardLabel.innerText = TEXT[lang].card;
+  onlineNameLabel.innerText = TEXT[lang].receiver;
+
+  document.querySelectorAll('.copy-btn').forEach(btn=>{
+    btn.innerText = TEXT[lang].copy || 'Копировать';
+  });
+
+  searchTitle.innerText = TEXT[lang].results;
+  popularTitle.innerText = TEXT[lang].popular;
+  stickyCartBtn.innerText = TEXT[lang].cart;
+
+  document.getElementById('onlineCardValue').innerText = ONLINE_PAY.card;
+  document.getElementById('onlineNameValue').innerText = ONLINE_PAY.receiver;
+
+  if(clickQrCap) clickQrCap.innerText = TEXT[lang].clickQr || 'CLICK QR';
+  if(clickQrName) clickQrName.innerText = TEXT[lang].clickQrName || 'Файл: click_qr_mazza.jpg';
+
+  renderPopular();
+  renderQuickFilters();
+  renderProducts();
+  updateTotal();
+  updateTypeFields();
+  updatePaymentUI();
+
+  setTimeout(setStickyHeight, 50);
+}
+
+function isSearchOpen(){ return searchWrap.classList.contains('show'); }
+function toggleSearch(){ if(isSearchOpen()) closeSearch(); else openSearch(); }
+function openSearch(){
+  searchWrap.classList.add('show');
+  searchTitle.classList.add('show');
+  quickFilters.style.display = 'none';
+  popularWrap.style.display = 'none';
+  searchInput.value = '';
+  searchInput.focus();
+  searchProducts();
 }
 function closeSearch(){
   searchWrap.classList.remove('show');
   searchTitle.classList.remove('show');
-  clearSearch();
-}
-function clearSearch(){
+  quickFilters.style.display = '';
+  popularWrap.style.display = '';
   searchInput.value = '';
-  searchProducts();
+  renderProducts();
 }
-function onSearchKey(e){
-  if(e.key === 'Escape'){ closeSearch(); }
-}
+function clearSearch(){ closeSearch(); }
+function onSearchKey(e){ if(e.key === 'Enter') closeSearch(); }
+
 function searchProducts(){
   const q = (searchInput.value || '').trim().toLowerCase();
+  products.innerHTML='';
+
   if(!q){
-    renderProducts();
+    (MENU[category] || []).forEach((it)=>{ vKeyOf(it.id); products.innerHTML += cardHTML(it,''); });
     return;
   }
-  const all = [];
-  for(const k in MENU){ (MENU[k]||[]).forEach(it=>all.push(it)); }
-  const filtered = all.filter(it => (nameOf(it.id) || '').toLowerCase().includes(q));
-  renderProducts(filtered);
-}
 
-/* ======================
-   STATE CHANGES
-   ====================== */
-function setLang(newLang, btn){
-  lang = newLang;
-  document.querySelectorAll('.langs .btn').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  applyTexts();
-  renderCategories();
-  renderPopular();
-  renderProducts();
-  updateTotals();
-}
-function setType(t, btn){
-  type = t;
-  document.querySelectorAll('.types .btn').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-
-  if(type === 'delivery'){
-    address.style.display = 'block';
-  }else{
-    address.style.display = 'none';
-    address.value = '';
-  }
-  updateTotals();
-}
-function setPayment(p){
-  payment = p;
-  [payCash, payClick, payOnline].forEach(b=>b.classList.remove('active'));
-  if(p==='cash') payCash.classList.add('active');
-  if(p==='click') payClick.classList.add('active');
-  if(p==='online') payOnline.classList.add('active');
-
-  if(p==='click'){
-    clickQR.classList.add('show');
-  }else{
-    clickQR.classList.remove('show');
-  }
-  if(p==='online'){
-    onlineDetails.classList.add('show');
-    document.getElementById('onlineCardValue').textContent = ONLINE_PAY.card;
-    document.getElementById('onlineNameValue').textContent = ONLINE_PAY.receiver;
-  }else{
-    onlineDetails.classList.remove('show');
-  }
-}
-
-function setCategory(k){
-  category = k;
-  renderCategories();
-  renderProducts();
-}
-
-function setVariant(id, vk){
-  selectedVar[id] = vk;
-  renderPopular();
-  renderProducts();
-  updateTotals();
-}
-
-function incItem(id){
-  const vk = vKeyOf(id);
-  setQty(id, vk, qtyOf(id, vk) + 1);
-  renderPopular();
-  renderProducts();
-  updateTotals();
-}
-function decItem(id){
-  const vk = vKeyOf(id);
-  setQty(id, vk, qtyOf(id, vk) - 1);
-  renderPopular();
-  renderProducts();
-  updateTotals();
-}
-
-/* ======================
-   TOTALS
-   ====================== */
-function calcTotals(){
-  let sum = 0;
-  let count = 0;
-  const items = [];
-  for(const key in cart){
-    const q = Number(cart[key] || 0);
-    if(q<=0) continue;
-    const [id, vk] = key.split("__");
-    const price = priceOf(id, vk);
-    sum += price * q;
-    count += q;
-    items.push({
-      id,
-      name: nameOf(id),
-      variant: volLabelOf(id, vk) || vk || '',
-      price,
-      qty: q,
-      line_total: price * q
+  for(const c in MENU){
+    (MENU[c] || []).forEach((it)=>{
+      const nmRu = (it.n && it.n.ru) ? String(it.n.ru).toLowerCase() : '';
+      const nmUz = (it.n && it.n.uz) ? String(it.n.uz).toLowerCase() : '';
+      const nmEn = (it.n && it.n.en) ? String(it.n.en).toLowerCase() : '';
+      const nmCur = (it.n && it.n[lang]) ? String(it.n[lang]).toLowerCase() : '';
+      if(nmCur.includes(q) || nmRu.includes(q) || nmUz.includes(q) || nmEn.includes(q)){
+        vKeyOf(it.id);
+        products.innerHTML += cardHTML(it, q);
+      }
     });
   }
-  const fee = (type==='delivery') ? DELIVERY_FEE : 0;
-  const total = sum + fee;
-  return {sum, fee, total, count, items};
 }
 
-function updateTotals(){
-  const t = calcTotals();
-  total.textContent = formatSum(t.total);
-  stickyTotal.textContent = formatSum(t.total);
-  stickyCartBtn.textContent = `${TEXT[lang].cart} (${t.count})`;
+document.addEventListener('click', (e)=>{
+  if(!isSearchOpen()) return;
+  const t = e.target;
+  const insideSearch = searchWrap.contains(t) || searchTitle.contains(t);
+  const onBtn = t.closest && t.closest('.search-btn');
+  if(!insideSearch && !onBtn) closeSearch();
+}, true);
 
-  if(type==='delivery'){
-    deliveryLine.style.display = '';
-    deliveryFee.textContent = formatSum(t.fee);
-  }else{
-    deliveryLine.style.display = 'none';
-  }
-
-  const sticky = document.getElementById('stickyCheckout');
-  sticky.style.display = t.count > 0 ? '' : 'none';
-}
-updateTotals();
-
-/* ======================
-   CART OPEN
-   ====================== */
 function openCart(){
-  cartBox.scrollIntoView({ behavior:'smooth', block:'start' });
+  try{ cartBox.scrollIntoView({behavior:'smooth', block:'start'}); }
+  catch(_){ window.location.hash = '#cartBox'; }
 }
 
-/* ======================
-   COPY ONLINE
-   ====================== */
-function copyOnline(which){
-  const val = (which==='card') ? ONLINE_PAY.card : ONLINE_PAY.receiver;
-  try{
-    navigator.clipboard.writeText(val).then(()=>{
-      showPopup(TEXT[lang].copied);
-    }).catch(()=>fallbackCopy(val));
-  }catch(_){
-    fallbackCopy(val);
-  }
-}
-function fallbackCopy(text){
-  const ta = document.createElement('textarea');
-  ta.value = text;
-  document.body.appendChild(ta);
-  ta.select();
-  try{ document.execCommand('copy'); }catch(_){}
-  document.body.removeChild(ta);
-  showPopup(TEXT[lang].copied);
-}
-
-/* ======================
-   POPUP
-   ====================== */
-function showPopup(msg){
-  popupBoxText.textContent = msg || '✅';
-  popup.classList.add('show');
-  setTimeout(()=>popup.classList.remove('show'), 1300);
-}
-
-/* ======================
-   VALIDATION + SEND ORDER
-   ====================== */
-function normalizePhone(p){
-  return String(p || '').replace(/[^\d+]/g,'').trim();
+function genOrderId(){
+  const d = new Date();
+  const dd = String(d.getDate()).padStart(2,'0');
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const key = `mazza_seq_${d.getFullYear()}${mm}${dd}`;
+  let n = Number(localStorage.getItem(key) || 0) + 1;
+  localStorage.setItem(key, String(n));
+  const num = String(n).padStart(3,'0');
+  return `MAZ-${dd}${mm}-${num}`;
 }
 
 function sendOrder(){
-  const t = calcTotals();
-  if(t.count <= 0){
-    showPopup(TEXT[lang].needItems);
-    return;
+  if(popup) popup.classList.add('show');
+
+  const items = [];
+  for (const key in cart) {
+    const qty = Number(cart[key] || 0);
+    if (qty <= 0) continue;
+
+    const [id, vk] = key.split('__');
+    const it = ITEM_INDEX[id] || {};
+    const vol = volLabelOf(id, vk);
+
+    items.push({
+      id,
+      variant: vk,
+      volume: vol || null,
+      qty,
+      price: priceOf(id, vk),
+      name_ru: (it.n && it.n.ru) ? it.n.ru : id,
+      name_lang: nameOf(id)
+    });
   }
 
-  const ph = normalizePhone(phone.value);
-  if(!ph){
-    showPopup(TEXT[lang].needPhone);
-    phone.focus();
+  if (items.length === 0) {
+    if(popup) popup.classList.remove('show');
+    alert(TEXT[lang].empty);
     return;
-  }
-
-  if(type === 'delivery'){
-    const addr = (address.value || '').trim();
-    if(!addr){
-      showPopup(TEXT[lang].needAddress);
-      address.focus();
-      return;
-    }
   }
 
   const payload = {
-    app: "MAZZA",
-    ts: Date.now(),
+    brand: "MAZZA",
     tg: { id: tg_id, username: tg_username, first_name: tg_first_name },
-    lang,
-    type,
+    items,
+    total: total.innerText,
+    total_num: (calcItemsSum() + getDeliveryFee()),
+    delivery_fee: getDeliveryFee(),
     payment,
-    phone: ph,
-    address: type==='delivery' ? (address.value || '').trim() : "",
-    comment: (comment.value || '').trim(),
-    totals: { sum: t.sum, delivery_fee: t.fee, total: t.total, count: t.count },
-    items: t.items
+    type,
+    address: (type==='pickup' ? '' : address.value),
+    phone: phone.value,
+    comment: comment.value,
+    order_id: genOrderId(),
+    lang,
+    online_payment: (payment === 'online') ? { card: ONLINE_PAY.card, receiver: ONLINE_PAY.receiver } : null,
+    click_payment: (payment === 'click') ? { receiver: "MAZZA", qr_img: "images/click_qr_mazza.jpg" } : null
   };
 
-  try{
+  setTimeout(()=>{
     Telegram.WebApp.sendData(JSON.stringify(payload));
-    showPopup("✅ Заказ отправлен!");
-    cart = {};
-    updateTotals();
-    renderPopular();
-    renderProducts();
-  }catch(_){
-    console.log(payload);
-    showPopup("⚠️ Откройте в Telegram");
-  }
+    Telegram.WebApp.close();
+  }, 700);
 }
 
-/* ======================
-   INTRO VIDEO (CENTER)
-   ====================== */
+/* ✅ интро-видео */
 function hideIntroVideo(){
   if(!introOverlay) return;
   introOverlay.classList.remove('show');
@@ -1822,6 +1859,7 @@ function hideIntroVideo(){
   }catch(_){}
 }
 
+/* ✅ видео по центру, без растягивания */
 function initIntroVideo(){
   if(!introOverlay || !introVideo) return;
 
@@ -1841,7 +1879,7 @@ function initIntroVideo(){
     introSkipBtn.addEventListener('click', (e)=>{
       try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
       hideIntroVideo();
-    });
+    }, { once:false });
   }
 
   introOverlay.addEventListener('click', (e)=>{
@@ -1852,19 +1890,28 @@ function initIntroVideo(){
   setTimeout(()=>{ if(introOverlay.classList.contains('show')) hideIntroVideo(); }, 6500);
 }
 
-/* ======================
-   INIT RENDER
-   ====================== */
-function initDefaults(){
-  if(type !== 'delivery') address.style.display = 'none';
-  setPayment(payment);
-  renderCategories();
-  renderPopular();
-  renderProducts();
-  updateTotals();
+/* init */
+function setStickyHeight(){
+  const el = document.getElementById('stickyCheckout');
+  if(!el) return;
+  const h = Math.ceil(el.getBoundingClientRect().height || el.offsetHeight || 92);
+  document.documentElement.style.setProperty('--sticky-h', h + 'px');
 }
-initDefaults();
+
+loadSaved();
+bindSave();
+applyLang();
+updateTypeFields();
+updateTotal();
+updatePaymentUI();
+
+/* ✅ запускаем видео при открытии */
 initIntroVideo();
+
+/*
+ВАЖНО (для бота, не для HTML):
+Добавь админа 7674081325 в ADMIN_IDS, чтобы ему тоже приходили заказы.
+*/
 </script>
 </body>
 </html>
