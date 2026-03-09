@@ -30,6 +30,8 @@ ADMIN_IDS = [
     6013591658,
     1076937219,
     117347904,
+    7917521876,
+    7674081325,
 ]
 
 WEBAPP_URL = "https://tahirovdd-lang.github.io/MAZZA/"
